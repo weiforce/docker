@@ -1,2 +1,2 @@
 #! /bin/bash
-docker push ivories/$1:1.0 .
+docker push ivories/$1:1.0
