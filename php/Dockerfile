@@ -28,6 +28,8 @@ RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/lo
 RUN apt-get install -y cron
 RUN rm -rf /etc/crontab && ln -s /php/crontab /etc/crontab
 
+RUN apt-get install -y git
+
 RUN rm -rf /phpredis-2.2.7.tar.gz /phpredis-2.2.7
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /usr/src/php
