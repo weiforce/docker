@@ -1,0 +1,2 @@
+#! /bin/bash
+docker run -it -v /home/core/data/emacs/emacs.d:/root/.emacs.d -v /home/core/data/emacs/.profile:/root/.profile -v /home/core/data/emacs:/c xerror/emacs
