@@ -4,14 +4,15 @@ DIR_PATH="/home/core"
 DIR_DATA="$DIR_PATH/data/"
 DIR_DOCKER="$DIR_PATH/docker/"
 
-mkdir $DIR_DATA
+sudo mkdir -p $DIR_DATA
 
 sudo systemctl start etcd
 sudo systemctl start fleet
 
 for SERVICE_NAME in redis mysql php nginx
 do
-    cp -rfp ${DIR_DOCKER}${SERVICE_NAME}/conf ${DIR_DATA}${SERVICE_NAME}/
+    sudo cp -rfp ${DIR_DOCKER}${SERVICE_NAME}/conf ${DIR_DATA}${SERVICE_NAME}/
+    fleetctl destroy ${DIR_DOCKER}service/${SERVICE_NAME}
     fleetctl submit ${DIR_DOCKER}service/${SERVICE_NAME}
 done
 
