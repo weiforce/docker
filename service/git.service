@@ -8,7 +8,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill git
 ExecStartPre=-/usr/bin/docker rm git
 ExecStartPre=/usr/bin/docker pull ivories/git:1.0
-ExecStart=/usr/bin/docker run  --name git -p 33:22 -v /home/core/data/git:/git -v /home/core/data/ssh:/root/.ssh ivories/git
+ExecStart=/usr/bin/docker run  --name git -p 33:22 -v /home/core/data/git:/git -v /home/core/data/ssh:/root/.ssh ivories/git:1.0
 ExecStop=/usr/bin/docker kill git
 
 [Install]
