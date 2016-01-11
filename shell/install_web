@@ -6,10 +6,13 @@ DIR_DOCKER="$DIR_PATH/docker/"
 
 mkdir $DIR_DATA
 
+sudo systemctl start etcd
+sudo systemctl start fleet
+
 for SERVICE_NAME in redis mysql php nginx
 do
-    mkdir $SERVICE_NAME
     cp -rfp ${DIR_DOCKER}${SERVICE_NAME}/conf ${DIR_DATA}${SERVICE_NAME}/
+    fleetctl submit ${DIR_DOCKER}service/${SERVICE_NAME}
 done
 
 sudo chown -R root:root $DIR_DATA
