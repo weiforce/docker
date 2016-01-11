@@ -1,0 +1,10 @@
+[Unit]
+Description=autorun
+
+[Service]
+TimeoutStartSec=0
+ExecStart=/home/core/docker/shell/autorun
+ExecStop=killall autorun
+
+[Install]
+WantedBy=multi-user.target
