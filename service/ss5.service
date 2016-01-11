@@ -1,0 +1,15 @@
+[Unit]
+Description=ss5
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill ss5
+ExecStartPre=-/usr/bin/docker rm ss5
+ExecStartPre=/usr/bin/docker pull ivories/ss5
+ExecStart=/usr/bin/docker run -p 18080:18080 --name ss5 -v /home/core/data/ss5:/etc/opt/ss5 ivories/ss5
+ExecStop=/usr/bin/docker kill ss5
+
+[Install]
+WantedBy=multi-user.target

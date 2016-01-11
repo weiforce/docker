@@ -1,0 +1,15 @@
+[Unit]
+Description=redis
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill redis
+ExecStartPre=-/usr/bin/docker rm redis
+ExecStartPre=/usr/bin/docker pull ivories/redis
+ExecStart=/usr/bin/docker run --name redis -v /home/core/data/redis:/redis ivories/redis
+ExecStop=/usr/bin/docker kill redis
+
+[Install]
+WantedBy=multi-user.target

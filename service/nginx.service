@@ -1,0 +1,16 @@
+[Unit]
+Description=nginx
+After=docker.service
+After=php.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill nginx
+ExecStartPre=-/usr/bin/docker rm nginx
+ExecStartPre=/usr/bin/docker pull nginx
+ExecStart=/usr/bin/docker run --name nginx -p 80:80 -p 13580:13580 -p 18336:18336 --link mysql:mysql --link php:php -v /home/core/data/nginx:/etc/nginx -v /home/core/data/www:/www nginx
+ExecStop=/usr/bin/docker kill nginx
+
+[Install]
+WantedBy=multi-user.target

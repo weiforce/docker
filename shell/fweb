@@ -1,0 +1,10 @@
+#! /bin/bash
+cd ~/docker/service
+
+for SERVICE_NAME in redis mysql php nginx
+do
+    # fleetctl destroy $SERVICE_NAME.service
+    fleetctl stop $SERVICE_NAME
+    # fleetctl submit $SERVICE_NAME.service
+    fleetctl start $SERVICE_NAME &
+done

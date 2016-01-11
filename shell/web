@@ -1,0 +1,11 @@
+#! /bin/bash
+cd ~/docker/service
+
+for SERVICE_NAME in redis mysql php nginx
+do
+    sudo cp -rfp $SERVICE_NAME.service /etc/systemd/system/
+    sudo systemctl daemon-reload
+    sudo systemctl stop $SERVICE_NAME.service
+    sudo systemctl start $SERVICE_NAME.service
+    sudo systemctl enable $SERVICE_NAME.service
+done
