@@ -15,11 +15,15 @@ RUN docker-php-ext-install iconv mcrypt
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 RUN docker-php-ext-install gd
 RUN docker-php-ext-install mysqli
+RUN docker-php-ext-install mbstring
+RUN docker-php-ext-install zip
 
 COPY phpredis-2.2.7.tar.gz /
 
 RUN cd / && tar zxvf phpredis-2.2.7.tar.gz && mv phpredis-2.2.7 /usr/src/php/ext/redis
 RUN docker-php-ext-install redis
+
+RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 
 RUN apt-get install -y cron
 RUN rm -rf /etc/crontab && ln -s /php/crontab /etc/crontab
@@ -27,5 +31,7 @@ RUN rm -rf /etc/crontab && ln -s /php/crontab /etc/crontab
 RUN rm -rf /phpredis-2.2.7.tar.gz /phpredis-2.2.7
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /usr/src/php
+
+WORKDIR /www
 
 CMD /etc/init.d/cron start && php-fpm

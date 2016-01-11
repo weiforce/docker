@@ -3,5 +3,5 @@ while [ 1 ]
 do
     cd /home/core/docker/
     sudo git pull
-    sleep 10s
+    sleep 60s
 done
