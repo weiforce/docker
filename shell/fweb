@@ -1,6 +1,9 @@
 #! /bin/bash
 cd ~/docker/service
 
+sudo systemctl start etcd
+sudo systemctl start fleet
+
 for SERVICE_NAME in redis mysql php nginx
 do
     # fleetctl destroy $SERVICE_NAME.service
