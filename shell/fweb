@@ -4,7 +4,7 @@ cd ~/docker/service
 sudo systemctl start etcd
 sudo systemctl start fleet
 
-for SERVICE_NAME in redis mysql php nginx
+for SERVICE_NAME in redis mysql php nginx autorun
 do
     # fleetctl destroy $SERVICE_NAME.service
     fleetctl stop $SERVICE_NAME
