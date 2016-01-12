@@ -1,9 +1,11 @@
 #! /bin/bash
 
+source /home/core/.profile
+
 if [ $MOUNT_NFS != "" ]
 then
     sudo mkdir -p /home/core/data
-    sudo mount -t nfs $MOUNT_NFS /home/core/data
+    sudo mount -t nfs -o nolock,vers=3,tcp $MOUNT_NFS /home/core/data
 fi
 
 while [ 1 ]
