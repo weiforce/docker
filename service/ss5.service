@@ -1,6 +1,7 @@
 [Unit]
 Description=ss5
 After=docker.service
+After=autorun.service
 Requires=docker.service
 
 [Service]

@@ -1,4 +1,11 @@
 #! /bin/bash
+
+if [ $MOUNT_NFS != "" ]
+then
+    sudo mkdir -p /home/core/data
+    sudo mount -t nfs $MOUNT_NFS /home/core/data
+fi
+
 while [ 1 ]
 do
     cd /home/core/docker/

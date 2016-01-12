@@ -1,6 +1,7 @@
 [Unit]
 Description=redis
 After=docker.service
+After=autorun.service
 Requires=docker.service
 
 [Service]
