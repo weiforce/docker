@@ -1,0 +1,6 @@
+#! /bin/bash
+
+sudo systemctl start rpc-mountd
+sudo systemctl start nfsd
+
+sudo touch /etc/exports
