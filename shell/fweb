@@ -1,8 +1,13 @@
 #! /bin/bash
+
+mount_data
+
 cd ~/docker/service
 
 sudo systemctl start etcd
 sudo systemctl start fleet
+
+sleep 5s
 
 for SERVICE_NAME in redis mysql php nginx autorun
 do
