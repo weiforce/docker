@@ -1,7 +1,7 @@
 FROM debian:jessie
 
 RUN apt-get update
-RUN apt-get install samba
+RUN apt-get install -y samba
 
 RUN rm -rf /var/lib/apt/lists/*
 
