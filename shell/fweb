@@ -11,8 +11,8 @@ sleep 5s
 
 for SERVICE_NAME in redis mysql php nginx autorun
 do
-    # fleetctl destroy $SERVICE_NAME.service
     fleetctl stop $SERVICE_NAME
-    # fleetctl submit $SERVICE_NAME.service
+    fleetctl destroy $SERVICE_NAME.service
+    fleetctl submit $SERVICE_NAME.service
     fleetctl start $SERVICE_NAME &
 done
