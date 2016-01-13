@@ -18,6 +18,9 @@ sudo chown -R core:core /etc/fstab
 echo "swap                    /swap                   swap    defaults        0 0" >> /etc/fstab
 #end if
 
+sudo touch /etc/sysctl.conf
+sudo chown -R core:core /etc/sysctl.conf
+echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
 
 for SERVICE_NAME in redis mysql php nginx www
 do
