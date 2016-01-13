@@ -1,0 +1,6 @@
+#! /bin/bash
+
+sudo cp -rfp /home/core/service/samba.service /etc/systemd/system/
+sudo systemctl enable samba
+sudo systemctl start samba
+sudo systemctl daemon-reload
