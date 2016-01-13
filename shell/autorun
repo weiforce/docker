@@ -2,6 +2,9 @@
 
 mount_data
 
+sudo systemctl start etcd
+sudo systemctl start fleet
+
 while [ 1 ]
 do
     cd /home/core/docker/
