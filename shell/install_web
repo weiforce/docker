@@ -9,7 +9,17 @@ sudo mkdir -p $DIR_DATA
 sudo systemctl start etcd
 sudo systemctl start fleet
 
-for SERVICE_NAME in redis mysql php nginx
+#if vps
+sudo dd if=/dev/zero of=/swap bs=1024 count=1024000
+sudo mkswap /swap
+sudo swapon /swap
+sudo touch /etc/fstab
+sudo chown -R core:core /etc/fstab
+echo "swap                    /swap                   swap    defaults        0 0" >> /etc/fstab
+#end if
+
+
+for SERVICE_NAME in redis mysql php nginx www
 do
     sudo cp -rfp ${DIR_DOCKER}${SERVICE_NAME}/conf ${DIR_DATA}${SERVICE_NAME}/
     fleetctl destroy ${DIR_DOCKER}service/${SERVICE_NAME}
