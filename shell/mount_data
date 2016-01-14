@@ -2,6 +2,9 @@
 
 source /home/core/.profile
 
+#D:\nfs -rw -sync -no_root_squash -no_subtree_check -public -range 192.168.1.1 192.168.1.255
+#D:\nfs -range 192.168.1.1 192.168.1.255
+
 if [ $MOUNT_NFS ]
 then
     sudo mkdir -p /home/core/data
