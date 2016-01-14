@@ -1,5 +1,5 @@
 [Unit]
-Description=mysql
+Description=samba
 After=docker.service
 After=autorun.service
 Requires=docker.service
@@ -9,7 +9,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill samba
 ExecStartPre=-/usr/bin/docker rm samba
 ExecStartPre=/usr/bin/docker pull ivories/samba:1.0
-ExecStart=/usr/bin/docker run --name samba -p 139:139 -v /home/core/data:/data ivories/samba:1.0
+ExecStart=/usr/bin/docker run --name samba -p 139:139 -v /home/core/data/samba/smb.conf:/etc/samba/smb.conf -v /home/core/data:/data ivories/samba:1.0
 ExecStop=/usr/bin/docker kill samba
 
 [Install]
