@@ -2,5 +2,5 @@
 
 fleetctl stop $1
 fleetctl destroy $1
-fleetctl submit $1
+fleetctl submit /home/core/docker/service/$1.service
 fleetctl start $1
