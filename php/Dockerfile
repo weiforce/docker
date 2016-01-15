@@ -17,6 +17,7 @@ RUN docker-php-ext-install gd
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install zip
+RUN docker-php-ext-install pdo_mysql
 
 COPY phpredis-2.2.7.tar.gz /
 
