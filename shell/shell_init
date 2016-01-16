@@ -1,3 +1,5 @@
 #! /bin/bash
-export PATH="/home/core/docker/shell:$PATH"
+sudo rm -rf /home/core/.bashrc
+cp /home/core/docker/shell/bashrc /home/core/.bashrc
+sudo cp /home/core/docker/shell/bashrc /root/.bashrc
 
