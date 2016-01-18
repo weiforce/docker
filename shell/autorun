@@ -1,7 +1,6 @@
 #! /bin/bash
 
-source /home/core/.bashrc
-mount_data
+/home/core/docker/shell/mount_data
 
 sudo systemctl start etcd
 sudo systemctl start fleet
