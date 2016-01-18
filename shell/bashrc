@@ -19,3 +19,7 @@ fi
 
 export PATH="/home/core/docker/shell:$PATH"
 
+MOUNT_URL=()
+MOUNT_DIR=()
+MOUNT_I=0
+

@@ -1,12 +1,16 @@
 #! /bin/bash
 
-source /home/core/.profile
-
 #D:\nfs -rw -sync -no_root_squash -no_subtree_check -public -range 192.168.1.1 192.168.1.255
 #D:\nfs -range 192.168.1.1 192.168.1.255
 
-if [ $MOUNT_NFS ]
-then
-    sudo mkdir -p /home/core/data
-    sudo mount -t nfs -o nolock,vers=3,tcp $MOUNT_NFS /home/core/data
-fi
+for ((i=0;i<$MOUNT_I;i++))
+do
+    if [ ${MOUNT_URL[i]} != "" ]
+    then
+        if [ ${MOUNT_DIR[i]} != "" ]
+        then
+            sudo mkdir -p ${MOUNT_DIR[i]}
+            sudo mount -t nfs -o nolock,vers=3,tcp ${MOUNT_URL[i]} ${MOUNT_DIR[i]}
+        fi
+    fi
+done
