@@ -3,6 +3,9 @@
 #D:\nfs -rw -sync -no_root_squash -no_subtree_check -public -range 192.168.1.1 192.168.1.255
 #D:\nfs -range 192.168.1.1 192.168.1.255
 
+touch /home/core/.profile
+source /home/core/.profile
+
 for ((i=0;i<$MOUNT_I;i++))
 do
     if [ ${MOUNT_URL[i]} != "" ]
