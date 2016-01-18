@@ -1,5 +1,7 @@
 [Unit]
 Description=autorun
+After=docker.service
+Requires=docker.service
 
 [Service]
 TimeoutStartSec=0
