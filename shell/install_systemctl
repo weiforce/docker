@@ -3,7 +3,7 @@
 if [ $1 ]
 then
     sudo mkdir -p /home/core/data/$1
-    if [ ! -d "/home/core/docker/$1/conf" ]
+    if [ -d "/home/core/docker/$1/conf/" ]
     then
         sudo cp -rfp /home/core/docker/$1/conf/* /home/core/data/$1/
     fi
