@@ -1,7 +1,5 @@
 #! /bin/bash
 
-mount_data
-
 cd ~/docker/service
 
 sudo systemctl start etcd
