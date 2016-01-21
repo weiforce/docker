@@ -1,3 +1,3 @@
 #! /bin/bash
-export PATH="/home/core/docker/shell:$PATH"
-
+rm ~/.bashrc
+cp /home/core/docker/shell/bashrc ~/.bashrc
