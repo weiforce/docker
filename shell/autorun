@@ -1,12 +1,6 @@
 #! /bin/bash
 
-mount_data
-
-if [ DIR_SMB_RSYNC_URL != "" ]
-then
-    mkdir -p /home/core/server_data
-    sudo mount -t cifs DIR_SMB_RSYNC_URL /home/core/server_data -o guest,uid=1000,iocharset=utf8,file_mode=0777,dir_mode=0777
-fi
+/home/core/docker/shell/mount_data
 
 sudo systemctl start etcd
 sudo systemctl start fleet
@@ -18,9 +12,9 @@ do
     sudo git pull
     sleep 600s
 
-    #rsync the data to server data
-    if [ DIR_SMB_RSYNC_FROM != "" ]
-    then
-        rsync -vrI DIR_SMB_RSYNC_FROM DIR_SMB_RSYNC_TO
-    fi
+    # #rsync the data to server data
+    # if [ DIR_SMB_RSYNC_FROM != "" ]
+    # then
+    #     rsync -vrI DIR_SMB_RSYNC_FROM DIR_SMB_RSYNC_TO
+    # fi
 done

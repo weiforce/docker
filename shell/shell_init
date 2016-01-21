@@ -1,3 +1,4 @@
 #! /bin/bash
-rm ~/.bashrc
-cp /home/core/docker/shell/bashrc ~/.bashrc
+sudo rm -rf /home/core/.bashrc
+cp /home/core/docker/shell/bashrc /home/core/.bashrc
+sudo cp /home/core/docker/shell/bashrc /root/.bashrc
