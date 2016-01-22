@@ -7,6 +7,8 @@ After=redis.service
 Requires=docker.service
 
 [Service]
+Restart=always
+RestartSec=30
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill php
 ExecStartPre=-/usr/bin/docker rm php
