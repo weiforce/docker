@@ -2,4 +2,3 @@
 sudo rm -rf /home/core/.bashrc
 cp /home/core/docker/shell/bashrc /home/core/.bashrc
 sudo cp /home/core/docker/shell/bashrc /root/.bashrc
-
