@@ -5,6 +5,8 @@ then
     sudo mkdir -p /home/core/data/$1
     if [ -d "/home/core/docker/$1/conf/" ]
     then
+        echo "already has"
+    else
         sudo cp -rfp /home/core/docker/$1/conf/* /home/core/data/$1/
     fi
     sudo cp -rfp /home/core/docker/service/$1.service /etc/systemd/system/

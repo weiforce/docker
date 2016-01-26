@@ -5,6 +5,7 @@ then
     if [ -d "/home/core/docker/$1/conf/" ]
     then
         if [ -d "/home/core/data/$1/" ]
+            echo "already install data"
         then
             sudo mkdir -p /home/core/data/$1
             sudo cp -rfp /home/core/docker/$1/conf/* /home/core/data/$1/

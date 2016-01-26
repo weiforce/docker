@@ -28,6 +28,7 @@ sudo systemctl daemon-reload
 
 for SERVICE_NAME in redis mysql php nginx www git ss5 samba
 do
+
     sudo cp -rfp ${DIR_DOCKER}${SERVICE_NAME}/conf ${DIR_DATA}${SERVICE_NAME}/
     fleetctl destroy ${DIR_DOCKER}service/${SERVICE_NAME}
     fleetctl submit ${DIR_DOCKER}service/${SERVICE_NAME}
