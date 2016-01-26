@@ -1,8 +1,0 @@
-#! /bin/bash
-
-mkdir -p /home/core/data/samba
-sudo cp -rfp /home/core/docker/samba/conf/smb.conf /home/core/data/samba/
-sudo cp -rfp /home/core/docker/service/samba.service /etc/systemd/system/
-sudo systemctl daemon-reload
-sudo systemctl enable samba
-sudo systemctl start samba &
