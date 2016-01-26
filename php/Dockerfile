@@ -25,7 +25,7 @@ RUN cd / && tar zxvf phpredis-2.2.7.tar.gz && mv phpredis-2.2.7 /usr/src/php/ext
 RUN docker-php-ext-install redis
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
-RUN echo "export PATH=\"~/.composer/vendor/bin:\$PATH\" >> ~/.bashrc
+RUN echo "export PATH=\"~/.composer/vendor/bin:\$PATH\"" >> ~/.bashrc
 
 RUN apt-get install -y cron
 RUN rm -rf /etc/crontab && ln -s /php/crontab /etc/crontab
