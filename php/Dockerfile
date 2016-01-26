@@ -39,3 +39,4 @@ RUN rm -rf /usr/src/php
 WORKDIR /www
 
 CMD /etc/init.d/cron start && php-fpm
+
