@@ -2,14 +2,18 @@
     cd /home/core
     git clone https://github.com/ivories/docker.git
     chmod -R 777 docker/shell
-    echo 'source ~/docker/shell/shell_init' > ~/i
-    source ~/i
-    install_web
-    fweb
+    ./docker/shell/shell_init
+    ./docker/shell/install_web
+    ./docker/shell/fweb
 
-# vagrant
+## 常用命令
+
+    s param #本地开发,重启某个服务
+    fs param #服务器,重启某个服务
+    web #本地开发,重启所有WEB服务
+    fweb #服务器,重启所有WEB服务
+    fl #查看所有服务
+    fl param #查看某个服务
 
 ## 经常碰到的问题
 
-* 每次进入环境可行执行 cd ~ && source ~/i && fweb ,基本服务都可以起来的 
-* 如果还是开不了,就运行 fleetctl list-units 找找哪个服务启动不了,再打对应的 fleetctl status mysql
