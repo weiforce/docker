@@ -1,11 +1,18 @@
 #! /bin/bash
-cd ~/docker/service
 
-for SERVICE_NAME in redis mysql php nginx
+if [ $1 ]
+then
+    echo "service use $1"
+    cd ~/docker/service
+else
+    echo "service default local"
+    cd ~/docker/service/local
+fi
+
+for SERVICE_NAME in redis mysql php nginx autorun
 do
-    sudo cp -rfp $SERVICE_NAME.service /etc/systemd/system/
-    sudo systemctl daemon-reload
-    sudo systemctl stop $SERVICE_NAME.service
-    sudo systemctl start $SERVICE_NAME.service
-    sudo systemctl enable $SERVICE_NAME.service
+    fleetctl stop $SERVICE_NAME
+    fleetctl destroy $SERVICE_NAME.service
+    fleetctl submit $SERVICE_NAME.service
+    fleetctl start $SERVICE_NAME &
 done

@@ -1,16 +1,3 @@
 #! /bin/bash
 
-cd ~/docker/service
-
-sudo systemctl start etcd
-sudo systemctl start fleet
-
-sleep 5s
-
-for SERVICE_NAME in redis mysql php nginx autorun
-do
-    fleetctl stop $SERVICE_NAME
-    fleetctl destroy $SERVICE_NAME.service
-    fleetctl submit $SERVICE_NAME.service
-    fleetctl start $SERVICE_NAME &
-done
+web server
