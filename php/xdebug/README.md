@@ -2,6 +2,7 @@
 
 * Preferences -> search "xdebug debug port" -> change "Debug port:9003"
 * search "IDE KEY HOST PORT" -> change IDE key: "IDE key: PHPSTORM; Host: 172.17.8.101 ; Port: 9003;"
+* Button Click: Start Listerning for PHP Debug Connections
 
 # COREOS
 
@@ -18,6 +19,6 @@
 # PHPSTORM
 
 * open your php script set a breakpoint
-* Remote file path is not mapped to any file path 
+* Remote file path is not mapped to any file path
 * Click to setup up path mappings
 * select the /Data/Web/data/www/project to /www/project
