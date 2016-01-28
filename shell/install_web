@@ -24,7 +24,7 @@ echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
 
 sudo cp -rfp ${DIR_DOCKER}service/autorun.service /etc/systemd/system/
 sudo systemctl enable autorun
-sudo systemctl daemon-reload 
+sudo systemctl daemon-reload
 
 for SERVICE_NAME in redis mysql php nginx www git ss5 samba
 do

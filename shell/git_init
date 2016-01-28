@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ $1 ]
+then
+    sudo git init
+    sudo git remote add origin ssh://root@$1:33/git/$2.git
+else
+    echo "git_init domain repository"
+fi

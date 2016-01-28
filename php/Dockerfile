@@ -10,6 +10,8 @@ RUN apt-get install -y libfreetype6-dev
 RUN apt-get install -y libjpeg62-turbo-dev
 RUN apt-get install -y libmcrypt-dev
 RUN apt-get install -y libpng12-dev
+RUN apt-get install -y cron
+RUN apt-get install -y git
 
 RUN docker-php-ext-install iconv mcrypt
 RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
@@ -19,24 +21,28 @@ RUN docker-php-ext-install mbstring
 RUN docker-php-ext-install zip
 RUN docker-php-ext-install pdo_mysql
 
+# start setup php redis
 COPY phpredis-2.2.7.tar.gz /
-
 RUN cd / && tar zxvf phpredis-2.2.7.tar.gz && mv phpredis-2.2.7 /usr/src/php/ext/redis
+RUN rm -rf /php-redis-2.2.7.tar.gz
 RUN docker-php-ext-install redis
+# end setup php redis
+
+# start setup xdebug
+RUN curl -SL "http://xdebug.org/files/xdebug-2.3.3.tgz" -o xdebug.tar.gz
+RUN tar zxvf xdebug.tar.gz && mv xdebug-2.3.3 /usr/src/php/ext/xdebug
+RUN docker-php-ext-install xdebug
+# end setup xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN echo "export PATH=\"~/.composer/vendor/bin:\$PATH\"" >> ~/.bashrc
 
-RUN apt-get install -y cron
 RUN rm -rf /etc/crontab && ln -s /php/crontab /etc/crontab
 
-RUN apt-get install -y git
 
-RUN rm -rf /phpredis-2.2.7.tar.gz /phpredis-2.2.7
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /usr/src/php
 
 WORKDIR /www
 
 CMD /etc/init.d/cron start && php-fpm
-
