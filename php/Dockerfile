@@ -34,6 +34,16 @@ RUN tar zxvf xdebug.tar.gz && mv xdebug-2.3.3 /usr/src/php/ext/xdebug
 RUN docker-php-ext-install xdebug
 # end setup xdebug
 
+# start setup xdebug
+COPY phptrace-0.3.0.tar.gz /
+RUN cd / && tar zxvf phptrace-0.3.0.tar.gz && mv phptrace-0.3.0 /usr/src/php/ext/phptrace
+RUN rm -rf /phptrace-0.3.0.tar.gz
+RUN docker-php-ext-install xdebug
+RUN cd /usr/src/php/ext/phptrace
+RUN cd cmdtool
+RUN make
+# end setup xdebug
+
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN echo "export PATH=\"~/.composer/vendor/bin:\$PATH\"" >> ~/.bashrc
 
