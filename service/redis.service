@@ -10,7 +10,6 @@ RestartSec=30
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill redis
 ExecStartPre=-/usr/bin/docker rm redis
-ExecStartPre=/usr/bin/docker pull ivories/redis:1.0
 ExecStart=/usr/bin/docker run --name redis -v /home/core/data/redis:/redis ivories/redis:1.0
 ExecStop=/usr/bin/docker kill redis
 
