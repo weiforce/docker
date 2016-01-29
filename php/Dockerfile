@@ -41,7 +41,7 @@ RUN rm -rf /xdebug-2.3.3
 COPY phptrace-0.3.0.tar.gz /
 RUN cd / && tar zxvf phptrace-0.3.0.tar.gz
 RUN rm -rf /php-redis-2.2.7.tar.gz
-RUN cd /phptrace-0.3.0 && phpize && ./configure && make && make install && cd cmdtool && make && mv phptrace /usr/bin && mv trace-php /usr/bin/
+RUN cd /phptrace-0.3.0/extension && phpize && ./configure && make && make install && cd ../cmdtool && make && mv phptrace /usr/bin && mv trace-php /usr/bin/
 RUN rm -rf /phptrace-0.3.0
 # end setup phptrace
 
