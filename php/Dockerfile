@@ -30,27 +30,25 @@ RUN rm -rf /php-redis-2.2.7
 # end setup php redis
 
 # start setup xdebug
-COPY phpredis-2.2.7.tar.gz /
-RUN cd / && tar zxvf phpredis-2.2.7.tar.gz
+COPY xdebug-2.3.3.tar.gz /
+RUN cd / && tar zxvf xdebug-2.3.3.tar.gz
 RUN rm -rf /php-redis-2.2.7.tar.gz
-RUN cd /phpredis-2.2.7 && phpize && ./configure && make && make install
-RUN rm -rf /php-redis-2.2.7
-# end setup xdebug
-
-# start setup xdebug
-COPY phptrace-0.3.0.tar.gz /
-RUN cd / && tar zxvf xdebug-2.3.3.tar.gz && mv xdebug-2.3.3 /usr/src/php/ext/phptrace
-RUN rm -rf /xdebug-2.3.3.tar.gz
 RUN cd /xdebug-2.3.3 && phpize && ./configure && make && make install
 RUN rm -rf /xdebug-2.3.3
 # end setup xdebug
+
+# start setup phptrace
+COPY phptrace-0.3.0.tar.gz /
+RUN cd / && tar zxvf phptrace-0.3.0.tar.gz
+RUN rm -rf /php-redis-2.2.7.tar.gz
+RUN cd /phptrace-0.3.0 && phpize && ./configure && make && make install && cd cmdtool && make && mv phptrace /usr/bin && mv trace-php /usr/bin/
+RUN rm -rf /phptrace-0.3.0
+# end setup phptrace
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
 RUN echo "export PATH=\"~/.composer/vendor/bin:\$PATH\"" >> ~/.bashrc
 
 RUN rm -rf /etc/crontab && ln -s /php/crontab /etc/crontab
-
-
 RUN rm -rf /var/lib/apt/lists/*
 RUN rm -rf /usr/src/php
 
