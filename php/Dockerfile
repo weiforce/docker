@@ -23,25 +23,26 @@ RUN docker-php-ext-install pdo_mysql
 
 # start setup php redis
 COPY phpredis-2.2.7.tar.gz /
-RUN cd / && tar zxvf phpredis-2.2.7.tar.gz && mv phpredis-2.2.7 /usr/src/php/ext/redis
+RUN cd / && tar zxvf phpredis-2.2.7.tar.gz
 RUN rm -rf /php-redis-2.2.7.tar.gz
-RUN docker-php-ext-install redis
+RUN cd /phpredis-2.2.7 && phpize && ./configure && make && make install
+RUN rm -rf /php-redis-2.2.7
 # end setup php redis
 
 # start setup xdebug
-RUN curl -SL "http://xdebug.org/files/xdebug-2.3.3.tgz" -o xdebug.tar.gz
-RUN tar zxvf xdebug.tar.gz && mv xdebug-2.3.3 /usr/src/php/ext/xdebug
-RUN docker-php-ext-install xdebug
+COPY phpredis-2.2.7.tar.gz /
+RUN cd / && tar zxvf phpredis-2.2.7.tar.gz
+RUN rm -rf /php-redis-2.2.7.tar.gz
+RUN cd /phpredis-2.2.7 && phpize && ./configure && make && make install
+RUN rm -rf /php-redis-2.2.7
 # end setup xdebug
 
 # start setup xdebug
-#COPY phptrace-0.3.0.tar.gz /
-#RUN cd / && tar zxvf phptrace-0.3.0.tar.gz && mv phptrace-0.3.0 /usr/src/php/ext/phptrace
-#RUN rm -rf /phptrace-0.3.0.tar.gz
-#RUN docker-php-ext-install xdebug
-#RUN cd /usr/src/php/ext/phptrace
-#RUN cd cmdtool
-#RUN make
+COPY phptrace-0.3.0.tar.gz /
+RUN cd / && tar zxvf xdebug-2.3.3.tar.gz && mv xdebug-2.3.3 /usr/src/php/ext/phptrace
+RUN rm -rf /xdebug-2.3.3.tar.gz
+RUN cd /xdebug-2.3.3 && phpize && ./configure && make && make install
+RUN rm -rf /xdebug-2.3.3
 # end setup xdebug
 
 RUN curl -sS https://getcomposer.org/installer | php && mv composer.phar /usr/local/bin/composer
