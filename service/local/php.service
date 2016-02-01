@@ -13,7 +13,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill php
 ExecStartPre=-/usr/bin/docker rm php
 ExecStart=/usr/bin/docker run --name php -p 9000:9000 -p 9003:9003 --link redis:redis --link mysql:mysql -v /home/core/data/php:/php -v /home/core/data/www:/www -v /home/core/data/www/composer:/root/.composer ivories/php:1.0
-ExecStop=/usr/bin/docker kill php
+#ExecStop=/usr/bin/docker kill php
 
 [Install]
 WantedBy=multi-user.target
