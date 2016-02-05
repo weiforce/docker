@@ -1,20 +1,45 @@
-# install web service
+# coreos docker
+
+## init
+
+    ssh core@yourserverip
     cd /home/core
     git clone https://github.com/ivories/docker.git
     chmod -R 777 docker/shell
-    ./docker/shell/shell_init
-    ./docker/shell/install_web
-    ./docker/shell/fweb
+    /home/core/docker/shell/shell_init
+    /home/core/docker/shell/install_web
+    exit
 
-## 常用命令
+## login again the command will into effect
 
-    s param #本地开发,重启某个服务
-    fs param #服务器,重启某个服务
-    web #本地开发,重启所有WEB服务
-    fweb #服务器,重启所有WEB服务
-    fl #查看所有服务
-    fl param #查看某个服务
+    ssh core@yourserverip
 
-## 经常碰到的问题
+## start/restart web service
 
-* 碰见所有的服务都不见了,有可能是因为nfs的链接断开,解决方案: vagrant reload 再 本地 web 命令就OK啦
+    fweb
+
+## install other service
+
+    install_fleetctl bind # install bind server
+    install_fleetctl samba # install samba share
+    install_fleetctl git # install git server
+
+## config the server
+
+    cd /home/core/data/nginx
+    vi nginx.conf # config nginx domain
+
+    cd /home/core/data/php
+    vi php.ini # config php.ini
+
+    cd /home/core/data/mysql
+    vi my.cnf # config my.cnf
+
+## command list
+
+    fs param                 #restart service
+    fweb                     #restart web service
+    fl                       #list all service
+    fl param                 #list one service
+    install_fleetctl         #install new fleetctl service
+    install_systemctl        #install new systemctl service
