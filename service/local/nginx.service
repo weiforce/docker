@@ -12,7 +12,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill nginx
 ExecStartPre=-/usr/bin/docker rm nginx
 ExecStart=/usr/bin/docker run --name nginx -p 80:80 -p 443:443 -v /home/core/data/nginx:/etc/nginx -v /home/core/data/www:/www ivories/nginx:1.0
-#ExecStop=/usr/bin/docker kill nginx
+ExecStop=/usr/bin/docker kill nginx
 
 [Install]
 WantedBy=multi-user.target
