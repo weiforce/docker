@@ -43,4 +43,4 @@ COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 6379
-CMD [ "redis-server" , "/redis/redis.conf"]
+CMD sysctl vm.overcommit_memory=1 && redis-server /redis/redis.conf
