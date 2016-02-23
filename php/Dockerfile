@@ -13,7 +13,6 @@ RUN apk --update --no-progress add build-base php-dev autoconf \
     php-pdo_mysql php-pdo_sqlite php-phar php-iconv php-ctype \
     php-mysqli php-zip \
     && rm -rf /var/cache/apk/* \
-    && curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
     RUN apk add zlib && rm -rf /var/cache/apk/*
 
 #RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
