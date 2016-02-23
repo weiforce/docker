@@ -13,7 +13,7 @@ VOLUME /data
 
 WORKDIR /data
 
-COPY entrypoint.sh /docker-entrypoint
+COPY docker-entrypoint.sh /docker-entrypoint
 
 ENTRYPOINT ["/docker-entrypoint"]
 
