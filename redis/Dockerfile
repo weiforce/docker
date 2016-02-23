@@ -1,4 +1,12 @@
-FROM alpine
+#
+# Small redis docker image based on alpine linux
+#
+# http://github.com/tenstartups/alpine-redis-docker
+#
+
+FROM alpine:latest
+
+MAINTAINER Marc Lennox <marc.lennox@gmail.com>
 
 # Install packages
 RUN \
@@ -13,10 +21,10 @@ VOLUME /data
 
 WORKDIR /data
 
-COPY docker-entrypoint.sh /docker-entrypoint
+COPY entrypoint.sh /docker-entrypoint
 
 ENTRYPOINT ["/docker-entrypoint"]
 
 EXPOSE 6379
 
-CMD ["redis-server", "/redis/redis/conf"]
+CMD ["redis-server"]

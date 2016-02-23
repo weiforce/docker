@@ -4,6 +4,7 @@ COPY ./entrypoint.sh /
 
 RUN chmod +x /entrypoint.sh \
     && apk --update add mariadb \
+    && apk add mysql-client \
     && addgroup mysql mysql \
     && rm -rf /var/lib/mysql \
     && mkdir -p /var/lib/mysql \
