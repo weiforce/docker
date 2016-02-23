@@ -8,6 +8,7 @@ Requires=docker.service
 Restart=always
 RestartSec=30
 TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop redis
 ExecStartPre=-/usr/bin/docker kill redis
 ExecStartPre=-/usr/bin/docker rm redis
 ExecStart=/usr/bin/docker run --name redis -v /home/core/data/redis:/redis ivories/redis:1.0

@@ -10,10 +10,11 @@ Requires=docker.service
 Restart=always
 RestartSec=30
 TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop php
 ExecStartPre=-/usr/bin/docker kill php
 ExecStartPre=-/usr/bin/docker rm php
 ExecStart=/usr/bin/docker run --name php --link redis:redis --link mysql:mysql -p 9000:9000 -p 9003:9003 -v /home/core/data/php:/php -v /home/core/data/www:/www -v /home/core/data/www/composer:/root/.composer ivories/php:1.0
-ExecStop=/usr/bin/docker kill php
+ExecStop=/usr/bin/docker stop php
 
 [Install]
 WantedBy=multi-user.target
