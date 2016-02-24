@@ -39,9 +39,8 @@ RUN mkdir /php
 RUN ln -s /php/php.ini /etc/php/php.ini
 RUN ln -s /php/php-fpm.conf /etc/php/php-fpm.conf
 
-#RUN rm -rf /etc/crontab && ln -s /php/crontab /etc/crontab
+RUN ln -s /php/crontab /var/spool/cron/crontabs/root
 
 WORKDIR /www
 
-CMD php-fpm
-#CMD /etc/init.d/cron start && php-fpm
+CMD crond -l 2 -b && php-fpm
