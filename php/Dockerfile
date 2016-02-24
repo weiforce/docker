@@ -3,7 +3,7 @@ FROM alpine
 RUN apk --update --no-progress add build-base php-dev autoconf \
     php-fpm php-mcrypt php-curl php-gd php-json php-openssl \
     php-pdo_mysql php-pdo_sqlite php-phar php-iconv php-ctype \
-    php-mysqli php-zip \
+    php-opcache php-mysqli php-zip \
     && rm -rf /var/cache/apk/* \
     RUN apk add zlib && rm -rf /var/cache/apk/*
 
@@ -34,13 +34,14 @@ RUN rm -rf /xdebug-2.3.3
 #RUN rm -rf /phptrace-0.3.0
 # end setup phptrace
 
-RUN rm -rf /etc/php/php-fpm.conf /etc/php/php.ini
+#RUN rm -rf /etc/php/php-fpm.conf /etc/php/php.ini
 RUN mkdir /php
-RUN ln -s /php/php.ini /etc/php/php.ini
-RUN ln -s /php/php-fpm.conf /etc/php/php-fpm.conf
+#RUN ln -s /php/php.ini /etc/php/php.ini
+#RUN ln -s /php/php-fpm.conf /etc/php/php-fpm.conf
 
+RUN rm -rf /var/spool/cron/crontabs/root
 RUN ln -s /php/crontab /var/spool/cron/crontabs/root
 
 WORKDIR /www
 
-CMD crond -l 2 -b && php-fpm
+CMD php-fpm && crond -l 2 -f
