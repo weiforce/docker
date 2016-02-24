@@ -34,10 +34,10 @@ RUN rm -rf /xdebug-2.3.3
 #RUN rm -rf /phptrace-0.3.0
 # end setup phptrace
 
-#RUN rm -rf /etc/php/php-fpm.conf /etc/php/php.ini
+RUN rm -rf /etc/php/php-fpm.conf /etc/php/php.ini
 RUN mkdir /php
-#RUN ln -s /php/php.ini /etc/php/php.ini
-#RUN ln -s /php/php-fpm.conf /etc/php/php-fpm.conf
+RUN ln -s /php/php.ini /etc/php/php.ini
+RUN ln -s /php/php-fpm.conf /etc/php/php-fpm.conf
 
 RUN rm -rf /var/spool/cron/crontabs/root
 RUN ln -s /php/crontab /var/spool/cron/crontabs/root
