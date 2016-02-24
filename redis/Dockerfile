@@ -1,10 +1,4 @@
-#
-# Small redis docker image based on alpine linux
-#
-# http://github.com/tenstartups/alpine-redis-docker
-#
-
-FROM alpine:latest
+FROM alpine
 
 MAINTAINER Marc Lennox <marc.lennox@gmail.com>
 
