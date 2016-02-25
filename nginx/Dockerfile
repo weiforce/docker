@@ -6,7 +6,9 @@ RUN apk add -U nginx \
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
+RUN chown -R nginx:nginx /var/lib/nginx
 
+USER nginx
 VOLUME /usr/share/nginx/html
 EXPOSE 80 443
 
