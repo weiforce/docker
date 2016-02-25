@@ -13,25 +13,22 @@ RUN apk --update --no-progress add build-base php-dev autoconf \
 # start setup php redis
 COPY phpredis-2.2.7.tar.gz /
 RUN cd / && tar zxvf phpredis-2.2.7.tar.gz
-RUN rm -rf /phpredis-2.2.7
 RUN cd /phpredis-2.2.7 && phpize && ./configure && make && make install
-RUN rm -rf /phpredis-2.2.7
+RUN rm -rf /phpredis-2.2.7 /phpredis-2.2.7.tar.gz
 # end setup php redis
 
 # start setup xdebug
 COPY xdebug-2.3.3.tar.gz /
 RUN cd / && tar zxvf xdebug-2.3.3.tar.gz
-RUN rm -rf /xdebug-2.3.3.tar.gz
 RUN cd /xdebug-2.3.3 && phpize && ./configure && make && make install
-RUN rm -rf /xdebug-2.3.3
+RUN rm -rf /xdebug-2.3.3 /xdebug-2.3.3.tar.gz
 # end setup xdebug
 
 # start setup phptrace
 #COPY phptrace-0.3.0.tar.gz /
 #RUN cd / && tar zxvf phptrace-0.3.0.tar.gz
-#RUN rm -rf /php-redis-2.2.7.tar.gz
 #RUN cd /phptrace-0.3.0/extension && phpize && ./configure && make && make install && cd ../cmdtool && make && mv phptrace /usr/bin && mv trace-php /usr/bin/
-#RUN rm -rf /phptrace-0.3.0
+#RUN rm -rf /phptrace-0.3.0 /php-redis-2.2.7.tar.gz
 # end setup phptrace
 
 RUN rm -rf /etc/php/php-fpm.conf /etc/php/php.ini
