@@ -1,8 +1,7 @@
 FROM python:3.5-alpine
-MAINTAINER Alexey Diyan <alexey.diyan@gmail.com>
 
 ENV MYCLI_VERSION 1.5.2
-# py-setproctitle workaround: https://github.com/dvarrazzo/py-setproctitle/issues/44
+
 RUN set -x \
   && buildDeps='build-base openssl' \
   && apk add --update $buildDeps \
