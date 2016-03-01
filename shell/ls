@@ -1,0 +1,8 @@
+#!/bin/bash
+
+fleetctl stop $1
+fleetctl destroy $1
+fleetctl submit /home/core/data/$1/$1.service
+fleetctl start $1
+
+
