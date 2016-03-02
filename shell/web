@@ -1,18 +1,6 @@
 #! /bin/bash
 
-if [ $1 ]
-then
-    echo "service use $1"
-    cd ~/docker/service
-else
-    echo "service default local"
-    cd ~/docker/service/local
-fi
-
-for SERVICE_NAME in redis mysql php nginx autorun
+for SERVICE_NAME in autorun redis mysql php nginx
 do
-    fleetctl stop $SERVICE_NAME
-    fleetctl destroy $SERVICE_NAME.service
-    fleetctl submit $SERVICE_NAME.service
-    fleetctl start $SERVICE_NAME &
+    s $SERVICE_NAME $1 
 done
