@@ -1,5 +1,11 @@
 #!/bin/bash
 
+if [ ! $1 ] 
+then
+    echo "s someservice" 
+    exit
+fi
+
 fleetctl stop $1
 fleetctl destroy $1
 
