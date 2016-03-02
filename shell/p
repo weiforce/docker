@@ -1,0 +1,4 @@
+#!/bin/bash
+
+fleetctl stop $1
+fleetctl destroy $1

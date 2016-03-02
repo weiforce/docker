@@ -2,5 +2,19 @@
 
 fleetctl stop $1
 fleetctl destroy $1
-fleetctl submit /home/core/docker/service/local/$1.service
+
+SERVICE_PATH="/home/core/data/$1/$1.service"
+
+if [ $2 ]
+then
+    SERVICE_PATH="/home/core/docker/service/$1.service"
+fi
+
+if [ ! -f "$SERVICE_PATH" ]
+then
+    sudo cp -rfp "/home/core/docker/service/$1.service" "/home/core/data/$1/$1.service"
+fi 
+
+fleetctl submit $SERVICE_PATH
+
 fleetctl start $1
