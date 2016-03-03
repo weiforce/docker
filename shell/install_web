@@ -26,7 +26,7 @@ sudo cp -rfp ${DIR_DOCKER}autorun/autorun.service /etc/systemd/system/
 sudo systemctl enable autorun
 sudo systemctl daemon-reload
 
-for SERVICE_NAME in redis mysql php nginx www
+for SERVICE_NAME in redis mysql php nginx
 do
     ${DIR_DOCKER}shell/install_fleetctl ${SERVICE_NAME}
 done
