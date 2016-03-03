@@ -26,14 +26,10 @@ sudo cp -rfp ${DIR_DOCKER}service/autorun.service /etc/systemd/system/
 sudo systemctl enable autorun
 sudo systemctl daemon-reload
 
-#for SERVICE_NAME in redis mysql php nginx www git ss5 samba bind
-#do
-#    ${DIR_DOCKER}shell/install_fleetctl ${SERVICE_NAME}
-#    sudo mkdir -p ${DIR_DATA}${SERVICE_NAME}/
-#    sudo cp -rfp ${DIR_DOCKER}${SERVICE_NAME}/conf/* ${DIR_DATA}${SERVICE_NAME}/
-#    fleetctl destroy ${DIR_DOCKER}service/${SERVICE_NAME}
-#    fleetctl submit ${DIR_DOCKER}service/${SERVICE_NAME}
-#done
+for SERVICE_NAME in redis mysql php nginx www
+do
+    ${DIR_DOCKER}shell/install_fleetctl ${SERVICE_NAME}
+done
 
 if [ ! -d "$DIR_DATA" ]
 then
