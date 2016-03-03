@@ -22,7 +22,7 @@ sudo touch /etc/sysctl.conf
 sudo chown -R core:core /etc/sysctl.conf
 echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
 
-sudo cp -rfp ${DIR_DOCKER}service/autorun.service /etc/systemd/system/
+sudo cp -rfp ${DIR_DOCKER}autorun/autorun.service /etc/systemd/system/
 sudo systemctl enable autorun
 sudo systemctl daemon-reload
 
