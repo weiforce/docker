@@ -7,16 +7,15 @@
     git clone https://github.com/ivories/docker.git
     chmod -R 777 docker/shell
     /home/core/docker/shell/shell_init
-    /home/core/docker/shell/install_web
-    exit
+    install_web
 
-## login again the command will into effect
+## set timezone
 
-    ssh core@yourserverip
+    sudo timedatectl set-timezone Asia/Shangha
 
 ## start/restart web service
 
-    fweb
+    web
 
 ## install other service
 
