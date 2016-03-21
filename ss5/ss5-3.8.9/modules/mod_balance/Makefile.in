@@ -1,6 +1,0 @@
-MODULE		= mod_balance.so
-MODULEOBJ	= SS5Mod_balance.o
-
-MGR     = balamgr.cgi
-MGROBJ  = balamgr.o
-

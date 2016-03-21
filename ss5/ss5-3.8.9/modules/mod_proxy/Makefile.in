@@ -1,2 +1,0 @@
-MODULE		= mod_proxy.so
-MODULEOBJ	= SS5Mod_proxy.o

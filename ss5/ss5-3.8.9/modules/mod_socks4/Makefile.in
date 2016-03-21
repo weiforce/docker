@@ -1,2 +1,0 @@
-MODULE		= mod_socks4.so
-MODULEOBJ	= SS5Mod_socks4.o ../../common/SS5OpenLdap.o

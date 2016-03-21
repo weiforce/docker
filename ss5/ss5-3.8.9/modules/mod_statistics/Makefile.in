@@ -1,5 +1,0 @@
-MODULE		= mod_statistics.so
-MODULEOBJ	= SS5Mod_statistics.o
-
-MGR	= statmgr.cgi
-MGROBJ	= statmgr.o

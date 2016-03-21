@@ -1,2 +1,0 @@
-MODULE		= mod_filter.so
-MODULEOBJ	= SS5Mod_filter.o

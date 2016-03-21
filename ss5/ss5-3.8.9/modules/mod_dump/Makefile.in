@@ -1,2 +1,0 @@
-MODULE		= mod_dump.so
-MODULEOBJ	= SS5Mod_dump.o

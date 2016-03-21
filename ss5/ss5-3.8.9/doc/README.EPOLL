@@ -1,3 +1,0 @@
-To enable Epoll syscall, you must edit src/Makefile, 
-modules/mod_proxy/Makefile and add -DEPOLL_IO definition.
-
