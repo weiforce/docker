@@ -3,9 +3,9 @@ FROM alpine
 RUN apk --update --no-progress add build-base php-dev autoconf \
     php-fpm php-mcrypt php-curl php-gd php-json php-openssl \
     php-pdo_mysql php-pdo_sqlite php-phar php-iconv php-ctype \
-    php-opcache php-mysqli php-zip \
+    php-opcache php-mysqli php-zip zlib git bash \
     && rm -rf /var/cache/apk/* \
-    RUN apk add zlib && rm -rf /var/cache/apk/*
+    && echo "export TERM=xterm" >> /root/.bashrc
 
 #RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 #RUN docker-php-ext-install mbstring

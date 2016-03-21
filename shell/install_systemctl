@@ -9,7 +9,7 @@ then
     else
         sudo cp -rfp /home/core/docker/$1/conf/* /home/core/data/$1/
     fi
-    sudo cp -rfp /home/core/docker/service/$1.service /etc/systemd/system/
+    sudo cp -rfp /home/core/docker/$1/$1.service /etc/systemd/system/
     sudo systemctl daemon-reload
     sudo systemctl enable $1
     sudo systemctl start $1 &
