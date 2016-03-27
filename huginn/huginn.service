@@ -1,0 +1,18 @@
+[Unit]
+Description=huginn
+After=docker.service
+After=autorun.service
+After=mysql.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill huginn
+ExecStartPre=-/usr/bin/docker rm huginn
+ExecStart=/usr/bin/docker run --name huginn -p 3000:3000 --link mysql:mysql -e DATABASE_NAME=hugin -e DATABASE_USERNAME=root -e DATABASE_PASSWORD=123123 cantino/huginn-single-process
+ExecStop=/usr/bin/docker kill huginn
+
+[Install]
+WantedBy=multi-user.target
