@@ -8,9 +8,9 @@ source /home/core/.profile
 
 for ((i=0;i<$MOUNT_I;i++))
 do
-    if [ ${MOUNT_URL[i]} != "" ]
+    if [ "${MOUNT_URL[i]}" != "" ]
     then
-        if [ ${MOUNT_DIR[i]} != "" ]
+        if [ "${MOUNT_DIR[i]}" != "" ]
         then
             sudo mkdir -p ${MOUNT_DIR[i]}
             sudo mount -t nfs -o nolock,vers=3,tcp ${MOUNT_URL[i]} ${MOUNT_DIR[i]}
