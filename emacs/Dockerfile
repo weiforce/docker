@@ -1,13 +1,14 @@
-FROM debian:jessie
+from alpine
 
-RUN apt-get update
-RUN apt-get install -y emacs
-RUN apt-get install -y locales
-
-RUN rm -rf /var/lib/apt/lists/*
+run echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+ && apk update \
+ && apk add --update --no-cache emacs@testing
+run apk add bash openssh
 
 COPY emacs.sh /usr/bin/e
-
 RUN chmod -R 777 /usr/bin/e
+RUN touch /var/log/emacs.log
 
-CMD /usr/bin/e
+CMD tail -f /var/log/emacs.log
+
+#entrypoint emacs
