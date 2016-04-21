@@ -3,16 +3,15 @@ FROM alpine
 RUN apk --update --no-progress add build-base php-dev autoconf \
     php-fpm php-mcrypt php-curl php-gd php-json php-openssl \
     php-pdo_mysql php-pdo_sqlite php-phar php-iconv php-ctype \
-    php-opcache php-mysqli php-zip zlib git bash
-
-RUN wget https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
+    php-opcache php-mysqli php-zip zlib git bash \
+    && curl -s -o phpredis-2.2.7.tar.gz -b a -L https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
+    && curl -s -o xdebug-2.3.3.tgz -b a -L https://xdebug.org/files/xdebug-2.3.3.tgz \
     && cd / && tar zxvf phpredis-2.2.7.tar.gz \
     && cd /phpredis-2.2.7 && phpize && ./configure && make && make install \
     && rm -rf /phpredis-2.2.7 /phpredis-2.2.7.tar.gz \
-    && wget https://xdebug.org/files/xdebug-2.3.3.tgz \
-    && cd / && tar zxvf xdebug-2.3.3.tar.gz \
+    && cd / && tar zxvf xdebug-2.3.3.tgz \
     && cd /xdebug-2.3.3 && phpize && ./configure && make && make install \
-    && rm -rf /xdebug-2.3.3 /xdebug-2.3.3.tar.gz \
+    && rm -rf /xdebug-2.3.3 /xdebug-2.3.3.tgz \
     && apk del build-base autoconf\
     && rm -rf /var/cache/apk/* \
 
