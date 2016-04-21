@@ -6,7 +6,8 @@
 
 # COREOS
 
-* sudo cp ~/data/php/php.xdebug.ini ~/data/php/php.ini
+* sudo vi ~/data/php/php.ini
+* change xdebug open
 * web
 
 # CHROME
@@ -22,3 +23,7 @@
 * Remote file path is not mapped to any file path
 * Click to setup up path mappings
 * select the /Data/Web/data/www/project to /www/project
+
+# PROBLEM
+
+* all is done, and port is listen, make sure xdebug.remote_host is your ip.
