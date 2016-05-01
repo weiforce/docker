@@ -1,22 +1,25 @@
-FROM debian:jessie
+FROM alpine
 
-RUN apt-get update
-RUN apt-get install -y make
-RUN apt-get install -y libpam0g-dev
-RUN apt-get install -y libldap2-dev
-RUN apt-get install -y openssl
-RUN apt-get install -y libpcap-dev
-RUN apt-get install -y libssl-dev
-RUN rm -rf /var/lib/apt/lists/*
+RUN apk --update add build-base autoconf 
+RUN wget http://iweb.dl.sourceforge.net/project/ss5/ss5/3.8.9-8/ss5-3.8.9-8.tar.gz
+RUN tar zxvf ss5-3.8.9-8.tar.gz
 
-COPY ss5-3.8.9.tar.gz /ss5-3.8.9.tar.gz
-RUN tar zxvf ss5-3.8.9.tar.gz && cd /ss5-3.8.9 && make install && rm -rf /ss5-3.8.9
+RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+    && apk update && apk add --update --no-cache linux-pam
+RUN apk add linux-pam-dev
 
-RUN touch /etc/opt/ss5/ss5.passwd
-RUN touch /etc/opt/ss5/ss5.ha
+RUN apk add bash
+RUN apk add openldap-dev libpcap-dev openssl
+RUN cd ss5-3.8.9 && ./configure
 
-COPY conf/ss5.conf /etc/opt/ss5/ss5.conf
+CMD bash
+# && make && make install
 
-EXPOSE 18080
+#RUN touch /etc/opt/ss5/ss5.passwd
+#RUN touch /etc/opt/ss5/ss5.ha
 
-CMD /usr/sbin/ss5 -t -b 0.0.0.0:18080 && /usr/bin/tail -f /var/log/ss5/ss5.log
+#COPY conf/ss5.conf /etc/opt/ss5/ss5.conf
+
+#EXPOSE 18080
+
+#CMD /usr/sbin/ss5 -t -b 0.0.0.0:18080 && /usr/bin/tail -f /var/log/ss5/ss5.log
