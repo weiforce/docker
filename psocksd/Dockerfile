@@ -1,12 +1,10 @@
 FROM alpine
 
-RUN apk --update --no-progress add php-cli
-RUN apk add bash
-RUN apk add git curl
-RUN git clone https://github.com/clue/psocksd.git
 
-RUN apk add php-json php-phar php-openssl 
+RUN apk --update --no-progress add git curl php-cli php-json php-phar php-openssl \
+    && wget https://github.com/clue/psocksd/archive/v0.3.5.tar.gz && tar zxvf v0.3.5.tar.gz \
+    && cd psocksd-0.3.5 && curl -s https://getcomposer.org/installer | php && php composer.phar install \
+    && apk del git curl && rm -rf /var/cache/apk/* && rm -rf v0.3.5.tar.gz
 
-RUN cd psocksd && curl -s https://getcomposer.org/installer | php && php composer.phar install
-
-CMD php psocksd/bin/psocksd *:9050
+CMD ls
+#CMD php psocksd/bin/psocksd socks5://test:test@*:9050
