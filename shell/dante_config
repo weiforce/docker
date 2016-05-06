@@ -8,5 +8,5 @@ then
 fi
 
 cd ~/data/dante
-sudo curl -o passwd ${url}passwd
-sudo curl -o shadow ${url}shadow
+sudo curl -o passwd ${1}passwd
+sudo curl -o shadow ${1}shadow
