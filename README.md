@@ -7,11 +7,12 @@
     git clone https://github.com/ivories/docker.git
     chmod -R 777 docker/shell
     /home/core/docker/shell/shell_init
+    exit
     install_web
 
 ## set timezone
 
-    sudo timedatectl set-timezone Asia/Shangha
+    sudo timedatectl set-timezone Asia/Shanghai
 
 ## start/restart web service
 

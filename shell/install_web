@@ -18,6 +18,8 @@ sudo chown -R core:core /etc/fstab
 echo "swap                    /swap                   swap    defaults        0 0" >> /etc/fstab
 #end if
 
+sleep 5
+
 sudo touch /etc/sysctl.conf
 sudo chown -R core:core /etc/sysctl.conf
 echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
@@ -25,6 +27,9 @@ echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
 sudo cp -rfp ${DIR_DOCKER}autorun/autorun.service /etc/systemd/system/
 sudo systemctl enable autorun
 sudo systemctl daemon-reload
+install_systemctl autorun
+s autorun
+sudo cp ~/docker/shell/autorun ~/data/autorun/autorun
 
 for SERVICE_NAME in redis mysql php nginx
 do
