@@ -6,6 +6,8 @@
 sudo touch /home/core/.profile
 source /home/core/.profile
 
+if [ ${MOUNT_I} ]
+then
 for ((i=0;i<$MOUNT_I;i++))
 do
     if [ "${MOUNT_URL[i]}" != "" ]
@@ -18,3 +20,4 @@ do
         fi
     fi
 done
+fi

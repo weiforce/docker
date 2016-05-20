@@ -11,7 +11,16 @@ while [ 1 ]
 do
     #git update docker
     cd /home/core/docker/
-    git pull
+    sudo git pull origin master
+
+    autorun_git
+
+    if [ "${SSH_CONFIG}" != "" ]
+    then
+        cd ${SSH_CONFIG};
+        ssh_config ${SSH_CONFIG}
+    fi    
+
     sleep 600s
 
     let x=i%30
