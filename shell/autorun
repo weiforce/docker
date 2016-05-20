@@ -1,5 +1,7 @@
 #! /bin/bash
 
+sudo touch /home/core/.profile
+source /home/core/.profile
 /home/core/docker/shell/mount_data
 
 sudo systemctl start etcd
@@ -13,12 +15,11 @@ do
     cd /home/core/docker/
     sudo git pull origin master
 
-    autorun_git
+    /home/core/docker/shell/autorun_git
 
     if [ "${SSH_CONFIG}" != "" ]
     then
-        cd ${SSH_CONFIG};
-        ssh_config ${SSH_CONFIG}
+        /home/core/docker/shell/ssh_config ${SSH_CONFIG}
     fi    
 
     sleep 600s
