@@ -25,8 +25,7 @@ RUN echo "export TERM=xterm" >> /root/.bashrc \
 
 WORKDIR /www
 
-CMD php-fpm && crond -l 2 -f
-
+CMD crond -L /php/crontab.log && php-fpm
 
 
 #RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
