@@ -12,7 +12,6 @@ RUN \
 RUN mkdir /data && chown redis:redis /data
 
 VOLUME /data
-
 WORKDIR /data
 
 COPY entrypoint.sh /docker-entrypoint
