@@ -30,7 +30,6 @@ do
     then
         /home/core/docker/shell/autorun_git
         /home/core/docker/shell/autorun_ssh
-        /home/core/docker/shell/autorun_docker
     fi
 
     if [ $halfHour = 0 ]
@@ -46,6 +45,7 @@ do
     if [ $oneDay = 0 ]
     then
        /home/core/data/autorun/autorun_one_day
+       /home/core/docker/shell/autorun_docker
     fi
 
     if [ $twoDay = 0 ]

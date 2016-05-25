@@ -19,14 +19,11 @@ RUN echo "export TERM=xterm" >> /root/.bashrc \
     && rm -rf /etc/php/php-fpm.conf /etc/php/php.ini \
     && mkdir /php \
     && ln -s /php/php.ini /etc/php/php.ini \
-    && ln -s /php/php-fpm.conf /etc/php/php-fpm.conf \
-    && rm -rf /var/spool/cron/crontabs/root \
-    && ln -s /php/crontab /var/spool/cron/crontabs/root
+    && ln -s /php/php-fpm.conf /etc/php/php-fpm.conf
 
 WORKDIR /www
 
-CMD crond -L /crontab.log && php-fpm
-
+CMD php-fpm
 
 #RUN docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
 #RUN docker-php-ext-install mbstring
