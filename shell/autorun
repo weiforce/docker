@@ -7,41 +7,52 @@ source /home/core/.profile
 sudo systemctl start etcd
 sudo systemctl start fleet
 
-i=1
+hour=`date "+%H"`
+minute=`date "+%M"`
+let minute=hour*60+minute
 
 while [ 1 ]
 do
-    #git update docker
-    cd /home/core/docker/
-    sudo git pull origin master
+    let minute+=1
+    let oneMinute=minute%1
+    let tenMinute=minute%10
+    let halfHour=minute%30
+    let oneHour=minute%60
+    let oneDay=minute%1440
+    let twoDay=minute%2880
 
-    /home/core/docker/shell/autorun_git
-
-    if [ "${SSH_CONFIG}" != "" ]
+    if [ $oneMinute = 0 ]
     then
-        /home/core/docker/shell/ssh_config ${SSH_CONFIG}
-    fi    
-
-    sleep 600s
-
-    let x=i%30
-    let i+=1
-
-    if [ $x = 0 ]
-    then
-        for SERVICE_NAME in redis mysql php nginx
-        do
-            docker pull ivories/$SERVICE_NAME:1.0
-
-            docker ps -a | grep "Exited" | awk '{print $1 }'|xargs docker stop
-            docker ps -a | grep "Exited" | awk '{print $1 }'|xargs docker rm
-            docker images|grep none|awk '{print $3 }'|xargs docker rmi
-        done
+        /home/core/data/autorun/autorun_one_minute
     fi
 
-    # #rsync the data to server data
-    # if [ DIR_SMB_RSYNC_FROM != "" ]
-    # then
-    #     rsync -vrI DIR_SMB_RSYNC_FROM DIR_SMB_RSYNC_TO
-    # fi
+    if [ $tenMinute = 0 ]
+    then
+        /home/core/docker/shell/autorun_git
+        /home/core/docker/shell/autorun_ssh
+        /home/core/docker/shell/autorun_docker
+    fi
+
+    if [ $halfHour = 0 ]
+    then
+        /home/core/data/autorun/autorun_half_hour
+    fi
+
+    if [ $oneHour = 0 ]
+    then
+       /home/core/data/autorun/autorun_one_hour
+    fi
+
+    if [ $oneDay = 0 ]
+    then
+       /home/core/data/autorun/autorun_one_day
+    fi
+
+    if [ $twoDay = 0 ]
+    then
+       /home/core/data/autorun/autorun_two_day
+    fi
+
+    sleep 60s
+
 done

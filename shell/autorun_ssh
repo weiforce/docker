@@ -1,0 +1,9 @@
+#! /bin/bash
+
+sudo touch /home/core/.profile
+source /home/core/.profile
+
+if [ "${SSH_CONFIG}" != "" ]
+then
+    /home/core/docker/shell/ssh_config ${SSH_CONFIG}
+fi
