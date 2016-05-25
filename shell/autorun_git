@@ -3,10 +3,6 @@
 sudo touch /home/core/.profile
 source /home/core/.profile
 
-#git update docker
-cd /home/core/docker/
-sudo git pull origin master
-
 if [ $GIT_I ]
 then
 for ((i=0;i<$GIT_I;i++))
@@ -18,3 +14,9 @@ do
     fi
 done
 fi
+
+#git update docker
+cd /home/core/docker/
+sudo git pull origin master
+
+

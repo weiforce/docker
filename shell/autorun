@@ -23,34 +23,34 @@ do
 
     if [ $oneMinute = 0 ]
     then
-        /home/core/data/autorun/autorun_one_minute
+        /home/core/data/autorun/autorun_one_minute 
     fi
 
     if [ $tenMinute = 0 ]
     then
-        /home/core/docker/shell/autorun_git
-        /home/core/docker/shell/autorun_ssh
+        /home/core/docker/shell/autorun_git 
+        /home/core/docker/shell/autorun_ssh 
     fi
 
     if [ $halfHour = 0 ]
     then
-        /home/core/data/autorun/autorun_half_hour
+        /home/core/data/autorun/autorun_half_hour 
     fi
 
     if [ $oneHour = 0 ]
     then
-       /home/core/data/autorun/autorun_one_hour
+       /home/core/data/autorun/autorun_one_hour 
     fi
 
     if [ $oneDay = 0 ]
     then
-       /home/core/data/autorun/autorun_one_day
-       /home/core/docker/shell/autorun_docker
+       /home/core/data/autorun/autorun_one_day 
+       /home/core/docker/shell/autorun_docker  
     fi
 
     if [ $twoDay = 0 ]
     then
-       /home/core/data/autorun/autorun_two_day
+       /home/core/data/autorun/autorun_two_day 
     fi
 
     sleep 60s
