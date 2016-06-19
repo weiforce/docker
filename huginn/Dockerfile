@@ -1,10 +1,6 @@
-# forward request and error logs to docker log collector
-FROM cantino/huginn-single-process
+FROM cantino/huginn
 
-EXPOSE 3000
+RUN sed 's/exec \/usr\/bin/#exec/g' /scripts/init > /init
+RUN chmod -R 777 /init && /init
 
-ADD init.sh /scripts/init
-
-WORKDIR /app
-
-CMD ["/scripts/init"]
+CMD "exec /usr/bin/supervisord -c /etc/supervisor/supervisord.conf"
