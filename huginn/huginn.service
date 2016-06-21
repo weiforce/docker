@@ -11,8 +11,8 @@ RestartSec=30
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill huginn
 ExecStartPre=-/usr/bin/docker rm huginn
-#ExecStart=/usr/bin/docker run --name huginn -p 3000:3000 -v /home/core/data/huginn/data:/var/lib/mysql -v /home/core/data/huginn/shadowsocks.json:/etc/shadowsocks.json -v /home/core/data/huginn/tsocks.conf:/etc/tsocks.conf ivories/huginn:1.0
-ExecStart=/usr/bin/docker run --name huginn -p 3000:3000 -v /home/core/data/huginn/data:/var/lib/mysql ivories/huginn:1.0
+ExecStart=/usr/bin/docker run --name huginn -p 3000:3000 -v /home/core/data/huginn/data:/var/lib/mysql -v /home/core/data/huginn/shadowsocks.json:/etc/shadowsocks.json -v /home/core/data/huginn/tsocks.conf:/etc/tsocks.conf ivories/huginn:1.0
+#ExecStart=/usr/bin/docker run --name huginn -p 3000:3000 -v /home/core/data/huginn/data:/var/lib/mysql ivories/huginn:1.0
 ExecStop=/usr/bin/docker kill huginn
 
 [Install]
