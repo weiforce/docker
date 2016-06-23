@@ -28,6 +28,7 @@ do
 
     if [ $tenMinute = 0 ]
     then
+        /home/core/data/autorun/autorun_ten_minute
         /home/core/docker/shell/autorun_git 
         /home/core/docker/shell/autorun_ssh 
     fi
