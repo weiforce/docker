@@ -6,4 +6,4 @@ then
     exit
 fi
 
-journalctl -u $1
+journalctl -xe -u $1
