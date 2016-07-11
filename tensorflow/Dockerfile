@@ -2,7 +2,7 @@ FROM alpine:3.2
 
 # Install glibc
 RUN apk add --update wget ca-certificates && \
-    export ALPINE_GLIBC_BASE_URL="https://circle-artifacts.com/gh/andyshinn/alpine-pkg-glibc/6/artifacts/0/home/ubuntu/alpine-pkg-glibc/packages/x86_64" && \
+    export ALPINE_GLIBC_BASE_URL="https://s3-us-west-2.amazonaws.com/farm-artifacts" && \
     export ALPINE_GLIBC_PACKAGE="glibc-2.21-r2.apk" && \
     export ALPINE_GLIBC_BIN_PACKAGE="glibc-bin-2.21-r2.apk" && \
     wget "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_PACKAGE" "$ALPINE_GLIBC_BASE_URL/$ALPINE_GLIBC_BIN_PACKAGE" && \
@@ -31,5 +31,5 @@ ADD jupyter_notebook_config.py /root/.jupyter/
 ADD run_jupyter.sh  /
 EXPOSE 6006/tcp
 EXPOSE 8888/tcp
-CMD ["/usr/bin/python"]
+CMD ["python"]
 
