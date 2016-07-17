@@ -1,2 +1,16 @@
 #! /bin/bash
-docker run -it --rm -v /home/core/.emacs.d:/root/.emacs.d -v /home/core/data:/data ivories/emacs:1.0
+
+if [ ! -f "/home/core/.ssh/emacs_rsa" ]
+then
+	mkdir /home/core/.ssh
+	ssh-keygen -f /home/core/.ssh/emacs_rsa -N '' -t rsa
+	echo 'StrictHostKeyChecking no' >> /home/core/.ssh/config
+	echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
+fi
+
+docker run --name emacs --rm -p 5858:22 -v /home/core/.ssh/emacs_rsa.pub:/authorized_keys -v /home/core/.emacs.d:/root/.emacs.d -v /home/core/data:/data -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key ivories/emacs:1.0 &
+
+sleep 1s
+
+ssh -t -i /home/core/.ssh/emacs_rsa root@localhost -p 5858 'e'
+docker kill emacs
