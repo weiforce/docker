@@ -4,8 +4,12 @@ sudo touch /home/core/.profile
 source /home/core/.profile
 /home/core/docker/shell/mount_data
 
-sudo systemctl start etcd
-sudo systemctl start fleet
+if [ `waitService etcd` == 'false' ] 
+then
+    waitService etcd2
+fi
+
+waitService fleet
 
 hour=`date "+%H"`
 minute=`date "+%M"`

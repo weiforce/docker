@@ -1,0 +1,19 @@
+#!/bin/bash
+
+sudo systemctl start $1
+
+for ((i=0; i<10; i++)); do
+
+    isActive=`systemctl is-active $1`
+    if [ $isActive == 'active' ]
+    then
+        sleep 1s
+        echo "true"
+        exit 0
+    fi
+
+    sleep 1s
+
+done
+
+echo "false"

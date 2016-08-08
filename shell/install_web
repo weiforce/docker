@@ -6,8 +6,12 @@ DIR_DOCKER="$DIR_PATH/docker/"
 
 sudo mkdir -p $DIR_DATA
 
-sudo systemctl start etcd2
-sudo systemctl start fleet
+if [ `waitService etcd` == 'false' ]
+then
+    waitService etcd2
+fi
+
+waitService fleet
 
 #if vps
 sudo dd if=/dev/zero of=/swap bs=1024 count=1024000
