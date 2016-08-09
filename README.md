@@ -7,8 +7,12 @@
     git clone https://github.com/ivories/docker.git
     chmod -R 777 docker/shell
     /home/core/docker/shell/shell_init
-    exit
+    export PATH="/home/core/docker/shell:$PATH"
     install_web
+
+## ssh-init
+
+    ssh_config www.youname.com 
 
 ## set timezone
 
