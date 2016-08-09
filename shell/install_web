@@ -6,9 +6,9 @@ DIR_DOCKER="$DIR_PATH/docker/"
 
 sudo mkdir -p $DIR_DATA
 
-if [ `waitService etcd` == 'false' ]
+if [ `waitService etcd2` == 'false' ]
 then
-    waitService etcd2
+    waitService etcd
 fi
 
 waitService fleet
