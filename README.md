@@ -18,6 +18,10 @@
 
     sudo timedatectl set-timezone Asia/Shanghai
 
+## set hostname
+
+    sudo hostnamectl set-hostname yourname
+
 ## start/restart web service
 
     web

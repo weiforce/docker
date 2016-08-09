@@ -8,6 +8,8 @@ for ((i=0; i<10; i++)); do
     if [ $isActive == 'active' ]
     then
         sleep 1s
+        sudo systemctl enable $1
+        sudo systemctl daemon-reload
         echo "true"
         exit 0
     fi
@@ -16,4 +18,5 @@ for ((i=0; i<10; i++)); do
 
 done
 
+sudo systemctl diable $1
 echo "false"
