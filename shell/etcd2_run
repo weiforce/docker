@@ -3,6 +3,9 @@ source /home/core/.profile
 
 ETH0=`ifconfig eth0 | grep "inet" | awk '{print$2}'`
 
+sudo systemctl stop etcd
+sudo systemctl stop etcd2
+
 etcd2 --name `hostname` --initial-advertise-peer-urls http://$ETH0:2380 \
   --listen-peer-urls http://$ETH0:2380 \
   --listen-client-urls http://$ETH0:2379,http://127.0.0.1:2379 \
