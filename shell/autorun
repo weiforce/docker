@@ -35,6 +35,7 @@ do
         /home/core/data/autorun/autorun_ten_minute
         /home/core/docker/shell/autorun_git 
         /home/core/docker/shell/autorun_ssh 
+        sudo journalctl --vacuum-size=128000000
     fi
 
     if [ $halfHour = 0 ]
