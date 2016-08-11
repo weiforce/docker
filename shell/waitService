@@ -1,5 +1,5 @@
 #!/bin/bash
-
+sudo systemctl stop $1
 if [ -f "/home/core/docker/$1/$1.service" ]
 then
     sudo cp -rfp /home/core/docker/$1/$1.service /etc/systemd/system/$1.service
