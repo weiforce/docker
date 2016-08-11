@@ -1,12 +1,16 @@
 #!/bin/bash
-#echo etcd2 --name `hostname` --initial-advertise-peer-urls http://$ETH0:2380 \
-#  --listen-peer-urls http://$ETH0:2380 \
-#  --listen-client-urls http://$ETH0:2379,http://127.0.0.1:2379 \
-#  --advertise-client-urls http://$ETH0:2379 \
-#  --discovery $DC_SERVER
-
 source /home/core/.profile
 ETH0=`ifconfig eth0 | grep "inet" | awk '{print$2}'`
+
+if [ $1 ]
+then
+  etcd2 --name `hostname` --initial-advertise-peer-urls http://$ETH0:2380 \
+        --listen-peer-urls http://$ETH0:2380 \
+        --listen-client-urls http://$ETH0:2379,http://127.0.0.1:2379 \
+        --advertise-client-urls http://$ETH0:2379 \
+        --discovery $DC_SERVER
+fi
+
 etcd2FileName=/etc/systemd/system/etcd2.service
 sudo rm -rf $etcd2FileName
 
