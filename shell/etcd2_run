@@ -1,13 +1,44 @@
 #!/bin/bash
+#echo etcd2 --name `hostname` --initial-advertise-peer-urls http://$ETH0:2380 \
+#  --listen-peer-urls http://$ETH0:2380 \
+#  --listen-client-urls http://$ETH0:2379,http://127.0.0.1:2379 \
+#  --advertise-client-urls http://$ETH0:2379 \
+#  --discovery $DC_SERVER
+
 source /home/core/.profile
-
 ETH0=`ifconfig eth0 | grep "inet" | awk '{print$2}'`
+etcd2FileName=/etc/systemd/system/etcd2.service
+sudo rm -rf $etcd2FileName
 
-sudo systemctl stop etcd
-sudo systemctl stop etcd2
+if [ ! $DC_SERVER ]
+then
+    exit 0
+fi
 
-etcd2 --name `hostname` --initial-advertise-peer-urls http://$ETH0:2380 \
-  --listen-peer-urls http://$ETH0:2380 \
-  --listen-client-urls http://$ETH0:2379,http://127.0.0.1:2379 \
-  --advertise-client-urls http://$ETH0:2379 \
-  --discovery $DC_SERVER
+sudo touch $etcd2FileName
+sudo chmod -R 777 $etcd2FileName
+
+cat > $etcd2FileName << EOF
+[Unit]
+Description=etcd2
+Conflicts=etcd.service
+
+[Service]
+User=etcd
+Type=notify
+Environment=ETCD_DATA_DIR=/var/lib/etcd2
+Environment=ETCD_NAME=`hostname`
+Environment=ETCD_INITIAL_ADVERTISE_PEER_URLS=http://$ETH0:2380
+Environment=ETCD_LISTEN_PEER_URLS=http://$ETH0:2380
+Environment=ETCD_LISTEN_CLIENT_URLS=http://$ETH0:2379,http://127.0.0.1:2379 
+Environment=ETCD_ADVERTISE_CLIENT_URLS=http://$ETH0:2379
+Environment=ETCD_DISCOVERY=$DC_SERVER
+ExecStart=/usr/bin/etcd2
+Restart=always
+RestartSec=10s
+#LimitNOFILE=40000
+TimeoutStartSec=0
+
+[Install]
+WantedBy=multi-user.target
+EOF
