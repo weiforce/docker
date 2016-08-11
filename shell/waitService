@@ -1,10 +1,10 @@
 #!/bin/bash
-sudo systemctl stop $1
 if [ -f "/home/core/docker/$1/$1.service" ]
 then
     sudo cp -rfp /home/core/docker/$1/$1.service /etc/systemd/system/$1.service
 fi
 sudo systemctl daemon-reload
+sudo systemctl stop $1
 sudo systemctl start $1
 
 for ((i=0; i<10; i++)); do
@@ -13,8 +13,7 @@ for ((i=0; i<10; i++)); do
     if [ $isActive == 'active' ]
     then
         sleep 1s
-        #sudo systemctl enable $1
-        sudo systemctl daemon-reload
+        sudo systemctl enable $1
         echo "true"
         exit 0
     fi
