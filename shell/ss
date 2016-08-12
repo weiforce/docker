@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ ! $1 ] 
+then
+    echo "ss someservice" 
+    exit
+fi
+
+sudo systemctl stop $1
+
+SERVICE_PATH="/home/core/docker/$1/$1.service"
+
+if [ -f "$SERVICE_PATH" ]
+then
+    sudo cp -rfp "/home/core/docker/$1/$1.service" "/etc/systemd/system/$1.service"
+fi 
+
+sudo systemctl daemon-reload
+sudo systemctl start $1

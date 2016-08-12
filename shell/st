@@ -1,0 +1,9 @@
+#!/bin/bash
+
+if [ ! $1 ] 
+then
+    echo "st someservice" 
+    exit
+fi
+
+sudo systemctl status $1

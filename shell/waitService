@@ -22,5 +22,6 @@ for ((i=0; i<10; i++)); do
 
 done
 
+sudo systemctl stop $1
 sudo systemctl diable $1
 echo "false"
