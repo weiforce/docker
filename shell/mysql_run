@@ -1,0 +1,2 @@
+#!/bin/bash
+/usr/bin/docker run --name mysql -p `ifconfig eth0 | grep "inet" | awk '{print$2}'`:3306:3306 -v /home/core/data/mysql:/etc/mysql -v /home/core/data/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=yellow --user=root ivories/mysql:1.0

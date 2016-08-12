@@ -15,3 +15,7 @@ ExecStop=/usr/bin/docker kill dante
 
 [Install]
 WantedBy=multi-user.target
+
+[X-Fleet]
+Global=true
+

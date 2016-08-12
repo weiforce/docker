@@ -10,8 +10,13 @@ RestartSec=30
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop redis
 ExecStartPre=-/usr/bin/docker rm redis
+ExecStartPre=-/home/core/docker/shell/install_fleetctl redis
 ExecStart=/usr/bin/docker run --name redis -v /home/core/data/redis:/data ivories/redis:1.0
 ExecStop=/usr/bin/docker stop redis
 
 [Install]
 WantedBy=multi-user.target
+
+[X-Fleet]
+Global=true
+
