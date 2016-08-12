@@ -11,7 +11,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop redis
 ExecStartPre=-/usr/bin/docker rm redis
 ExecStartPre=-/home/core/docker/shell/install_fleetctl redis
-ExecStart=/usr/bin/docker run --name redis -v /home/core/data/redis:/data ivories/redis:1.0
+ExecStart=/home/core/docker/shell/run_redis
 ExecStop=/usr/bin/docker stop redis
 
 [Install]

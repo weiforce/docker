@@ -1,5 +1,7 @@
 #! /bin/bash
-
+LOCAL_IP=`ifconfig eth0 | grep "inet" | awk '{print$2}'`
+AUTORUN_DIR=/home/core/data/autorun/$LOCAL_IP
+sudo mkdir $AUTORUN_DIR
 sudo touch /home/core/.profile
 source /home/core/.profile
 /home/core/docker/shell/mount_data
@@ -27,12 +29,12 @@ do
 
     if [ $oneMinute = 0 ]
     then
-        /home/core/data/autorun/autorun_one_minute 
+        $AUTORUN_DIR/autorun_one_minute 
     fi
 
     if [ $tenMinute = 0 ]
     then
-        /home/core/data/autorun/autorun_ten_minute
+        $AUTORUN_DIR/autorun_ten_minute
         /home/core/docker/shell/autorun_git 
         /home/core/docker/shell/autorun_ssh 
         sudo journalctl --vacuum-size=128000000
@@ -40,23 +42,23 @@ do
 
     if [ $halfHour = 0 ]
     then
-        /home/core/data/autorun/autorun_half_hour 
+        $AUTORUN_DIR/autorun_half_hour 
     fi
 
     if [ $oneHour = 0 ]
     then
-       /home/core/data/autorun/autorun_one_hour 
+       $AUTORUN_DIR/autorun_one_hour 
     fi
 
     if [ $oneDay = 0 ]
     then
-       /home/core/data/autorun/autorun_one_day 
+       $AUTORUN_DIR/autorun_one_day 
        /home/core/docker/shell/autorun_docker  
     fi
 
     if [ $twoDay = 0 ]
     then
-       /home/core/data/autorun/autorun_two_day 
+       $AUTORUN_DIR/autorun_two_day 
     fi
 
     sleep 60s
