@@ -6,9 +6,9 @@ sudo touch /home/core/.profile
 source /home/core/.profile
 /home/core/docker/shell/mount_data
 
-if [ `waitService etcd2` == 'false' ] 
+if [ `/home/core/docker/shell/waitService etcd2` == 'false' ] 
 then
-    waitService etcd
+    /home/core/docker/shell/waitService etcd
 fi
 
 waitService fleet
