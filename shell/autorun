@@ -11,7 +11,7 @@ then
     /home/core/docker/shell/waitService etcd
 fi
 
-waitService fleet
+/home/core/docker/shell/waitService fleet
 
 hour=`date "+%H"`
 minute=`date "+%M"`
