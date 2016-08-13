@@ -1,0 +1,19 @@
+[Unit]
+Description=autorun_mount
+Require=autorun.service
+After=autorun.service
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=0
+ExecStartPre=-killall autorun_mount
+ExecStart=/home/core/docker/shell/autorun_mount
+ExecStop=killall autorun_mount
+
+[Install]
+WantedBy=multi-user.target
+
+[X-Fleet]
+Global=true
+

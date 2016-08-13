@@ -1,0 +1,46 @@
+#! /bin/bash
+
+sudo touch /home/core/.profile
+source /home/core/.profile
+/home/core/docker/shell/mount_data
+
+BOOL_MOUNT="true"
+BOOL_MOUNT_SAMBA="true"
+
+if [ ${MOUNT_I} ]
+then
+for ((i=0;i<$MOUNT_I;i++))
+do
+    if [[ "${MOUNT_URL[i]}" != "" &&  "${MOUNT_DIR[i]}" != "" ]]
+    then
+        if [ ! -f ${MOUNT_DIR[i]}/.nfs ]
+        then
+            BOOL_MOUNT="false"
+        fi
+    fi
+done
+fi
+
+if [ ${MOUNT_SAMBA_I} ]
+then
+for ((i=0;i<$MOUNT_SAMBA_I;i++))
+do
+    if [[ "${MOUNT_SAMBA_URL[i]}" != "" && "${MOUNT_SAMBA_DIR[i]}" != "" ]]
+    then
+        if [ ! -f ${MOUNT_DIR[i]}/.nfs ]
+        then
+            BOOL_MOUNT_SAMBA="false"
+        fi
+    fi
+done
+fi
+
+if [[ "${BOOL_MOUNT}" = "true" && "${BOOL_MOUNT_SAMBA}" = "true" ]]
+then
+    while [ 1 ]
+    do
+        sleep 10000s
+    done 
+fi
+
+exit 1

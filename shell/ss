@@ -15,5 +15,6 @@ then
     sudo cp -rfp "/home/core/docker/$1/$1.service" "/etc/systemd/system/$1.service"
 fi 
 
+sudo systemctl enable $1
 sudo systemctl daemon-reload
 sudo systemctl start $1
