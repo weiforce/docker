@@ -8,6 +8,7 @@
     chmod -R 777 docker/shell
     /home/core/docker/shell/shell_init
     export PATH="/home/core/docker/shell:$PATH"
+    install
     install_web
 
 ## ssh-init
@@ -28,9 +29,9 @@
 
 ## install other service
 
-    install_fleetctl bind # install bind server
-    install_fleetctl samba # install samba share
-    install_fleetctl git # install git server
+    s bind                          # install bind server
+    s samba                         # install samba share
+    s git                           # install git server
 
 ## config the server
 
@@ -45,9 +46,11 @@
 
 ## command list
 
-    fs param                 #restart service
-    fweb                     #restart web service
-    fl                       #list all service
-    fl param                 #list one service
-    install_fleetctl         #install new fleetctl service
-    install_systemctl        #install new systemctl service
+    s service_name                  #start/restart fleetctl service
+    p service_name                  #stop fleetctl service
+    ss service_name                 #start/restart systemctl service
+    st service_name                 #status systemctl service
+    sp service_name                 #stop systemctl service
+    fl                              #list all service
+    fl service_name                 #list one fleetctl service(except global service)
+    web                             #start/restart fleetctl web service

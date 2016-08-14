@@ -1,9 +1,9 @@
 [Unit]
 Description=nginx
-After=docker.service
-After=autorun_mount.service
+After=autorun.service
+Requires=autorun.service
+
 After=php.service
-Requires=docker.service
 
 [Service]
 Restart=always

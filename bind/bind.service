@@ -1,8 +1,7 @@
 [Unit]
 Description=bind
-After=docker.service
-After=autorun_mount.service
-Requires=docker.service
+After=autorun.service
+Requires=autorun.service
 
 [Service]
 Restart=always

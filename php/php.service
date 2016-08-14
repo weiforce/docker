@@ -1,10 +1,10 @@
 [Unit]
 Description=php
-After=docker.service
-After=autorun_mount.service
+After=autorun.service
+Requires=autorun.service
+
 After=mysql.service
 After=redis.service
-Requires=docker.service
 
 [Service]
 Restart=always

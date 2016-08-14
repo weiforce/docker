@@ -1,46 +1,5 @@
 #! /bin/bash
-
-DIR_PATH="/home/core"
-DIR_DATA="$DIR_PATH/data/"
-DIR_DOCKER="$DIR_PATH/docker/"
-
-sudo mkdir -p $DIR_DATA
-
-if [ `waitService etcd2` == 'false' ]
-then
-    waitService etcd
-fi
-
-waitService fleet
-
-#if vps
-sudo dd if=/dev/zero of=/swap bs=1024 count=1024000
-sudo mkswap /swap
-sudo swapon /swap
-sudo touch /etc/fstab
-sudo chown -R core:core /etc/fstab
-echo "swap                    /swap                   swap    defaults        0 0" >> /etc/fstab
-#end if
-
-sleep 5
-
-sudo touch /etc/sysctl.conf
-sudo chown -R core:core /etc/sysctl.conf
-echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
-
-sudo cp -rfp ${DIR_DOCKER}autorun/autorun.service /etc/systemd/system/
-sudo systemctl enable autorun
-sudo systemctl daemon-reload
-install_systemctl autorun
-s autorun
-sudo cp ~/docker/shell/autorun ~/data/autorun/autorun
-
 for SERVICE_NAME in redis mysql php nginx
 do
     ${DIR_DOCKER}shell/install_fleetctl ${SERVICE_NAME}
 done
-
-if [ ! -d "$DIR_DATA" ]
-then
-    sudo chown -R root:root $DIR_DATA
-fi
