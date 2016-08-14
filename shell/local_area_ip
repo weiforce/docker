@@ -1,2 +1,9 @@
 #!/bin/bash
-echo `ifconfig eth0 | grep "inet " | awk '{print$2}'`
+LOCAL_AREA_IP=`ifconfig eth0 | grep "inet " | awk '{print$2}'`
+
+if [ ${#LOCAL_AREA_IP} = 0 ]
+then
+    LOCAL_AREA_IP=`ifconfig docker0 | grep "inet " | awk '{print$2}'`
+fi
+
+echo $LOCAL_AREA_IP
