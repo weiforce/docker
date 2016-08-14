@@ -1,6 +1,6 @@
 #!/bin/bash
 source /home/core/.profile
-ETH0=`ifconfig eth0 | grep "inet" | awk '{print$2}'`
+ETH0=`/home/core/docker/shell/local_area_ip`
 
 if [ $1 ]
 then

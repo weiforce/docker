@@ -1,5 +1,5 @@
 #! /bin/bash
-LOCAL_IP=`ifconfig eth0 | grep "inet" | awk '{print$2}'`
+LOCAL_IP=`/home/core/docker/shell/local_area_ip`
 AUTORUN_DIR=/home/core/data/autorun/$LOCAL_IP
 sudo mkdir $AUTORUN_DIR
 sudo touch /home/core/.profile
