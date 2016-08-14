@@ -6,13 +6,6 @@ sudo touch /home/core/.profile
 source /home/core/.profile
 /home/core/docker/shell/mount_data
 
-if [ `/home/core/docker/shell/waitService etcd2` == 'false' ] 
-then
-    /home/core/docker/shell/waitService etcd
-fi
-
-/home/core/docker/shell/waitService fleet
-
 hour=`date "+%H"`
 minute=`date "+%M"`
 let minute=hour*60+minute

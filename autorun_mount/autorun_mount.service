@@ -1,19 +1,16 @@
 [Unit]
 Description=autorun_mount
-Require=autorun.service
-After=autorun.service
+
+After=autorun_fleet.service
+Requires=autorun_fleet.service
 
 [Service]
 Restart=always
 RestartSec=5
 TimeoutStartSec=0
-ExecStartPre=-killall autorun_mount
+ExecStartPre=/home/core/docker/shell/mount_data
 ExecStart=/home/core/docker/shell/autorun_mount
-ExecStop=killall autorun_mount
 
 [Install]
 WantedBy=multi-user.target
-
-[X-Fleet]
-Global=true
 
