@@ -1,6 +1,4 @@
 #! /bin/bash
-echo "mount_data"
-exit 0
 #D:\nfs -rw -sync -no_root_squash -no_subtree_check -public -range 192.168.1.1 192.168.1.255
 #D:\nfs -range 192.168.1.1 192.168.1.255
 #sudo mount -t cifs //192.168.56.1/Ted/ ~/data -o dir_mode=0777,file_mode=0777,username=Administrator,password=
