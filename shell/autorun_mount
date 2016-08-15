@@ -48,6 +48,7 @@ do
     testMount
     if [ $? = 0 ]
     then
+        echo "mount data has no .nfs file, you must write some data to .nfs file."
         exit 1
     fi
     sleep 10s
