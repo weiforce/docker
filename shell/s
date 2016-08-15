@@ -26,7 +26,7 @@ fi
 
 if [ ! -f "$SERVICE_PATH" ]
 then
-    sudo cp -rfp DOCKER_SERVICE_PATH SERVICE_PATH
+    sudo cp -rfp $DOCKER_SERVICE_PATH $SERVICE_PATH
 fi
 
 fleetctl submit $SERVICE_PATH
