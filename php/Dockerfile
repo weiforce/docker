@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.3
 
 RUN apk --update --no-progress add build-base php-dev autoconf \
     php-fpm php-mcrypt php-curl php-gd php-json php-openssl \
