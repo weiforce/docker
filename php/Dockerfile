@@ -13,7 +13,7 @@ RUN apk --update --no-progress add build-base php-dev autoconf \
     && ./configure && make && make install && rm -rf /xdebug-2.3.3 /xdebug-2.3.3.tgz \
     && cd / && tar zxvf xhprof-0.9.4.tgz && cd /xhprof-0.9.4/extension && phpize \
     && ./configure && make && make install && rm -rf /xhprof-0.9.4 /xhprof-0.9.4.tgz \
-    && apk del build-base autoconf\
+    && apk del build-base autoconf \
     && rm -rf /var/cache/apk/* \
 
 RUN echo "export TERM=xterm" >> /root/.bashrc \
