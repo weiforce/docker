@@ -9,10 +9,12 @@ After=php.service
 Restart=always
 RestartSec=30
 TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop nginx
 ExecStartPre=-/usr/bin/docker kill nginx
 ExecStartPre=-/usr/bin/docker rm nginx
 ExecStartPre=-/home/core/docker/shell/install_fleetctl nginx
 ExecStart=/usr/bin/docker run --name nginx -p 80:80 -p 443:443 --link mysql:mysql --link php:php -v /home/core/data/nginx:/etc/nginx -v /home/core/data/www:/www ivories/nginx:1.0
+ExecStop=/usr/bin/docker stop nginx
 ExecStop=/usr/bin/docker kill nginx
 
 [Install]
