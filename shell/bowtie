@@ -1,0 +1,2 @@
+#!/bin/bash
+docker run -it --rm --name spark -v /home/core/data:/data -h sandbox ivories/bowtie:1.0 bash
