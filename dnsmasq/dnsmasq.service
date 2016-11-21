@@ -16,5 +16,5 @@ ExecStop=/usr/bin/docker kill dnsmasq
 WantedBy=multi-user.target
 
 [X-Fleet]
-Global=true
+#Global=true
 
