@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run -it --rm --name spark -v /home/core/data:/data -h sandbox ivories/bowtie:1.0 bash
+docker run -it --rm --name spark -v /home/core/data:/data -v /home/core/data/spark:/usr/local/hadoop-2.6.0/etc/hadoop/spark -h sandbox ivories/bowtie:1.0 bash

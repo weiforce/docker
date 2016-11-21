@@ -12,7 +12,9 @@ for ((i=0;i<$MOUNT_I;i++))
 do
     if [[ "${MOUNT_URL[i]}" != "" &&  "${MOUNT_DIR[i]}" != "" ]]
     then
-        if [ ! -f ${MOUNT_DIR[i]}/.nfs ]
+        a=${MOUNT_DIR[I]}
+        a=$(df -t nfs | grep "${a}")
+        if [ "${a}" == "" ]
         then
             BOOL_MOUNT="false"
         fi
