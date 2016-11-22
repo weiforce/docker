@@ -15,9 +15,11 @@ RUN curl -o v2.2.9.tar.gz https://codeload.github.com/BenLangmead/bowtie2/tar.gz
     cp LICENSE /usr/share/licenses/$APP_NAME-$VERSION/ ; \
     cd ../ ;  \
     mkdir -p $DEST ;
-
-RUN curl -o jdk-8u111-linux-x64.rpm http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm?AuthParam=1479421485_36da126c1bfe3ab1ccf3b0c92463e847 ;\
+    
+RUN touch /var/lib/rpm/* ; \
+    yum install -y wget ; \
     touch /var/lib/rpm/* ; \
+    wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie"  http://download.oracle.com/otn-pub/java/jdk/8u111-b14/jdk-8u111-linux-x64.rpm ; \
     yum localinstall -y jdk-8u111-linux-x64.rpm ; \
     rm -rf jdk-8u111-linux-x64.rpm
   
