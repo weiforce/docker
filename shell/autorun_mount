@@ -28,7 +28,9 @@ for ((i=0;i<$MOUNT_SAMBA_I;i++))
 do
     if [[ "${MOUNT_SAMBA_URL[i]}" != "" && "${MOUNT_SAMBA_DIR[i]}" != "" ]]
     then
-        if [ ! -f ${MOUNT_DIR[i]}/.nfs ]
+        a=${MOUNT_SAMBA_DIR[I]}
+        a=$(df -t cifs | grep "${a}")
+        if [ "${a}" == "" ]
         then
             BOOL_MOUNT_SAMBA="false"
         fi
