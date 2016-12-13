@@ -39,5 +39,6 @@ RUN tar zxvf tophat-2.1.1.tar.gz && cd tophat-2.1.1 && ./configure && make && ma
 ENV PATH=${DEST_DIR}/bowtie2-${BOWTIE_RELEASE}:$PATH
 ENV PATH=/opt/bowtie-1.1.2:$PATH
 
+RUN touch /var/lib/rpm/* && yum -y install cgdb
 
 CMD ["/bin/bash"]
