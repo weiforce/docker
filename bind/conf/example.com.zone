@@ -11,12 +11,12 @@ $TTL 1h
             1h );           ; Negative Cache TTL
 
 ; -----------------------------------------------------------------------------
-; zone records
+; zone records !!!!!This must correspond to the example.com. ns domain name.!!!
 ; -----------------------------------------------------------------------------
 example.com.        1800    IN    NS        ns1.example.com.
 
 ; -----------------------------------------------------------------------------
-; pointer records
+; pointer records !!!!!Can not be deleted Ns1.example.com can not be deleted!!!
 ; -----------------------------------------------------------------------------
 ns1                 1800    IN    A         172.28.28.28
 www                 1800    IN    A         192.168.1.50
