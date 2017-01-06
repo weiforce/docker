@@ -1,9 +1,13 @@
-FROM debian:jessie
+FROM alpine:3.3
 
-RUN apt-get update
-RUN apt-get install -y bind9
-RUN rm -rf /var/lib/apt/lists/*
+RUN apk --update upgrade && \
+    apk add --update bind && \
+    rm -rf /var/cache/apk/*
 
-RUN touch /var/log/bind9.log
+ADD init.sh /init.sh
+RUN chmod 750 /init.sh
 
-CMD /etc/init.d/bind9 start && tail -f /var/log/bind9.log
+VOLUME ["/etc/bind", "/var/log/named"]
+EXPOSE 53/udp
+WORKDIR /etc/bind
+CMD ["/init.sh"]
