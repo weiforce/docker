@@ -2,8 +2,7 @@ $TTL 1h
 ; -----------------------------------------------------------------------------
 ; SOA for example.com
 ; -----------------------------------------------------------------------------
-
-@ IN SOA ns1.example.com contact.example.com. (
+@ IN SOA ns1.example.com .(
             2016021501      ; Serial
             1h              ; Refresh
             15m             ; Retry
