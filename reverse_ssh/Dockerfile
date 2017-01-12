@@ -2,9 +2,6 @@ FROM alpine
 
 RUN apk update && apk upgrade && apk add --update acf-openssh pwgen sshpass bash && rm -rf /var/cache/apk/*
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories && \
-    apk update && apk --no-cache add autossh && rm -rf /var/cache/apk/*
-
 RUN mkdir -p /var/run/sshd && \
     mkdir -p /root/.ssh && \
     sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
@@ -16,6 +13,7 @@ ADD bin/run.sh /run.sh
 ADD bin/connect-directly-to-proxy.sh /connect-directly-to-proxy.sh
 ADD bin/connect-through-middleman.sh /connect-through-middleman.sh
 RUN chmod +x /*.sh
+ADD bin/sshconfig /root/.ssh/config
 
 ENV AUTHORIZED_KEYS **None**
 ENV ROOT_PASS **None**

@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PROXY_PORT=1080
+
 if [ "${ROOT_PASS}" == "**None**" ]; then
     unset ROOT_PASS
 fi
@@ -34,7 +36,7 @@ SetRootPass()
         touch /.root_pw_set
 
         echo "========================================================================"
-        echo "You can now connect to this Ubuntu container via SSH using:"
+        echo "You can now connect to this container via SSH using:"
         echo ""
         echo "    ssh -p <port> root@<host>"
         echo "and enter the root password '$PASS' when prompted"
@@ -53,26 +55,18 @@ if [[ -n "${PUBLIC_HOST_ADDR}" && -n "${PUBLIC_HOST_PORT}" ]]; then
         echo "ROOT_PASS needs to be specified!"
     fi
 
-    echo "=> Connecting to Remote SSH servier ${PUBLIC_HOST_ADDR}:${PUBLIC_HOST_PORT}"
+    echo "=> Connecting to Remote SSH server ${PUBLIC_HOST_ADDR}:${PUBLIC_HOST_PORT}"
 
-    KNOWN_HOSTS="/root/.ssh/known_hosts"
-    if [ !-f ${KNOWN_HOST} ]; then
-        echo "=> Scaning and save fingerprint from the remote server ..."
-        ssh-keyscan -p ${PUBLIC_HOST_PORT} -H ${PUBLIC_HOST_ADDR} > ${KNOWN_HOSTS}
-        if [ $(stat -c %s ${KNOWN_HOSTS}) == "0" ]; then
-            echo "=> cannot get fingerprint from remote server, exiting ..."
-            exit 1
-        fi
-        else
-        echo "=> Fingerprint of remote server found, skipping"
+    echo "=> Set root pass"
+    if [ ! -f /.root_pw_set ]; then
+            SetRootPass
     fi
-    echo "====REMOTE FINGERPRINT===="
-    cat ${KNOWN_HOSTS}
-    echo "====REMOTE FINGERPRINT===="
+    /usr/sbin/sshd
 
+    DESTINATION_PORT=22
     echo "=> Setting up the reverse ssh tunnel"
-    echo "sshpass -p ${ROOT_PASS} autossh -M 0 -NgR ${PROXY_PORT}:localhost:${DESTINATION_PORT} root@${PUBLIC_HOST_ADDR} -p ${PUBLIC_HOST_PORT}"
-    sshpass -p ${ROOT_PASS} autossh -M 0 -NgR ${PROXY_PORT}:localhost:${DESTINATION_PORT} root@${PUBLIC_HOST_ADDR} -p ${PUBLIC_HOST_PORT}
+    echo "sshpass -p ${ROOT_PASS} ssh -NR ${PROXY_PORT}:localhost:${DESTINATION_PORT} root@${PUBLIC_HOST_ADDR} -p ${PUBLIC_HOST_PORT}"
+    sshpass -p ${ROOT_PASS} ssh -NR ${PROXY_PORT}:localhost:${DESTINATION_PORT} root@${PUBLIC_HOST_ADDR} -p ${PUBLIC_HOST_PORT}
 else
     echo "=> Running in public host mode"
     if [ ! -f /.root_pw_set ]; then
