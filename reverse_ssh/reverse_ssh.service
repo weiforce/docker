@@ -5,7 +5,7 @@ Requires=autorun.service
 
 [Service]
 Restart=always
-RestartSec=30
+RestartSec=5
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop reverse_ssh
 ExecStartPre=-/usr/bin/docker kill reverse_ssh
