@@ -1,41 +1,40 @@
-
-set -euo pipefail
-[ -n "${DEBUG:-}" ] && set -x
-
-export JAVA_HOME="${JAVA_HOME:-/usr}"
-
-export SPARK_DAEMON_MEMORY="${SPARK_DAEMON_MEMORY:-128M}"
-
-export SPARK_HOME="/spark"
-
-mkdir -pv "$SPARK_HOME/logs"
-
-if grep -q "^[[:space:]]*SPARK_DAEMON_MEMORY" "$SPARK_HOME/conf/spark-env.sh"; then
-    sed -i "s/^[[:space:]]SPARK_DAEMON_MEMORY.*/SPARK_DAEMON_MEMORY=$SPARK_DAEMON_MEMORY/" "$SPARK_HOME/conf/spark-env.sh"
-else
-    echo "export SPARK_DAEMON_MEMORY=$SPARK_DAEMON_MEMORY" >> "$SPARK_HOME/conf/spark-env.sh" >> "$SPARK_HOME/conf/spark-env.sh"
+#!/bin/bash
+if [ "" = "$MASTER_HOSTNAME" ]; then
+    MASTER_HOSTNAME=$HOSTNAME
 fi
 
-echo -e "\nStarting Master"
-$SPARK_HOME/bin/spark-class org.apache.spark.deploy.master.Master &>/spark/logs/master.log &
-sleep 2
-
-echo -e "\nStarting Worker"
-$SPARK_HOME/bin/spark-class org.apache.spark.deploy.worker.Worker spark://$(hostname -f):7077 &>/spark/logs/worker.log &
-sleep 2
-
-if [ -t 0 ]; then
-    echo -e "\nStarting Spark Shell to connect to standalone daemons\n"
-    # less than about 480m SQLContext fails to load and gets a bunch of NPEs
-    $SPARK_HOME/bin/spark-shell --driver-memory 500m --master spark://$(hostname -f):7077
-    echo -e "\n\nSpark Shell exited\n\n"
-else
-    echo -e "
-Spark Shell will not be opened as this container is not running in interactive mode
-To open Spark Shell in future start docker with the switches:
-docker run -t -i ...
-"
+if [ "$MASTER_HOSTNAME" != "$HOSTNAME" ]; then
+    HOSTNAME=$MASTER_HOSTNAME
+    IS_MASTER="no"
 fi
-echo -e "\n\nWill now read logs to keep container alive until killed...\n\n"
-tail -f $SPARK_HOME/logs/* &
-wait || :
+
+cd /hadoop/etc/hadoop
+sed -i "s/HOSTNAME_HADOOP/${HOSTNAME}/g" core-site.xml
+sed -i "s/HOSTNAME_HADOOP/${HOSTNAME}/g" hdfs-site.xml
+sed -i "s/HOSTNAME_HADOOP/${HOSTNAME}/g" mapred-site.xml
+sed -i "s/HOSTNAME_HADOOP/${HOSTNAME}/g" yarn-site.xml
+
+if [ ! -d "/data/hdfs" ]; then
+    mkdir /data/hdfs && chown -R hduser:hadoop /data/hdfs
+    if [ $IS_MASTER -eq 1 ]; then
+        hdfs namenode -format
+    else
+        hdfs datanode -format
+    fi
+fi
+
+if [ "$IS_MASTER" == "" ]; then
+    /usr/sbin/sshd
+    /hadoop/sbin/start-dfs.sh
+    /hadoop/sbin/start-yarn.sh
+    /spark/sbin/start-master.sh
+fi
+
+/spark/sbin/start-slave.sh ${HOSTNAME}:7077
+/hadoop/sbin/hadoop-daemon.sh start datanode
+/hadoop/sbin/yarn-daemon.sh start nodemanager
+
+tail -f /spark/logs/*
+
+#export SPARK_DAEMON_MEMORY="${SPARK_DAEMON_MEMORY:-128M}"
+#export SPARK_HOME="/spark"

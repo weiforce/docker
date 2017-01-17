@@ -13,7 +13,7 @@ RUN apk add --update openssh \
 RUN addgroup hadoop && \
     adduser -h /home/hduser -D -s /bin/bash -G hadoop hduser
 
-ADD conf/ssh/* /etc/ssh/
+ADD ssh/* /etc/ssh/
 
 # passwordless ssh
 RUN ssh-keygen -q -N "" -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key && \
@@ -46,6 +46,7 @@ ENV JAVA_HOME=/opt/jdk \
     HADOOP_SSH_OPTS="-F /home/hduser/.ssh/config" \
     HADOOP_CLUSTERNAME=syracuse \
     HADOOP_ROLE=STANDALONE \
+    HADOOP_HOME=/hadoop \
     CATALINA_OUT=/dev/stdout
 
 # wrangle the pachyderm
@@ -60,32 +61,25 @@ RUN curl http://ftp.wayne.edu/apache/hadoop/common/hadoop-$HADOOP_VERSION/hadoop
     chmod +x /usr/local/hadoop/etc/hadoop/*-env.sh && \
     mkdir $HADOOP_PREFIX/input && \
     cp $HADOOP_PREFIX/etc/hadoop/*.xml $HADOOP_PREFIX/input && \
-    mkdir -p /data/hdfs && \
-    chown -R hduser:hadoop /data/hdfs && \
     rm -rf /usr/local/hadoop/share/doc && \
     rm -rf /tmp/*
 
-USER hduser
-
 WORKDIR $HADOOP_PREFIX
 
-VOLUME /data/hdfs
-
+USER hduser
 USER root
 
-ADD conf/supervisord /tmp/supervisord
-ADD bin/* /bin/
-ADD conf/hadoop-standalone /tmp/hadoop-standalone
-ADD conf/hadoop-ha /tmp/hadoop-ha
-
-
+RUN echo > /usr/local/hadoop/etc/hadoop/slaves
 RUN chown -R hduser:hadoop $HADOOP_PREFIX && \
-    chown -R hduser:hadoop /data/hdfs && \
     chown -R hduser:hadoop /home/hduser
 
 RUN ln -s /usr/local/hadoop /hadoop
 RUN mkdir /usr/java
 RUN ln -s /opt/jdk1.8.0_45 /usr/java/default
+
+ADD etc/* /hadoop/etc/hadoop/
+ADD entrypoint.sh /hadoop/entrypoint.sh
+
 ENV PATH $PATH:/hadoop/bin
 
 # HDFS ports
@@ -100,5 +94,4 @@ EXPOSE 8030 8031 8032 8033 8040 8042 8088
 # Other ports
 EXPOSE 49707 2122
 
-#CMD ["supervisord", "--nodaemon", "--configuration", "/etc/supervisord.conf"]
-#ENTRYPOINT ["/bin/entrypoint.sh"]
+CMD /hadoop/entrypoint.sh
