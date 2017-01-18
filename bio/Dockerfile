@@ -2,7 +2,7 @@ FROM ivories/spark:1.0
 
 RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.3/main/" > /etc/apk/repositories
 
-RUN apk add --update --no-cache build-base zlib-dev perl boost boost-dev &&
+RUN apk add --update --no-cache build-base zlib-dev perl boost boost-dev && \
     curl -o bowtie2-2.2.9.tar.gz https://codeload.github.com/BenLangmead/bowtie2/tar.gz/v2.2.9 ; \
     tar zxvf bowtie2-2.2.9.tar.gz && cd bowtie2-2.2.9 && make -j && make install && cd .. && rm -rf bowtie* && \
     curl -SLo tophat-2.1.1.tar.gz https://ccb.jhu.edu/software/tophat/downloads/tophat-2.1.1.tar.gz && \
