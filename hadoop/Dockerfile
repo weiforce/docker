@@ -10,9 +10,6 @@ RUN apk add --update openssh \
     pip install supervisor && \
     rm -rf /var/cache/apk/*
 
-RUN addgroup hadoop && \
-    adduser -h /home/hduser -D -s /bin/bash -G hadoop hduser
-
 ADD ssh/* /etc/ssh/
 
 # passwordless ssh
@@ -29,9 +26,7 @@ RUN ssh-keygen -q -N "" -t ecdsa -f /etc/ssh/ssh_host_ecdsa_key && \
     chmod 700 /root/.ssh && \
     chmod 600 /root/.ssh/config && \
     chmod 600 /root/.ssh/id_rsa && \
-    chmod 600 /root/.ssh/authorized_keys && \
-    cp -a /root/.ssh /home/hduser/.ssh && \
-    chown -R hduser:hadoop /home/hduser/.ssh
+    chmod 600 /root/.ssh/authorized_keys
 
 ENV JAVA_HOME=/opt/jdk \
     HADOOP_VERSION=2.6.5 \
@@ -42,8 +37,8 @@ ENV JAVA_HOME=/opt/jdk \
     HADOOP_YARN_HOME=/usr/local/hadoop \
     HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop \
     YARN_CONF_DIR=$HADOOP_PREFIX/etc/hadoop \
-    YARN_IDENT_STRING=hduser \
-    HADOOP_SSH_OPTS="-F /home/hduser/.ssh/config" \
+    YARN_IDENT_STRING=root \
+    HADOOP_SSH_OPTS="-F /root/.ssh/config" \
     HADOOP_CLUSTERNAME=syracuse \
     HADOOP_ROLE=STANDALONE \
     HADOOP_HOME=/hadoop \
@@ -57,7 +52,6 @@ RUN curl http://ftp.wayne.edu/apache/hadoop/common/hadoop-$HADOOP_VERSION/hadoop
     sed -i '/^export JAVA_HOME/ s:.*:export JAVA_HOME=/usr/java/default\nexport HADOOP_PREFIX=/usr/local/hadoop\nexport HADOOP_HOME=/usr/local/hadoop\n:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && \
     sed -i '/^export HADOOP_CONF_DIR/ s:.*:export HADOOP_CONF_DIR=/usr/local/hadoop/etc/hadoop/:' $HADOOP_PREFIX/etc/hadoop/hadoop-env.sh && \
     mkdir $HADOOP_PREFIX/logs && \
-    chown -R hduser:hadoop $HADOOP_PREFIX && \
     chmod +x /usr/local/hadoop/etc/hadoop/*-env.sh && \
     mkdir $HADOOP_PREFIX/input && \
     cp $HADOOP_PREFIX/etc/hadoop/*.xml $HADOOP_PREFIX/input && \
@@ -66,12 +60,9 @@ RUN curl http://ftp.wayne.edu/apache/hadoop/common/hadoop-$HADOOP_VERSION/hadoop
 
 WORKDIR $HADOOP_PREFIX
 
-USER hduser
 USER root
 
 RUN echo > /usr/local/hadoop/etc/hadoop/slaves
-RUN chown -R hduser:hadoop $HADOOP_PREFIX && \
-    chown -R hduser:hadoop /home/hduser
 
 RUN ln -s /usr/local/hadoop /hadoop
 RUN mkdir /usr/java
@@ -84,13 +75,10 @@ ENV PATH $PATH:/hadoop/bin
 
 # HDFS ports
 EXPOSE 9000 50010 50020 50070 50075 50090 14000
-
 # MapReduce ports
 EXPOSE 19888
-
 # YARN ports
 EXPOSE 8030 8031 8032 8033 8040 8042 8088
-
 # Other ports
 EXPOSE 49707 2122
 
