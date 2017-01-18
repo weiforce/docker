@@ -1,5 +1,7 @@
 FROM ivories/hadoop:1.0
 
+#RUN echo "https://mirror.tuna.tsinghua.edu.cn/alpine/v3.3/main/" > /etc/apk/repositories
+
 ARG SPARK_VERSION=1.6.3
 ARG SPARK_HADOOP_VERSION=2.6
 ARG TAR=spark-${SPARK_VERSION}-bin-hadoop${SPARK_HADOOP_VERSION}.tgz
