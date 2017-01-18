@@ -16,7 +16,7 @@ sed -i "s/HOSTNAME_HADOOP/${HOSTNAME}/g" yarn-site.xml
 
 if [ ! -d "/data/hdfs" ]; then
     mkdir /data/hdfs && chown -R hduser:hadoop /data/hdfs
-    if [ $IS_MASTER -eq 1 ]; then
+    if [ "$IS_MASTER" == "" ]; then
         hdfs namenode -format
     else
         hdfs datanode -format
