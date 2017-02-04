@@ -10,7 +10,8 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop gluster
 ExecStartPre=-/usr/bin/docker kill gluster
 ExecStartPre=-/usr/bin/docker rm gluster
-ExecStart=/usr/bin/docker run --name gluster --net=host --privileged=true -v /home/core/data1:/gluster -v /home/core/data/gluster/init.sh:/init.sh ivories/gluster:1.0 /init.sh
+ExecStartPre=/home/core/docker/shell/gluster_uuid
+ExecStart=/usr/bin/docker run --name gluster -e SERVER_NAME=master.hadoop.com,slave1.hadoop.com,slave2.hadoop.com,slave3.hadoop.com --net=host --privileged=true -v /home/core/data1:/gluster -v /home/core/data/gluster/init.sh:/init.sh ivories/gluster:1.0 /init.sh
 ExecStop=/usr/bin/docker stop gluster
 ExecStop=/usr/bin/docker kill gluster
 
