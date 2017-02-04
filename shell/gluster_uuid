@@ -1,9 +1,10 @@
 #! /bin/bash
-if [ -d "/home/core/.glusterd.info" ]
+GLUSTER_INFO="/home/core/.glusterd.info"
+if [ -f "$GLUSTER_INFO" ]
 then
     echo "exists glusterd.info"
 else
     data=`uuidgen`
-    echo "UUID=$data" > /home/core/.glusterd.info
-    echo "operating-version=30800" >> /home/core/.glusterd.info
+    echo "UUID=$data" > $GLUSTER_INFO
+    echo "operating-version=30800" >> $GLUSTER_INFO
 fi
