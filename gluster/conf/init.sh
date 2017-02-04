@@ -22,7 +22,7 @@ service rpcbind start
 service nfs-common start
 service glusterfs-server start
 
-while [1]
+while [ 1 ]
 do
     a="$SERVER_NAME"
     arr=($a)
