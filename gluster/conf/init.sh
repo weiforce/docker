@@ -16,7 +16,8 @@ function substr
     fi
 }
 
-echo "/data 127.0.0.1(rw,sync,no_root_squash)" >> /etc/exports
+echo "/data 127.0.0.1(rw,sync,fsid=0,crossmnt,no_subtree_check)" >> /etc/exports
+mkdir -p /data
 
 service rpcbind start
 service nfs-common start
@@ -33,6 +34,7 @@ do
     done
 
     mount -t glusterfs 127.0.0.1:/data /data
+    service nfs-kernel-server start
     sleep 5s
 done
 
