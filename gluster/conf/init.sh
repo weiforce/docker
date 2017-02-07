@@ -16,7 +16,7 @@ function substr
     fi
 }
 
-echo "/data 127.0.0.1(rw,sync,fsid=0,crossmnt,no_subtree_check)" >> /etc/exports
+echo "/data 127.0.0.1(rw,sync,fsid=0,no_root_squash,no_subtree_check)" >> /etc/exports
 mkdir -p /data
 
 service rpcbind start
