@@ -14,7 +14,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop bio
 ExecStartPre=-/usr/bin/docker kill bio
 ExecStartPre=-/usr/bin/docker rm bio
-ExecStart=/usr/bin/docker run --name=bio --net=host -e MASTER_HOSTNAME=master.hadoop.com -v /home/core/data/bio/entrypoint.sh:/start.sh -v /home/core/data1:/data ivories/bio:1.0 /start.sh
+ExecStart=/usr/bin/docker run --name=bio --net=host -e MASTER_HOSTNAME=master.hadoop.com -v /home/core/data1/spark:/usr/local/spark/work -v /home/core/data/bio/entrypoint.sh:/start.sh -v /home/core/data1:/data -v /home/core/data/spark:/data/spark ivories/bio:1.0 /start.sh
 ExecStop=/usr/bin/docker stop bio
 ExecStop=/usr/bin/docker kill bio
 
