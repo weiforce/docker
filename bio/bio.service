@@ -1,3 +1,7 @@
+#host $examplehost
+#/etc/hosts add 192.168.56.101 $examplehost
+#change MASTER_HOSTNAME = $examplehost
+
 [Unit]
 Description=bio
 After=autorun.service
