@@ -8,7 +8,10 @@ RUN mkdir -p /var/run/sshd && \
     sed -i "s/UsePAM.*/UsePAM no/g" /etc/ssh/sshd_config && \
     sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
     sed -i "s/#ClientAliveInterval 0/ClientAliveInterval 10/g" /etc/ssh/sshd_config && \
-    echo "GatewayPorts yes" >> /etc/ssh/sshd_config
+    sed -i "s/#ClientAliveCountMax 3/ClientAliveCountMax 1/g" /etc/ssh/sshd_config && \
+    echo "GatewayPorts yes" >> /etc/ssh/sshd_config && \
+    echo "Host *" > /etc/ssh/ssh_config && \
+    echo "ServerAliveInterval 10" > /etc/ssh/ssh_config
 
 ADD bin/run.sh /run.sh
 ADD bin/connect-directly-to-proxy.sh /connect-directly-to-proxy.sh
