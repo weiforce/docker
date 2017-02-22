@@ -70,11 +70,10 @@ if [[ -n "${PUBLIC_HOST_ADDR}" && -n "${PUBLIC_HOST_PORT}" ]]; then
 
     while [ 1 ]
     do
+        sleep 10
         nc -w 10 -z ${PUBLIC_HOST_ADDR} 51080 > /dev/null 2>&1
-        if [ $? -eq 0 ]
+        if [ $? -eq 1 ]
         then 
-            sleep 10
-        else
             exit
         fi
     done
