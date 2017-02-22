@@ -66,7 +66,19 @@ if [[ -n "${PUBLIC_HOST_ADDR}" && -n "${PUBLIC_HOST_PORT}" ]]; then
     DESTINATION_PORT=22
     echo "=> Setting up the reverse ssh tunnel"
     echo "sshpass -p ${ROOT_PASS} ssh -NR ${PROXY_PORT}:localhost:${DESTINATION_PORT} root@${PUBLIC_HOST_ADDR} -p ${PUBLIC_HOST_PORT}"
-    sshpass -p ${ROOT_PASS} ssh -NR ${PROXY_PORT}:localhost:${DESTINATION_PORT} root@${PUBLIC_HOST_ADDR} -p ${PUBLIC_HOST_PORT}
+    sshpass -p ${ROOT_PASS} ssh -NR ${PROXY_PORT}:localhost:${DESTINATION_PORT} root@${PUBLIC_HOST_ADDR} -p ${PUBLIC_HOST_PORT} &
+
+    while [ 1 ]
+    do
+        nc -w 10 -z ${PUBLIC_HOST_ADDR} 51080 > /dev/null 2>&1
+        if [ $? -eq 0 ]
+        then 
+            sleep 10
+        else
+            exit
+        fi
+    done
+
 else
     echo "=> Running in public host mode"
     if [ ! -f /.root_pw_set ]; then
