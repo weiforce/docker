@@ -14,8 +14,6 @@ RUN mkdir -p /var/run/sshd && \
     echo "ServerAliveInterval 10" > /etc/ssh/ssh_config
 
 ADD bin/run.sh /run.sh
-ADD bin/connect-directly-to-proxy.sh /connect-directly-to-proxy.sh
-ADD bin/connect-through-middleman.sh /connect-through-middleman.sh
 RUN chmod +x /*.sh
 ADD bin/sshconfig /root/.ssh/config
 
