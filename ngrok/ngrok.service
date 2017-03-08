@@ -1,0 +1,19 @@
+[Unit]
+Description=ngrok
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop ngrok
+ExecStartPre=-/usr/bin/docker kill ngrok
+ExecStartPre=-/usr/bin/docker rm ngrok
+ExecStart=/usr/bin/docker run --name ngrok -v /home/core/data/ngrok/ngrok.yaml:/home/ngrok/.ngrok2/ngrok.yaml ivories/ngrok:1.0 ngrok start --all
+ExecStop=/usr/bin/docker stop ngrok
+ExecStop=/usr/bin/docker kill ngrok
+
+[Install]
+WantedBy=multi-user.target
+
