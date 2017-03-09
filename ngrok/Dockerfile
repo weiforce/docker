@@ -20,6 +20,9 @@ RUN set -x \
  && chmod -R go=u,go-w /home/ngrok \
  && chmod go= /home/ngrok
 
+ADD https://github.com/william0wang/docker-ngrokd/raw/master/ngrokd /usr/bin/ngrokd
+RUN chmod -R 777 /usr/bin/ngrokd 
+
 USER ngrok
 
 EXPOSE 4040

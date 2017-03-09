@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop ngrok
 ExecStartPre=-/usr/bin/docker kill ngrok
 ExecStartPre=-/usr/bin/docker rm ngrok
-ExecStart=/usr/bin/docker run --name ngrok -v /home/core/data/ngrok/ngrok.yml:/home/ngrok/.ngrok2/ngrok.yml ivories/ngrok:1.0 ngrok start --all
+ExecStart=/usr/bin/docker run --name ngrok --net=host -v /home/core/data/ngrok/ngrok.yml:/home/ngrok/.ngrok2/ngrok.yml ivories/ngrok:1.0 ngrok start --all
 ExecStop=/usr/bin/docker stop ngrok
 ExecStop=/usr/bin/docker kill ngrok
 
