@@ -1,1 +1,10 @@
-web_addr: 0.0.0.0:4040
+server_addr: "your-domain-name.com:4443"
+trust_host_root_certs: false
+tunnels:
+  test:
+    proto:
+      http: 8080
+  ssh:
+    remote_port: 53333
+    proto:
+      tcp: 22
