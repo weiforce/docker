@@ -11,7 +11,6 @@ ADD start.sh /start.sh
 RUN chmod +x /start.sh && \
     apk add --no-cache libxml2 libxslt && \
     apk add --no-cache --virtual .build-dependencies curl jq git go ca-certificates && \
-    adduser -D syncthing && \
 
     # compile syncthing
     VERSION=`curl -s https://api.github.com/repos/syncthing/syncthing/releases/latest | jq -r '.tag_name'` && \
@@ -23,7 +22,7 @@ RUN chmod +x /start.sh && \
     go run build.go && \
     mkdir -p /go/bin && \
     mv bin/syncthing /go/bin/syncthing && \
-    chown syncthing:syncthing /go/bin/syncthing && \
+    chown root:root /go/bin/syncthing && \
 
     # install xmlstarlet (used by start.sh script)
     curl -sSL -o /tmp/xmlstarlet.apk https://github.com/menski/alpine-pkg-xmlstarlet/releases/download/${XMLSTARLET_VERSION}/xmlstarlet-${XMLSTARLET_VERSION}.apk && \
@@ -35,9 +34,9 @@ RUN chmod +x /start.sh && \
     rm -rf /go/src && \
     apk del .build-dependencies
 
-WORKDIR /home/syncthing
+WORKDIR /root
 
-VOLUME ["/home/syncthing/.config/syncthing", "/home/syncthing/Sync"]
+VOLUME ["/root/.config/syncthing", "/root/Sync"]
 
 EXPOSE 8384 22000 21027/udp
 
