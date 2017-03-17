@@ -28,7 +28,7 @@ RUN curl http://www.eu.apache.org/dist/maven/maven-3/${M2_VER}/binaries/apache-m
 ENV M2_HOME /usr/share/apache-maven-${M2_VER}
 ENV PATH $PATH:$M2_HOME/bin
 
-RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.6.5/hadoop-2.6.5-src.tar.gz | tar -xz -C /tmp/
+RUN curl -s http://www.eu.apache.org/dist/hadoop/common/hadoop-2.7.2/hadoop-2.7.2-src.tar.gz | tar -xz -C /tmp/
 
 RUN yum install -y wget
 # protoc -ohhh
@@ -40,8 +40,23 @@ RUN cd /tmp/protobuf-2.5.0/ && make && make install
 ENV LD_LIBRARY_PATH /usr/local/lib
 ENV export LD_RUN_PATH /usr/local/lib
 
-CMD /bin/bash
+#CMD /bin/bash
 # build native libs
-#RUN cd /tmp/hadoop-2.6.5-src && mvn package -Pdist,native -DskipTests -Dtar
+RUN cd /tmp/hadoop-2.7.2-src && mvn package -Pdist,native -DskipTests -Dtar
+
+#RUN wget https://github.com/protobuf-c/protobuf-c/releases/download/v1.0.0/protobuf-c-1.0.0.tar.gz
+#RUN tar zxvf protobuf-c-1.0.0.tar.gz 
+#RUN cd protobuf-c-1.0.0 && protobuf_LIBS=$(l=libprotobuf.a; for i in /opt/local/lib /usr/local/lib; do  if [ -f $i/$l ]; then echo $i/$l; fi; done) && \
+#export protobuf_LIBS && \
+#./configure && make && make install
+
+
+RUN yum install -y protobuf-c-devel fuse-devel fuse
+RUN wget http://packages.psychotic.ninja/6/base/x86_64/RPMS//uncrustify-0.60-8.el6.psychotic.x86_64.rpm
+RUN rpm -ivh uncrustify-0.60-8.el6.psychotic.x86_64.rpm
+RUN wget https://github.com/remis-thoughts/native-hdfs-fuse/archive/master.zip
+RUN unzip master.zip
+RUN cd native-hdfs-fuse-master/ && sed -i "s#-Werror -Wall##g" Makefile && make && make install
+
 #RUN tar -cv -C /tmp/hadoop-2.7.0-src/hadoop-dist/target/hadoop-2.7.0/lib/native/ .
 
