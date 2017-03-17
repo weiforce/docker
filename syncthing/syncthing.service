@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop syncthing
 ExecStartPre=-/usr/bin/docker kill syncthing
 ExecStartPre=-/usr/bin/docker rm syncthing
-ExecStart=/usr/bin/docker run --name syncthing -p 58384:8384 -p 22000:22000 -p 21027:21027/udp -v /home/core/syncthing/config:/root/.config/syncthing -v /home/core/sync:/root/Sync -v /home/core/sync:/root/Sync ivories/syncthing:1.0
+ExecStart=/usr/bin/docker run --name syncthing -p 58384:8384 -p 22000:22000 -p 21027:21027/udp -v /home/core/syncthing/config:/root/.config/syncthing -v /home/core/sync:/root/Sync ivories/syncthing:1.0
 ExecStop=/usr/bin/docker stop syncthing
 ExecStop=/usr/bin/docker kill syncthing
 
