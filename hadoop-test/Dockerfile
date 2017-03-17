@@ -58,5 +58,7 @@ RUN wget https://github.com/remis-thoughts/native-hdfs-fuse/archive/master.zip
 RUN unzip master.zip
 RUN cd native-hdfs-fuse-master/ && sed -i "s#-Werror -Wall##g" Makefile && make && make install
 
+RUN mv /tmp/hadoop-2.7.2-src/hadoop-dist/target/hadoop-2.7.2 /hadoop
+
 #RUN tar -cv -C /tmp/hadoop-2.7.0-src/hadoop-dist/target/hadoop-2.7.0/lib/native/ .
 
