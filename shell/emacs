@@ -8,12 +8,11 @@ then
 	echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
 fi
 
-docker kill emacs
+echo "init ..."
+docker stop emacs
+echo "start ..."
 docker rm emacs
 
-docker run --name emacs --rm -p 5858:22 -v /home/core/.ssh/emacs_rsa.pub:/authorized_keys -v /home/core/.emacs.d:/root/.emacs.d -v /home/core/data:/data -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key ivories/emacs:1.0 &
-
-sleep 1s
+docker run -d --name emacs -p 5858:22 -v /home/core/.ssh/emacs_rsa.pub:/authorized_keys -v /home/core/.emacs.d:/root/.emacs.d -v /home/core/data:/data -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key ivories/emacs:1.0 
 
 ssh -t -i /home/core/.ssh/emacs_rsa root@localhost -p 5858 'e'
-docker kill emacs
