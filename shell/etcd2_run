@@ -1,6 +1,6 @@
 #!/bin/bash
 source /home/core/.profile
-ETH0=`/home/core/docker/shell/local_area_ip`
+ETH0=`/home/core/docker/shell/local_area_ip $1`
 
 if [ $1 ]
 then
