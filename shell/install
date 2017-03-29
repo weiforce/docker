@@ -26,7 +26,7 @@ do
     ${DIR_DOCKER}shell/ss ${SERVICE_NAME}
 done
 
-if [ ! -d "$DIR_DATA" ]
-then
-    sudo chown -R root:root $DIR_DATA
-fi
+#if [ ! -d "$DIR_DATA" ]
+#then
+#    sudo chown -R root:root $DIR_DATA
+#fi
