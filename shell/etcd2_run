@@ -2,7 +2,7 @@
 source /home/core/.profile
 #ETH0=`/home/core/docker/shell/local_area_ip $1`
 
-ETH0=$1
+ETH0=$ETCD2_IP
 
 if [ $1 ]
 then
