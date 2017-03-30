@@ -1,0 +1,60 @@
+#!/bin/bash
+source /home/core/.profile
+#ETH0=`/home/core/docker/shell/local_area_ip`
+
+ETH0=$ETCD2_IP
+
+if [ "$ETH0" = "" ]
+then
+  ETH0="127.0.0.1"
+fi
+
+etcdFileName=/etc/systemd/system/etcd.service
+etcd2FileName=/etc/systemd/system/etcd2.service
+sudo rm -rf $etcd2FileName
+sudo rm -rf /etc/systemd/system/multi-user.target.wants/etcd2.service
+
+if [ ! $DC_SERVER ]
+then
+    exit 0
+fi
+
+sudo touch $etcd2FileName
+sudo chmod -R 777 $etcd2FileName
+
+#sudo rm -rf /var/lib/etcd2/member
+
+cat > $etcd2FileName << EOF
+[Unit]
+Description=etcd2
+Conflicts=etcd.service
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop etcd2
+ExecStartPre=-/usr/bin/docker kill etcd2
+ExecStartPre=-/usr/bin/docker rm etcd2
+ExecStart=/usr/bin/docker run --name=etcd2 --net=host -v /home/data/core/local/etcd:/data ivories/etcd:1.0 \
+  /bin/etcd --name `hostname` \\
+  --data-dir /data \\
+  --listen-client-urls http://$ETH0:2379 \\
+  --advertise-client-urls http://$ETH0:2379 \\
+  --listen-peer-urls http://$ETH0:2380 \\
+  --initial-advertise-peer-urls http://$ETH0:2380 \\
+  --initial-cluster $DC_SERVER \\
+  --initial-cluster-token $DC_TOKEN \\
+  --initial-cluster-state new
+ExecStop=/usr/bin/docker stop etcd2
+ExecStop=/usr/bin/docker kill etcd2
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+sudo cp -rfp $etcd2FileName $etcdFileName
+
+waitService etcd2
