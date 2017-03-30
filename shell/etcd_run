@@ -8,15 +8,19 @@ then
   ETH0="127.0.0.1"
 fi
 
-sp etcd
-sp etcd2
-
 if [ ! $DC_SERVER ]
 then
     exit 0
 fi
 
-cat > /etc/systemd/system/etcd.service << EOF
+sp etcd
+sp etcd2
+
+ETCD_FILE=/etc/systemd/system/etcd.service
+sudo touch $ETCD_FILE
+sudo chmod -R 777 $ETCD_FILE
+
+sudo cat > $ETCD_FILE << EOF
 [Unit]
 Description=etcd
 Conflicts=etcd.service
