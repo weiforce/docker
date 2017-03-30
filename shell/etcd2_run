@@ -1,16 +1,12 @@
 #!/bin/bash
 source /home/core/.profile
-#ETH0=`/home/core/docker/shell/local_area_ip $1`
+#ETH0=`/home/core/docker/shell/local_area_ip`
 
 ETH0=$ETCD2_IP
 
-if [ $1 ]
+if [ "$ETH0" = "" ]
 then
-  etcd2 --name `hostname` --initial-advertise-peer-urls http://$ETH0:2380 \
-        --listen-peer-urls http://$ETH0:2380 \
-        --listen-client-urls http://$ETH0:2379,http://127.0.0.1:2379 \
-        --advertise-client-urls http://$ETH0:2379 \
-        --discovery $DC_SERVER
+  ETH0="127.0.0.1"
 fi
 
 etcdFileName=/etc/systemd/system/etcd.service
@@ -26,7 +22,7 @@ fi
 sudo touch $etcd2FileName
 sudo chmod -R 777 $etcd2FileName
 
-sudo rm -rf /var/lib/etcd2/member
+#sudo rm -rf /var/lib/etcd2/member
 
 cat > $etcd2FileName << EOF
 [Unit]
@@ -36,17 +32,15 @@ Conflicts=etcd.service
 [Service]
 User=etcd
 Type=notify
-Environment=ETCD_DATA_DIR=/var/lib/etcd2
-Environment=ETCD_NAME=`hostname`
-Environment=ETCD_INITIAL_ADVERTISE_PEER_URLS=http://$ETH0:2380
-Environment=ETCD_LISTEN_PEER_URLS=http://$ETH0:2380
-Environment=ETCD_LISTEN_CLIENT_URLS=http://$ETH0:2379,http://127.0.0.1:2379 
-Environment=ETCD_ADVERTISE_CLIENT_URLS=http://$ETH0:2379
-#Environment=ETCD_DISCOVERY=$DC_SERVER
-Environment=ETCD_INITIAL_CLUSTER=$DC_SERVER
-Environment=ETCD_INITIAL_CLUSTER_STATE=new
-Environment=ETCD_INITIAL_CLUSTER_TOKEN=$DC_TOKEN
-ExecStart=/usr/bin/etcd2
+ExecStart=/usr/bin/etcd2 --name `hostname` \
+    --data-dir /var/lib/etcd2 \
+    --listen-client-urls http://$ETH0:2379 \
+    --advertise-client-urls http://$ETH0:2379 \
+    --listen-peer-urls http://$ETH0:2380 \
+    --initial-advertise-peer-urls http://$ETH0:2380 \
+    --initial-cluster $DC_SERVER \
+    --initial-cluster-token $DC_TOKEN \
+    --initial-cluster-state new
 Restart=always
 RestartSec=10s
 #LimitNOFILE=40000
