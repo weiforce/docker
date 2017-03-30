@@ -1,9 +1,7 @@
 FROM alpine:3.3
 
-ENV ETCD_INSTALL_VERSION v2.3.8
-
 # install etcd
-RUN ETCD_INSTALL_VERSION=v2.3.8 && apk add --update ca-certificates openssl tar && \
+RUN ETCD_INSTALL_VERSION=v3.0.17 && apk add --update ca-certificates openssl tar && \
     wget https://github.com/coreos/etcd/releases/download/$ETCD_INSTALL_VERSION/etcd-$ETCD_INSTALL_VERSION-linux-amd64.tar.gz && \
     tar zxvf etcd-$ETCD_INSTALL_VERSION-linux-amd64.tar.gz && \
     mv etcd-$ETCD_INSTALL_VERSION-linux-amd64/etcd* /bin/ && \
@@ -11,4 +9,4 @@ RUN ETCD_INSTALL_VERSION=v2.3.8 && apk add --update ca-certificates openssl tar 
     rm -Rf etcd-$ETCD_INSTALL_VERSION-linux-amd64* /var/cache/apk/*
 
 VOLUME /data
-EXPOSE 2379 2380 4001 7001
+EXPOSE 2379 2380
