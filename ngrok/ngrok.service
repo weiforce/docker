@@ -1,7 +1,6 @@
 [Unit]
 Description=ngrok
-After=autorun.service
-Requires=autorun.service
+After=autorun_mount.service
 
 [Service]
 Restart=always
