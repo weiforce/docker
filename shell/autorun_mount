@@ -3,6 +3,7 @@ function testMount()
 {
 sudo touch /home/core/.profile
 source /home/core/.profile
+source /etc/environment
 BOOL_MOUNT="true"
 BOOL_MOUNT_SAMBA="true"
 
