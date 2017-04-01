@@ -21,6 +21,9 @@ IP.1 = 10.3.0.1
 IP.2 = ${LAN_IP}
 EOF
 
+#first create ssl
+if [ ! -d "/etc/kubernetes/ssl" ]; then
+
 openssl genrsa -out ca-key.pem 2048
 openssl req -x509 -new -nodes -key ca-key.pem -days 10000 -out ca.pem -subj "/CN=kube-ca"
 openssl genrsa -out apiserver-key.pem 2048
@@ -39,41 +42,8 @@ sudo chown root:root /etc/kubernetes/ssl/*
 sudo mkdir -p /home/core/data/kubernetes/ssl/
 sudo cp -rfp /home/core/openssl/* /home/core/data/kubernetes/ssl/
 
+fi
+#end create ssl
+
 rm -rf /home/core/openssl
-
-K8S_FILE=/etc/systemd/system/kubernetes.service
-sudo touch $K8S_FILE
-sudo chmod -R 777 $K8S_FILE
-
-sudo cat > $K8S_FILE << EOF
-[Unit]
-Description=kubernetes
-After=flannel.service
-Requires=flannel.service
-
-[Service]
-Restart=always
-RestartSec=5
-TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker stop kubernetes
-ExecStartPre=-/usr/bin/docker kill kubernetes
-ExecStartPre=-/usr/bin/docker rm kubernetes
-ExecStart=/usr/bin/docker run --name=kubernetes --net=host --privileged \\
-  -v /etc/kubernetes:/etc/kubernetes \\
-  -v /etc/ssl/certs:/etc/ssl/certs \\
-  -v /usr/share/ca-certificates:/usr/share/ca-certificates \\
-  -v /var/lib/docker:/var/lib/docker \\
-  -v /var/lib/kubelet:/var/lib/kubelet \\
-  -v /usr/lib/os-release:/etc/os-release \\
-  -v /run:/run \\
-  -v /home/core/local/kubernetes/start.sh:/start.sh \\
-  ivories/kubernetes:1.0 /start.sh
-ExecStop=/usr/bin/docker stop kubernetes
-ExecStop=/usr/bin/docker kill kubernetes
-
-[Install]
-WantedBy=multi-user.target
-EOF
-
-waitService kubernetes
 
