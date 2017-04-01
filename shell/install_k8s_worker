@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source /home/core/.profile
+source /etc/environment
+
 mkdir -p /home/core/openssl
 cd /home/core/openssl
 cp -rfp /home/core/data/kubernetes/ssl/* /home/core/openssl/

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source /home/core/.profile
+source /etc/environment
+
 FLANNEL_FILE=/etc/systemd/system/flannel.service
 sudo touch $FLANNEL_FILE
 sudo chmod -R 777 $FLANNEL_FILE

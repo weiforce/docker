@@ -2,6 +2,7 @@
 
 sudo touch /home/core/.profile
 source /home/core/.profile
+source /etc/environment
 
 if [ $GIT_I ]
 then

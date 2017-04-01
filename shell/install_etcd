@@ -1,4 +1,7 @@
 #!/bin/bash
+source /home/core/.profile
+source /etc/environment
+
 ETH0=$LAN_IP
 ADD_DATA=""
 

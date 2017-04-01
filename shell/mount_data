@@ -5,6 +5,7 @@
 
 sudo touch /home/core/.profile
 source /home/core/.profile
+source /etc/environment
 
 if [ ${MOUNT_I} ]
 then
