@@ -18,6 +18,7 @@ ExecStartPre=-/usr/bin/docker stop flannel
 ExecStartPre=-/usr/bin/docker kill flannel
 ExecStartPre=-/usr/bin/docker rm flannel
 ExecStartPre=/sbin/modprobe ip_tables
+ExecStartPre=/usr/bin/curl -X PUT -d "value={\"Network\":\"10.2.0.0/16\",\"Backend\":{\"Type\":\"vxlan\"}}" "http://127.0.0.1:2379/v2/keys/coreos.com/network/config"
 ExecStart=/usr/bin/docker run --name=flannel --net=host --privileged \\
   -v /home/core/data/flannel:/data \\
   -v /run/flannel:/run/flannel \\

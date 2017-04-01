@@ -1,12 +1,5 @@
 #! /bin/bash
 
-ETCD2_RUN=`/home/core/docker/shell/waitService etcd2`
-
-if [ ETCD2_RUN = 'false' ]
-then
-    exit 1
-fi
-
 while [ 1 ]
 do
     sleep 100s
