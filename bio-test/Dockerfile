@@ -16,6 +16,8 @@ RUN apk add --update --no-cache ncurses \
         && mv /tmp/samtools-${version}/samtools /usr/bin \
         && rm -rf /var/cache/apk/* /tmp/* \
         && apk del deps
+
 RUN apk add --update --no-cache build-base zlib-dev perl boost boost-dev 
+RUN mv /usr/bin/samtools /samtools
 
 CMD /bin/bash
