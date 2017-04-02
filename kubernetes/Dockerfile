@@ -16,8 +16,8 @@ ENV GOPATH="/kubernetes/staging/src:/kubernetes"
 #RUN /kubernetes/hack/build-go.sh cmd/hyperkube 
 
 RUN apk add tar 
-RUN apk add  xz-libs xz libseccomp
-RUN apk add docker
+#RUN apk add  xz-libs xz libseccomp
+#RUN apk add docker
 RUN apk add --update \
     python \
     py-pip \

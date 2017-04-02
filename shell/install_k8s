@@ -1,5 +1,8 @@
 #!/bin/bash
 
+source /home/core/.profile
+source /etc/environment
+
 K8S_FILE=/etc/systemd/system/kubernetes.service
 sudo touch $K8S_FILE
 sudo chmod -R 777 $K8S_FILE
@@ -33,6 +36,48 @@ ExecStop=/usr/bin/docker kill kubernetes
 [Install]
 WantedBy=multi-user.target
 EOF
+
+sudo mkdir -p /home/core/local/kubernetes
+
+cat > start.sh << EOF
+#!/bin/bash
+ln -sf /run/docker.pid /run/docker/libcontainerd/docker-containerd.pid
+
+/hyperkube apiserver \
+--insecure-bind-address=0.0.0.0 --insecure-port=8080 \
+--etcd-servers=http://${LAN_IP}:2379 --logtostderr=true \
+--admission-control=NamespaceLifecycle,LimitRanger,SecurityContextDeny,ResourceQuota \
+--service-node-port-range=30000-32767 \
+--allow-privileged=true \
+--service-cluster-ip-range=10.0.1.0/24 \
+--advertise-address=${LAN_IP} &
+
+sleep 3s
+
+/hyperkube controller-manager \
+--master=${LAN_IP}:8080 \
+--logtostderr=true &
+
+/hyperkube scheduler \
+--master=${LAN_IP}:8080 \
+--logtostderr=true &
+
+/hyperkube proxy \
+--hostname-override=${LAN_IP} \
+--master=http://${LAN_IP}:8080 \
+--logtostderr=true &
+
+/hyperkube kubelet \
+--hostname-override=${LAN_IP} \
+--api-servers=http://${LAN_IP}:8080 \
+--logtostderr=true \
+--cluster-dns=10.3.0.10 \
+--cluster-domain=cluster.local \
+--allow-privileged=true
+EOF
+
+sudo mv start.sh /home/core/local/kubernetes/
+sudo chmod -R 777 /home/core/local/kubernetes/start.sh
 
 waitService kubernetes
 

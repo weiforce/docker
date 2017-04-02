@@ -3,7 +3,10 @@ LOCAL_IP=`hostname`
 AUTORUN_DIR=/home/core/data/autorun/$LOCAL_IP
 sudo mkdir $AUTORUN_DIR
 sudo touch /home/core/.profile
+
 source /home/core/.profile
+source /etc/environment
+
 /home/core/docker/shell/mount_data
 
 hour=`date "+%H"`
