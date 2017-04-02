@@ -33,11 +33,27 @@ RUN apk add --update \
     openssl-dev \
   && pip install gsutil 
 
-RUN /kubernetes/hack/get-build.sh v1.5.6
-RUN /kubernetes/hack/get-build.sh release/stable
-CMD /bin/bash
-#RUN cd /kubernetes/ && make quick-release
+#RUN /kubernetes/hack/get-build.sh v1.5.6
+#RUN /kubernetes/hack/get-build.sh release/stable
 
+RUN mkdir -p /kubernetes/src/k8s.io
+RUN ln -s /kubernetes/ /kubernetes/src/k8s.io/kubernetes
+
+RUN ln -s /kubernetes/vendor/github.com/ /kubernetes/src/github.com
+RUN mkdir /kubernetes/bin
+ENV GOBIN=/kubernetes/bin
+RUN cd /kubernetes/cmd/kube-apiserver && go install
+RUN cd /kubernetes/cmd/kube-controller-manage && go install
+RUN cd /kubernetes/cmd/kube-kubectl && go install
+RUN cd /kubernetes/cmd/kube-proxy && go install
+RUN cd /kubernetes/cmd/kube-dns && go install
+RUN cd /kubernetes/cmd/kube-discovery && go install
+RUN cd /kubernetes/plugin/cmd/kube-scheduler && go install
+RUN cd /kubernetes/cmd/hyperkube/ && go install
+
+CMD /bin/bash
+
+#RUN cd /kubernetes/ && make quick-release
 #RUN mv ./_output/local/bin/linux/amd64/hyperkube && \
 #    mkdir -p /etc/kubernetes/manifests /etc/kubernetes/manifests-multi && \
 #    wget -qO- ${KUBE_MANIFESTS_URL}/master-multi.json | sed "s/gcr.io\/google_containers/nebelpfade/g;s/VERSION/${KUBE_VER}/g" > /etc/kubernetes/manifests-multi/master-multi.json && \
