@@ -12,10 +12,7 @@ fi
 
 if [ "$DC_SERVER" != "" ]
 then
-  ADD_DATA="--listen-peer-urls http://$ETH0:2380 \\
-  --initial-advertise-peer-urls http://$ETH0:2380 \\
-  --initial-cluster $DC_SERVER \\
-  --initial-cluster-token $DC_TOKEN"
+  ADD_DATA="--listen-peer-urls http://$ETH0:2380 --initial-advertise-peer-urls http://$ETH0:2380 --initial-cluster $DC_SERVER --initial-cluster-token $DC_TOKEN --initial-cluster-state=new"
 fi
 
 sp etcd
