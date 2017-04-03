@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [ ! $1 ];then
+  echo "need master ip : install_k8s 192.168.1.8"
+  exit
+fi
+
 source /home/core/.profile
 source /etc/environment
 
@@ -78,6 +83,28 @@ EOF
 
 sudo mv start.sh /home/core/local/kubernetes/
 sudo chmod -R 777 /home/core/local/kubernetes/start.sh
+
+cat > start-slave.sh << EOF
+/hyperkube proxy \
+--hostname-override=${LAN_IP} \
+--master=http://$1:8080 \
+--logtostderr=true &
+
+/hyperkube kubelet \
+--hostname-override=${LAN_IP} \
+--api-servers=http://$1:8080 \
+--logtostderr=true \
+--cluster-dns=10.3.0.10  --cluster-domain=cluster.local \
+--allow-privileged=true
+EOF
+
+if [ "${LAN_IP}" == "$1" ];then
+  rm -rf start-slave.sh
+else
+  sudo chmod -R 777 start-slave.sh
+  sudo rm -rf /home/core/local/kubernetes/start.sh
+  sudo mv start-slave.sh /home/core/local/kubernetes/start.sh
+fi
 
 waitService kubernetes
 

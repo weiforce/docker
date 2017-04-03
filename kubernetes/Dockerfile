@@ -18,23 +18,6 @@ ENV GOPATH="/kubernetes/staging/src:/kubernetes"
 RUN apk add tar 
 #RUN apk add  xz-libs xz libseccomp
 #RUN apk add docker
-RUN apk add --update \
-    python \
-    py-pip \
-    py-cffi \
-    py-cryptography curl \
-  && pip install --upgrade pip \
-  && apk add --virtual build-deps \
-    gcc \
-    libffi-dev \
-    python-dev \
-    linux-headers \
-    musl-dev \
-    openssl-dev \
-  && pip install gsutil 
-
-#RUN /kubernetes/hack/get-build.sh v1.5.6
-#RUN /kubernetes/hack/get-build.sh release/stable
 
 RUN mkdir -p /kubernetes/src/k8s.io
 RUN ln -s /kubernetes/ /kubernetes/src/k8s.io/kubernetes
@@ -42,14 +25,14 @@ RUN ln -s /kubernetes/ /kubernetes/src/k8s.io/kubernetes
 RUN ln -s /kubernetes/vendor/github.com/ /kubernetes/src/github.com
 RUN mkdir /kubernetes/bin
 ENV GOBIN=/kubernetes/bin
-RUN cd /kubernetes/cmd/kube-apiserver && go install
-RUN cd /kubernetes/cmd/kube-controller-manage && go install
-RUN cd /kubernetes/cmd/kube-kubectl && go install
-RUN cd /kubernetes/cmd/kube-proxy && go install
-RUN cd /kubernetes/cmd/kube-dns && go install
-RUN cd /kubernetes/cmd/kube-discovery && go install
-RUN cd /kubernetes/plugin/cmd/kube-scheduler && go install
-RUN cd /kubernetes/cmd/hyperkube/ && go install
+#RUN cd /kubernetes/cmd/kube-apiserver && go install
+#RUN cd /kubernetes/cmd/kube-controller-manage && go install
+#RUN cd /kubernetes/cmd/kube-kubectl && go install
+#RUN cd /kubernetes/cmd/kube-proxy && go install
+#RUN cd /kubernetes/cmd/kube-dns && go install
+#RUN cd /kubernetes/cmd/kube-discovery && go install
+#RUN cd /kubernetes/plugin/cmd/kube-scheduler && go install
+#RUN cd /kubernetes/cmd/hyperkube/ && go install
 
 CMD /bin/bash
 
