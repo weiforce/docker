@@ -18,6 +18,6 @@ else
     sudo cp -rfp "$SERVICE_PATH" "/etc/systemd/system/$1.service"
 fi 
 
-sudo systemctl enable $1
 sudo systemctl daemon-reload
+sudo systemctl enable $1
 sudo systemctl start $1
