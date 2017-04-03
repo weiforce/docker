@@ -106,5 +106,4 @@ else
   sudo mv start-slave.sh /home/core/local/kubernetes/start.sh
 fi
 
-waitService kubernetes
-
+/home/core/docker/shell/waitService kubernetes

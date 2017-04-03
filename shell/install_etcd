@@ -43,4 +43,4 @@ ExecStop=/usr/bin/docker kill etcd
 WantedBy=multi-user.target
 EOF
 
-waitService etcd
+/home/core/docker/shell/waitService etcd

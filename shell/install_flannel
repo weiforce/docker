@@ -39,4 +39,4 @@ ExecStop=/usr/bin/docker kill flannel
 WantedBy=multi-user.target
 EOF
 
-waitService flannel
+/home/core/docker/shell/waitService flannel
