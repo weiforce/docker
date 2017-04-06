@@ -1,5 +1,4 @@
-FROM alpine:latest
-MAINTAINER Mathias Beugnon <mathias@beugnon.fr>
+FROM alpine:3.3
 
 ARG VCS_REF
 ARG BUILD_DATE
