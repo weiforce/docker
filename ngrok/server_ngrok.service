@@ -1,6 +1,6 @@
 [Unit]
 Description=ngrok
-After=autorun_mount.service
+After=docker.service
 
 [Service]
 Restart=always
