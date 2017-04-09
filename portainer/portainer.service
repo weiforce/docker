@@ -3,8 +3,6 @@ Description=portainer
 After=autorun.service
 Requires=autorun.service
 
-After=php.service
-
 [Service]
 Restart=always
 RestartSec=30
