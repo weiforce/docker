@@ -14,7 +14,11 @@ RUN wget --no-check-certificate https://repo.continuum.io/miniconda/Miniconda2-l
 
 ENV PATH /usr/miniconda2/bin:$PATH
 
-RUN conda config --add channels r && conda config --add channels conda-forge && conda config --add channels bioconda && conda install -y bowtie bowtie2 tophat cufflinks cutadapt fastqc r rsem ggplot && conda clean -all -y
+RUN conda config --add channels r && conda config --add channels conda-forge && conda config --add channels bioconda
+RUN conda install -n root conda-build && conda clean -all -y
+RUN conda install -y bowtie cutadapt fastqc && conda clean -all -y
+RUN conda install -y bowtie2 tophat cufflinks && conda clean -all -y
+RUN conda install -y r rsem ggplot && conda clean -all -y
 
 RUN apk add --update python3 && rm -rf /var/cache/apk/*
 RUN conda remove --force readline
