@@ -21,7 +21,7 @@ sudo touch /etc/sysctl.conf
 sudo chown -R core:core /etc/sysctl.conf
 echo "vm.overcommit_memory = 1" >> /etc/sysctl.conf
 
-for SERVICE_NAME in autorun_etcd2 autorun_fleet autorun_mount autorun dante
+for SERVICE_NAME in autorun_mount autorun dante
 do
     ${DIR_DOCKER}shell/ss ${SERVICE_NAME}
 done

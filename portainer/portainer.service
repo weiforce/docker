@@ -3,8 +3,6 @@ Description=portainer
 After=autorun.service
 Requires=autorun.service
 
-After=php.service
-
 [Service]
 Restart=always
 RestartSec=30
@@ -14,14 +12,11 @@ ExecStartPre=-/usr/bin/docker kill portainer
 ExecStartPre=-/usr/bin/docker rm portainer
 ExecStart=/usr/bin/docker run --name portainer \
     -p 9000:9000 \
-    -v /var/run/docker.sock:/var/run/docker.sock \
+    -v /home/core/data/portainer:/data -v /var/run/docker.sock:/var/run/docker.sock \
     portainer/portainer  -H unix:///var/run/docker.sock
 ExecStop=/usr/bin/docker stop portainer
 ExecStop=/usr/bin/docker kill portainer
 
 [Install]
 WantedBy=multi-user.target
-
-[X-Fleet]
-Global=true
 

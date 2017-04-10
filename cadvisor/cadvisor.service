@@ -20,7 +20,7 @@ ExecStart=/usr/bin/docker run \
   --publish=8080:8080 \
   --link influxdb:influxdb \
   --name=cadvisor \
-  vimagick/cadvisor:latest \
+  google/cadvisor:latest \
     -storage_driver=influxdb \
     -storage_driver_db=cadvisor \
     -storage_driver_host=192.168.1.112:8086

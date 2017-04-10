@@ -1,9 +1,6 @@
 [Unit]
 Description=autorun_mount
 
-After=autorun_fleet.service
-Requires=autorun_fleet.service
-
 [Service]
 Restart=always
 RestartSec=5

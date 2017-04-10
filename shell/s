@@ -1,5 +1,8 @@
 #!/bin/bash
 
+ss $1
+exit
+
 if [ ! $1 ] 
 then
     echo "s someservice" 
