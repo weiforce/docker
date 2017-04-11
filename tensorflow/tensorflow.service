@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop tensorflow
 ExecStartPre=-/usr/bin/docker kill tensorflow
 ExecStartPre=-/usr/bin/docker rm tensorflow
-ExecStart=/usr/bin/docker run --name=tensorflow -p 8888:8888 -e PASSWORD=foobar -v /home/core/data/tensorflow:/root/notebook tatsushid/alpine-py3-tensorflow-jupyter:1.0.1
+ExecStart=/usr/bin/docker run --name=tensorflow -p 8888:8888 -e PASSWORD=foobar -v /home/core/data/tensorflow/data:/root/notebook tatsushid/alpine-py3-tensorflow-jupyter:1.0.1
 ExecStop=/usr/bin/docker stop tensorflow
 ExecStop=/usr/bin/docker kill tensorflow
 
