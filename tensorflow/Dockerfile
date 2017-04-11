@@ -1,5 +1,7 @@
 FROM alpine:3.5
 
+#https://github.com/tatsushid/docker-alpine-py3-tensorflow-jupyter
+
 ENV JAVA_HOME /usr/lib/jvm/java-1.8-openjdk
 ENV LOCAL_RESOURCES 2048,.8,1.0
 
