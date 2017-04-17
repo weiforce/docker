@@ -1,9 +1,9 @@
-from alpine
+from alpine:3.5
 
-run echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
+RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
  && apk update \
- && apk add --update --no-cache emacs@testing \
- && apk add bash openssh \
+ && apk add --update --no-cache emacs \
+ && apk add bash openssh docker \
  && rm -rf /var/cache/apk/*
 
 RUN echo "export TERM=xterm" >> /root/.bashrc
