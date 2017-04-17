@@ -17,3 +17,5 @@ docker rm emacs
 docker run -d --name emacs -p 127.0.0.1:5858:22 -v /var/run/docker.sock:/var/run/docker.sock -v /home/core/.ssh/emacs_rsa.pub:/authorized_keys -v /home/core/data/emacs:/root/.emacs.d -v /home/core/data:/data -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key ivories/emacs:1.0 
 
 ssh -t -i /home/core/.ssh/emacs_rsa root@localhost -p 5858 'e'
+
+docker stop emacs && docker rm emacs &
