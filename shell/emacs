@@ -4,6 +4,7 @@ if [ ! -f "/home/core/.ssh/emacs_rsa" ]
 then
 	mkdir /home/core/.ssh
 	ssh-keygen -f /home/core/.ssh/emacs_rsa -N '' -t rsa
+	cat /home/core/.ssh/emacs_rsa.pub | update-ssh-keys -a core
 	echo 'StrictHostKeyChecking no' >> /home/core/.ssh/config
 	echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
 fi
