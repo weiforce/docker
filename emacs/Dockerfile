@@ -2,10 +2,9 @@ from alpine:3.5
 
 RUN apk add --update --no-cache bash openssh findutils php5 && rm -rf /var/cache/apk/*
 
-#RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories \
-RUN apk add --update --no-cache \ 
- --repository http://dl-3.alpinelinux.org/alpine/edge/community/ \
- emacs && rm -rf /var/cache/apk/*
+RUN apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ emacs && rm -rf /var/cache/apk/*
+
+RUN apk add --update --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing cscope && rm -rf /var/cache/apk/*
 
 RUN echo "export TERM=xterm" >> /root/.bashrc
 
