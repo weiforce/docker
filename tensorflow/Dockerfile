@@ -1,18 +1,8 @@
-FROM nvidia/cuda:8.0-cudnn5-devel
+FROM tatsushid/alpine-py3-tensorflow-jupyter:1.0.1
 
-RUN apt-get update && apt-get install -y \ 
-	python3.5 curl && \
-	apt-get clean && \
-	apt-get autoremove && \
-	rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache bash
 
-RUN ln -s /usr/bin/python3.5 /usr/bin/python
+EXPOSE 6006
 
-RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-	python get-pip.py && \
-	rm get-pip.py
-
-RUN pip --no-cache-dir install https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow_gpu-1.0.1-cp35-cp35m-linux_x86_64.whl
-
-
-RUN pip --no-cache-dir install -U nltk tqdm 
+CMD tensorboard --logdir=/data/board
+#CMD ["/usr/local/bin/init.sh"]
