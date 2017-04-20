@@ -13,6 +13,9 @@ ENV CHATBOT_REDIS_URL="redis"
 
 EXPOSE 8000
 
+RUN sed -i "s#ALLOWED_HOSTS = \[\]#ALLOWED_HOSTS = \['*'\]#g" /DeepQA/chatbot_website/chatbot_website/settings.py
+RUN cat /DeepQA/chatbot_website/chatbot_website/settings.py
+
 RUN python3 manage.py makemigrations
 RUN python3 manage.py migrate
 

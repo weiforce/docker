@@ -1,6 +1,6 @@
 from alpine:3.5
 
-RUN apk add --update --no-cache bash openssh findutils php5 && rm -rf /var/cache/apk/*
+RUN apk add --update --no-cache bash openssh findutils php5-json php5-phar && rm -rf /var/cache/apk/*
 
 RUN apk add --update --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ emacs && rm -rf /var/cache/apk/*
 
