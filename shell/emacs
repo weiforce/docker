@@ -25,4 +25,4 @@ sleep 3s
 
 sudo ssh -t -i $EMACS_SSH_DIR/id_rsa root@localhost -p 5858 'e'
 
-#docker stop emacs && docker rm emacs &
+docker stop emacs && docker rm emacs &
