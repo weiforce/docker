@@ -1,6 +1,6 @@
 from alpine:3.5
 
-RUN apk add --no-cache bash openssh findutils php5-json php5-phar && \
+RUN apk add --no-cache bash openssh findutils php5-json php5-phar git && \
     apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ emacs && \
     apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing global cscope && \
     rm -rf /var/cache/apk/*
