@@ -8,7 +8,7 @@ RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository ppa:graphics-drivers/ppa -y
 RUN apt update
 #RUN apt install -y nvidia-381
-#RUN export CRYOSPARC_LICENSE_ID="8fd27d3d-8f9e-545f-94a1-a778a7327e17" && mkdir -p $HOME/cryosparc && cd $HOME/cryosparc && export download_url=$(curl --silent -H "cryoSPARC-License: $CRYOSPARC_LICENSE_ID" "https://cryosparc.download/get/latest") && curl --silent "$download_url" > cryosparc.tar.gz && tar -zxvf cryosparc.tar.gz
+#RUN export CRYOSPARC_LICENSE_ID="" && mkdir -p $HOME/cryosparc && cd $HOME/cryosparc && export download_url=$(curl --silent -H "cryoSPARC-License: $CRYOSPARC_LICENSE_ID" "https://cryosparc.download/get/latest") && curl --silent "$download_url" > cryosparc.tar.gz && tar -zxvf cryosparc.tar.gz
 #./install.sh --license-id=$CRYOSPARC_LICENSE_ID
 
 
@@ -22,5 +22,5 @@ RUN apt-get install -y software-properties-common python-software-properties
 RUN add-apt-repository ppa:graphics-drivers/ppa -y
 RUN apt update
 RUN apt install -y nvidia-381
-RUN export CRYOSPARC_LICENSE_ID="8fd27d3d-8f9e-545f-94a1-a778a7327e17" && mkdir -p $HOME/cryosparc && cd $HOME/cryosparc && export download_url=$(curl --silent -H "cryoSPARC-License: $CRYOSPARC_LICENSE_ID" "https://cryosparc.download/get/latest") && curl --silent "$download_url" > cryosparc.tar.gz && tar -xz --overwrite -f cryosparc.tar.gz
+RUN export CRYOSPARC_LICENSE_ID="" && mkdir -p $HOME/cryosparc && cd $HOME/cryosparc && export download_url=$(curl --silent -H "cryoSPARC-License: $CRYOSPARC_LICENSE_ID" "https://cryosparc.download/get/latest") && curl --silent "$download_url" > cryosparc.tar.gz && tar -xz --overwrite -f cryosparc.tar.gz
 
