@@ -14,3 +14,5 @@ wget -N https://raw.githubusercontent.com/ivories/openclinica/master/terms_zh.pr
 wget -N https://raw.githubusercontent.com/ivories/openclinica/master/words_zh.properties && \
 wget -N https://raw.githubusercontent.com/ivories/openclinica/master/workflow_zh.properties && \ 
     wget -O /usr/local/tomcat/webapps/OpenClinica/WEB-INF/classes/datainfo.properties https://raw.githubusercontent.com/wnameless/docker-openclinica/master/datainfo.properties && apk del wget && rm -rf /var/cache/apk/* 
+
+
