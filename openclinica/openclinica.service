@@ -10,7 +10,7 @@ ExecStartPre=-/usr/bin/docker stop openclinica
 ExecStartPre=-/usr/bin/docker kill openclinica
 ExecStartPre=-/usr/bin/docker rm openclinica
 ExecStartPre=-/usr/bin/docker network create openclinica-nw
-ExecStart=/usr/bin/docker run -d --name openclinica --net openclinica-nw -p 8080:8080 -v /home/core/local/openclinica/openclinica.data:/usr/local/tomcat/openclinica.data ivories/openclinica
+ExecStart=/usr/bin/docker run --name openclinica --net openclinica-nw -p 8080:8080 -v /home/core/local/openclinica/openclinica.data:/usr/local/tomcat/openclinica.data ivories/openclinica
 ExecStop=/usr/bin/docker stop openclinica
 ExecStop=/usr/bin/docker kill openclinica
 
