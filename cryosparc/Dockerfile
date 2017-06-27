@@ -1,17 +1,20 @@
-#FROM nvidia/cuda:8.0-cudnn5-devel
+FROM nvidia/cuda:8.0-cudnn5-devel
 #RUN apt-get install -y software-properties-common python-software-properties
 #RUN add-apt-repository ppa:graphics-drivers/ppa -y
 #RUN apt update
 #RUN apt install -y nvidia-381
 
-FROM ubuntu:14.04
+#FROM ubuntu:14.04
 
 #FROM nvidia/cuda:8.0-cudnn5-runtime
 
 RUN apt update
 RUN apt-get install -y curl wget
 
-#apt-get install nvidia-375
+RUN echo 'XKBMODEL="pc105" \n XKBLAYOUT="us" \n  XKBVARIANT="intl" \n XKBOPTIONS="" \n BACKSPACE="guess"' > /etc/default/keyboard
+
+RUN apt-get install nvidia-375
+
 #RUN export CRYOSPARC_LICENSE_ID="" && mkdir -p $HOME/cryosparc && cd $HOME/cryosparc && export download_url=$(curl --silent -H "cryoSPARC-License: $CRYOSPARC_LICENSE_ID" "https://cryosparc.download/get/latest") && curl --silent "$download_url" > cryosparc.tar.gz && tar -zxvf cryosparc.tar.gz
 #./install.sh --license-id=$CRYOSPARC_LICENSE_ID
 
