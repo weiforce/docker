@@ -25,7 +25,7 @@ echo "write nginx conf:"
 echo "
 server {
     server_name $1;
-    root /www/server;
+    root /www/$1;
 
     location ^~ /.well-known/acme-challenge/ {
         alias /www/acme/$1/;
@@ -35,6 +35,21 @@ server {
 }
 "
 exit 0
+fi
+
+if [ -f "$ACME_PATH/chained.pem" ]; then
+
+    NOW_TIME=$(date +%s)
+    END_TIME=$(openssl x509 -enddate -noout -in $ACME_PATH/chained.pem)
+    END_TIME=${END_TIME//notAfter=/}
+    END_TIME=$(date -d "$END_TIME" +%s)
+    INT_TIME=`expr $END_TIME - $NOW_TIME`
+
+    if (("$INT_TIME" > "5184000"));then
+        echo "There is not time yet to apply for a new certificate."; 
+        exit 0;
+    fi
+
 fi
 
 docker run -it --rm -v $ACME_PATH:/www ivories/acme python /acme_tiny.py --account-key /www/account.key --csr /www/domain.csr --acme-dir /www/ > $ACME_PATH/signed.crt || exit
