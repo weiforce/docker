@@ -1,9 +1,3 @@
-#FROM nvidia/cuda:8.0-cudnn5-devel
-#RUN apt-get install -y software-properties-common python-software-properties
-#RUN add-apt-repository ppa:graphics-drivers/ppa -y
-#RUN apt update
-#RUN apt install -y nvidia-381
-
 FROM ubuntu:14.04
 
 #FROM nvidia/cuda:8.0-cudnn5-runtime
