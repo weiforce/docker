@@ -6,3 +6,13 @@ http://ip:8080/OpenClinica
 user:root
 pass:12345678
 
+import demo:
+start openclinica-db
+go in openclinica-db
+  
+    dropdb -U postgres openclinica
+    psql -U postgres
+    CREATE DATABASE openclinica WITH ENCODING='UTF8' OWNER=clinica;
+    find / -name *.backup
+    pg_restore -Upostgres -d openclinica < /var/lib/postgresql/data/OpenClinica_JUNO_Demo_Database.backup
+
