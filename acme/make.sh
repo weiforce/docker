@@ -45,7 +45,7 @@ if [ -f "$ACME_PATH/chained.pem" ]; then
     END_TIME=$(date -d "$END_TIME" +%s)
     INT_TIME=`expr $END_TIME - $NOW_TIME`
 
-    if (("$INT_TIME" > "5184000"));then
+    if [ "$INT_TIME" -gt "5184000" ];then
         echo "There is not time yet to apply for a new certificate."; 
         exit 0;
     fi

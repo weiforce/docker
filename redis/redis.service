@@ -11,6 +11,7 @@ ExecStartPre=-/usr/bin/docker stop redis
 ExecStartPre=-/usr/bin/docker kill redis
 ExecStartPre=-/usr/bin/docker rm redis
 ExecStartPre=-/home/core/docker/shell/install_fleetctl redis
+ExecStartPre=-/usr/bin/docker network create nginx-network
 ExecStart=/home/core/docker/shell/run_redis
 ExecStop=/usr/bin/docker stop redis
 ExecStop=/usr/bin/docker kill redis

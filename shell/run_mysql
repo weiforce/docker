@@ -1,4 +1,4 @@
 #!/bin/bash
 #LOCAL_AREA_IP=`/home/core/docker/shell/local_area_ip`
 LOCAL_AREA_IP=`hostname`
-/usr/bin/docker run --name mysql -v /home/core/data/mysql:/etc/mysql -v /home/core/data/mysql/$LOCAL_AREA_IP:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=yellow --user=root ivories/mysql:1.0
+/usr/bin/docker run --name mysql --net nginx-network -v /home/core/data/mysql:/etc/mysql -v /home/core/data/mysql/$LOCAL_AREA_IP:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=yellow --user=root ivories/mysql:1.0

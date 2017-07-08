@@ -1,5 +1,5 @@
 # forward request and error logs to docker log collector
-FROM alpine
+FROM alpine:3.5
 
 RUN apk add -U nginx \
     && rm -rf /var/cache/apk/*
