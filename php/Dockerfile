@@ -3,7 +3,7 @@ FROM alpine:3.3
 RUN apk --update --no-progress add build-base php-dev autoconf \
     php-fpm php-mcrypt php-curl php-gd php-json php-openssl \
     php-pdo_mysql php-pdo_sqlite php-phar php-iconv php-ctype \
-    php-opcache php-mysqli php-zip zlib git bash openssl-dev \
+    php-opcache php-mysqli php-zip zlib git bash openssl-dev php-pgsql \
     && curl -s -o phpredis-2.2.7.tar.gz -b a -L https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
     && curl -s -o xdebug-2.3.3.tgz -b a -L https://xdebug.org/files/xdebug-2.3.3.tgz \
     && curl -s -o xhprof-0.9.4.tgz -b a -L http://pecl.php.net/get/xhprof-0.9.4.tgz \
