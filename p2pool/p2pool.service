@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop p2pool
 ExecStartPre=-/usr/bin/docker kill p2pool
 ExecStartPre=-/usr/bin/docker rm p2pool
-ExecStart=/usr/bin/docker run --name p2pool --net=host -v /home/core/data:/data ivories/p2pool
+ExecStart=/usr/bin/docker run --name p2pool --user=root --net=host -v /home/core/data:/data ivories/p2pool
 ExecStop=/usr/bin/docker stop p2pool
 ExecStop=/usr/bin/docker kill p2pool
 
