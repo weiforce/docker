@@ -29,6 +29,7 @@ RUN apk --no-cache add \
     gcc \
     g++
 
+RUN apk --no-cache add bash
 
 EXPOSE 7903 8999 17903 18999
 
