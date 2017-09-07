@@ -5,10 +5,14 @@ then
     then
         echo "already install ${1}"
     else
-        echo "install $1"
         sudo mkdir -p /home/core/data/$1
-        sudo cp -rfp /home/core/docker/$1/conf/* /home/core/data/$1/ > /dev/null
+
+        if [ -d "/home/core/data/$1/conf/" ]
+        then
+            sudo cp -rfp /home/core/docker/$1/conf/* /home/core/data/$1/ > /dev/null 
+        fi
         sudo cp -rfp /home/core/docker/$1/$1.service /home/core/data/$1/ > /dev/null
+        echo "install $1 success"
     fi
 else
     echo install_service someservice
