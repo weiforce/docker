@@ -1,0 +1,19 @@
+[Unit]
+Description=aria2
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop aria2
+ExecStartPre=-/usr/bin/docker kill aria2
+ExecStartPre=-/usr/bin/docker rm aria2
+ExecStart=/usr/bin/docker run --name aria2 -v /home/core/data/:/data ivories/aria2
+ExecStop=/usr/bin/docker stop aria2
+ExecStop=/usr/bin/docker kill aria2
+
+[Install]
+WantedBy=multi-user.target
+
