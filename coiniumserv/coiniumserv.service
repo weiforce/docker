@@ -12,7 +12,6 @@ ExecStartPre=-/usr/bin/docker kill coiniumserv
 ExecStartPre=-/usr/bin/docker rm coiniumserv
 ExecStartPre=-/usr/bin/docker network create nginx-network
 ExecStart=/usr/bin/docker run --name coiniumserv --net=host -v /home/core/data:/data -v /home/core/data/coiniumserv/config:/usr/local/bin/CoiniumServ/bin/Release/config/ ivories/coiniumserv 
-ExecStart=/usr/bin/
 ExecStop=/usr/bin/docker stop coiniumserv
 ExecStop=/usr/bin/docker kill coiniumserv
 
