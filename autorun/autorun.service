@@ -12,7 +12,7 @@ Restart=always
 RestartSec=30
 TimeoutStartSec=0
 ExecStart=/home/core/docker/shell/autorun
-ExecStop=pkill autorun
+ExecStop=/usr/bin/pkill autorun
 
 [Install]
 WantedBy=multi-user.target
