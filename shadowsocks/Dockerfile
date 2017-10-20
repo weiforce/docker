@@ -23,7 +23,7 @@ RUN set -ex \
                tar \
                udns-dev \
                git \
-
+               c-ares-dev \
     # Build shadowsocks-libev
     && mkdir -p /tmp/build-shadowsocks-libev \
     && cd /tmp/build-shadowsocks-libev \
@@ -69,7 +69,7 @@ RUN set -ex \
 
 # Shadowsocks environment variables
 ENV SERVER_HOST 0.0.0.0
-ENV SERVER_PORT 58361
+ENV SERVER_PORT 8388
 ENV PASSWORD shadowsocks
 ENV ENCRYPT_METHOD chacha20-ietf
 ENV TIMEOUT 60
@@ -86,8 +86,9 @@ ENTRYPOINT ss-server -s "$SERVER_HOST" \
                      -m "$ENCRYPT_METHOD" \
                      -t "$TIMEOUT" \
                      -d "$DNS_ADDR" \
-                     --plugin "$PLUGIN" \
-                     --plugin-opts "$PLUGIN_OPTS" \
                      -u \
                      --fast-open \
-                     --reuse-port
+                     --reuse-port \
+                     --plugin "$PLUGIN" \
+                     --plugin-opts "$PLUGIN_OPTS"
+

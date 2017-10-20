@@ -8,7 +8,7 @@ Restart=always
 RestartSec=30
 TimeoutStartSec=0
 ExecStart=/home/core/data/autorun/autorun
-ExecStop=killall autorun
+ExecStop=/usr/bin/pkill autorun
 
 [Install]
 WantedBy=multi-user.target
