@@ -9,7 +9,7 @@ RestartSec=30
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill shadowsocks
 ExecStartPre=-/usr/bin/docker rm shadowsocks
-ExecStart=/usr/bin/docker run --name shadowsocks -p 8388:8388 -e SERVER_PORT=8388 -e PASSWORD=yellow ivories/shadowsocks:1.0
+ExecStart=/usr/bin/docker run --name shadowsocks -p 8388:8388 -e SERVER_PORT=8388 -e PASSWORD=shadowsocks ivories/shadowsocks
 ExecStop=/usr/bin/docker kill shadowsocks
 
 [Install]
