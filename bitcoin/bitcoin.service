@@ -1,0 +1,19 @@
+[Unit]
+Description=bitcoin
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop bitcoin
+ExecStartPre=-/usr/bin/docker kill bitcoin
+ExecStartPre=-/usr/bin/docker rm bitcoin
+ExecStart=/usr/bin/docker run -v ~/data/bitcoin:/bitcoin --name=bitcoin -d --net=host kylemanna/bitcoind
+ExecStop=/usr/bin/docker stop bitcoin
+ExecStop=/usr/bin/docker kill bitcoin
+
+[Install]
+WantedBy=multi-user.target
+
