@@ -4,6 +4,8 @@ FROM alpine:3.5
 RUN apk add -U nginx \
     && rm -rf /var/cache/apk/*
 
+#RUN apk add --no-cache apache2-utils
+
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
 
