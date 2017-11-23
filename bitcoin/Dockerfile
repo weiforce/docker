@@ -7,4 +7,5 @@ EXPOSE 18333 18332
 
 VOLUME /root/.bitcoin
 
-CMD "bitcoind -testnet -printtoconsole"
+ENTRYPOINT ["bitcoind", "-printtoconsole"]
+
