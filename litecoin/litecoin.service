@@ -1,0 +1,18 @@
+[Unit]
+Description=litecoin
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop litecoin
+ExecStartPre=-/usr/bin/docker kill litecoin
+ExecStartPre=-/usr/bin/docker rm litecoin
+ExecStart=/usr/bin/docker run --name=litecoin -v /home/core/data/litecoin:/root/.litecoin ivories/litecoin 
+ExecStop=/usr/bin/docker stop litecoin
+
+[Install]
+WantedBy=multi-user.target
+

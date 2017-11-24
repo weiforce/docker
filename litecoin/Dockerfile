@@ -1,5 +1,6 @@
 FROM uphold/litecoind
 
-ENTRYPOINT ["/entrypoint.sh"]
+#ENTRYPOINT ["/entrypoint.sh"]
 
-CMD ["litecoind"]
+ENTRYPOINT ["litecoind"]
+CMD ["-printtoconsole"]
