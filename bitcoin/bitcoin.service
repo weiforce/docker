@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop bitcoin
 ExecStartPre=-/usr/bin/docker kill bitcoin
 ExecStartPre=-/usr/bin/docker rm bitcoin
-ExecStart=/usr/bin/docker run -v /home/core/data/bitcoin:/root/.bitcoin --name=bitcoin --net=host ivories/bitcoin
+ExecStart=/usr/bin/docker run --name=bitcoin -v /home/core/data/bitcoin:/root/.bitcoin ivories/bitcoin
 ExecStop=/usr/bin/docker stop bitcoin
 
 [Install]
