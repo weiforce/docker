@@ -1,0 +1,20 @@
+[Unit]
+Description=hsr
+After=autorun.service
+Requires=autorun.service
+
+#port 11616 11617
+[Service]
+Restart=always
+RestartSec=5
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop hsr
+ExecStartPre=-/usr/bin/docker kill hsr
+ExecStartPre=-/usr/bin/docker rm hsr
+#ExecStart=/usr/bin/docker run --name hsr -p 127.0.0.1:11616:11616 -p 127.0.0.1:11617:11617 -v /home/core/data/hsr:/root/.hshare ivories/hsr /hshare/src/hshared -rpcuser=admin --rpcpassword=admin -printtoconsole
+ExecStart=/usr/bin/docker run --name hsr --net=host -v /home/core/data/hsr:/root/.hshare ivories/hsr /hshare/src/hshared -rpcuser=xerror --rpcpassword=yellow -printtoconsole
+ExecStop=/usr/bin/docker stop hsr
+ExecStop=/usr/bin/docker kill hsr
+
+[Install]
+WantedBy=multi-user.target
