@@ -1,0 +1,19 @@
+[Unit]
+Description=ethereum-etc
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop ethereum-etc
+ExecStartPre=-/usr/bin/docker kill ethereum-etc
+ExecStartPre=-/usr/bin/docker rm ethereum-etc
+ExecStart=/usr/bin/docker run --name=ethereum-etc -v /home/core/data/ethereum-etc:/root/.ethereum-classic ivories/ethereum-etc --ipcdisable
+
+ExecStop=/usr/bin/docker stop ethereum-etc
+
+[Install]
+WantedBy=multi-user.target
+
