@@ -1,0 +1,19 @@
+[Unit]
+Description=dogecoin
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop dogecoin
+ExecStartPre=-/usr/bin/docker kill dogecoin
+ExecStartPre=-/usr/bin/docker rm dogecoin
+ExecStart=/usr/bin/docker run --name dogecoin --net=host -v /home/core/data/dogecoin:/dogecoin/.dogecoin yujinlim/dogecoind
+ExecStop=/usr/bin/docker stop dogecoin
+ExecStop=/usr/bin/docker kill dogecoin
+
+[Install]
+WantedBy=multi-user.target
+
