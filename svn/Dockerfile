@@ -1,10 +1,10 @@
-FROM debian:jessie
+FROM alpine:3.6
 
-RUN apt-get update
-RUN apt-get install -y make
-RUN apt-get install -y subversion
-RUN rm -rf /var/lib/apt/lists/*
-
+CMD [ "/usr/bin/svnserve", "--daemon", "--foreground", "--root", "/var/opt/svn" ]
 EXPOSE 3690
+HEALTHCHECK CMD netstat -ln | grep 3690 || exit 1
+VOLUME [ "/var/opt/svn" ]
+WORKDIR /var/opt/svn
 
-CMD /usr/bin/svnserve -d -r /svn && tail -f /var/log/dpkg.log
+RUN apk add --no-cache subversion && \
+    rm -fr /var/cache/apk/*
