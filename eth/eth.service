@@ -1,0 +1,18 @@
+[Unit]
+Description=eth
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop eth
+ExecStartPre=-/usr/bin/docker kill eth
+ExecStartPre=-/usr/bin/docker rm eth
+ExecStart=/usr/bin/docker run --name=eth -v /home/core/data/eth:/root ivories/eth --ipcdisable --fast --cache=512
+ExecStop=/usr/bin/docker stop eth
+
+[Install]
+WantedBy=multi-user.target
+
