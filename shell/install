@@ -5,10 +5,7 @@ DIR_DATA="$DIR_PATH/data/"
 DIR_DOCKER="$DIR_PATH/docker/"
 
 sudo mkdir -p $DIR_DATA
-
-# fix aliyun
-sudo sed -i "s/Environment=DOCKER_SELINUX=--selinux-enabled=true/#Environment=DOCKER_SELINUX=--selinux-enabled=true/g" /run/systemd/system/docker.service
-/home/core/docker/shell/s docker
+${DIR_DOCKER}shell/docker_close_selinux
 
 #if vps
 sudo dd if=/dev/zero of=/swap bs=1024 count=1024000

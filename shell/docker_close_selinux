@@ -1,0 +1,3 @@
+#!/bin/bash
+sudo sed -i "s/Environment=DOCKER_SELINUX=--selinux-enabled=true/#Environment=DOCKER_SELINUX=--selinux-enabled=true/g" /etc/systemd/system/multi-user.target.wants/docker.service
+/home/core/docker/shell/s docker
