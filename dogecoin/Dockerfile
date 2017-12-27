@@ -1,3 +1,0 @@
-FROM yujinlim/dogecoind
-
-
