@@ -1,3 +1,3 @@
 #!/bin/bash
-/usr/bin/docker run -it --rm -v /home/core/data/terraform:/terraform -v /home/core/.ssh:/root/.ssh ivories/terraform $*
+/usr/bin/docker run -it --rm -v /home/core/data/terraform:/root -v /home/core/.ssh:/root/.ssh ivories/terraform $*
 
