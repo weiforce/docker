@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop etc
 ExecStartPre=-/usr/bin/docker kill etc
 ExecStartPre=-/usr/bin/docker rm etc
-ExecStart=/usr/bin/docker run --name=etc -v /home/core/data/etc:/root ivories/etc --ipcdisable
+ExecStart=/usr/bin/docker run --name=etc -p 10004:8332 -v /home/core/data/etc:/root ivories/etc --ipcdisable
 ExecStop=/usr/bin/docker stop etc
 
 [Install]
