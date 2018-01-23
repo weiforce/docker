@@ -22,4 +22,20 @@ RUN git clone https://github.com/hashicorp/terraform.git ./ && \
 
 RUN apk add --no-cache inotify-tools
 
+ENV BUILD_HOME=/build
+ENV GOPATH=$BUILD_HOME/golang
+ENV PATH=$GOPATH/bin:$PATH
+ENV HEKETI_BRANCH="master"
+
+RUN apk add --no-cache glide build-base && mkdir -p $GOPATH/src/github.com/heketi && \
+    cd $GOPATH/src/github.com/heketi && \
+    git clone -b $HEKETI_BRANCH https://github.com/heketi/heketi.git && \
+    cd $GOPATH/src/github.com/heketi/heketi && \
+    glide install -v && \
+    make && \
+    cp heketi /usr/bin/heketi && \
+    cp client/cli/go/heketi-cli /usr/bin/heketi-cli && \
+    glide cc && \
+    cd && rm -rf $BUILD_HOME && apk del build-base glide
+
 ENTRYPOINT /bin/bash
