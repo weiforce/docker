@@ -4,5 +4,10 @@ FROM ethereum/client-go:stable
 
 #RUN chmod -R 777 /usr/bin/geth
 #ENTRYPOINT /usr/local/bin/geth
+RUN apk add --no-cache nginx
 
-ENTRYPOINT ["geth"]
+RUN apk add --no-cache bash
+
+RUN sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf
+
+ENTRYPOINT []

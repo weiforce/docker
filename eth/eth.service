@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop eth
 ExecStartPre=-/usr/bin/docker kill eth
 ExecStartPre=-/usr/bin/docker rm eth
-ExecStart=/usr/bin/docker run --name=eth -p 10003:8332 -v /home/core/data/eth:/root ivories/eth --ipcdisable --fast --cache=512
+ExecStart=/usr/bin/docker run --name=eth -p 10003:80 -v /home/core/data/eth/conf.d:/etc/nginx/conf.d -v /home/core/data/eth:/root ivories/eth /root/start.sh
 ExecStop=/usr/bin/docker stop eth
 
 [Install]
