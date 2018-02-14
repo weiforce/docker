@@ -1,3 +1,5 @@
 #!/bin/bash
-
-/usr/bin/docker run --rm --net=host -v /home/core:/data ivories/aria2 aria2c -d /data -c $*
+DOWNLOAD=/home/core/download
+mkdir $DOWNLOAD
+chmod -R 777 $DOWNLOAD
+/usr/bin/docker run -d --rm --net=host -v $DOWNLOAD:/data ivories/aria2 aria2c -d /data -c $*
