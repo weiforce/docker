@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker run -it --rm -v ~/data/www:/www -v ~/data/www/composer:/root/.composer ivories/zsh

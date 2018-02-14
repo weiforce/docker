@@ -38,4 +38,15 @@ RUN apk add --no-cache glide build-base && mkdir -p $GOPATH/src/github.com/heket
     glide cc && \
     cd && rm -rf $BUILD_HOME && apk del build-base glide
 
+RUN export GOPATH=/go
+
+#RUN curl https://glide.sh/get | sh
+
+RUN mkdir -p $GOPATH/src/github.com/alibaba
+RUN cd $GOPATH/src/github.com/alibaba 
+RUN git clone https://github.com/alibaba/terraform-provider.git $GOPATH/src/github.com/alibaba/
+RUN apk add glide && cd $GOPATH/src/github.com/alibaba && go get && glide up 
+RUN cd $GOPATH/src/github.com/alibaba make all
+RUN cd $GOPATH/src/github.com/alibaba && terraform get && terraform init
+
 ENTRYPOINT /bin/bash

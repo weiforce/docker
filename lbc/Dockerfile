@@ -8,7 +8,7 @@ ENV LBRY_USER=${user}
 RUN set -x \
   && apt-get update \
   && apt-get install -y curl ca-certificates unzip sudo \
-  && curl -L https://lbry.io/get/lbrynet.linux.zip -o lbrynet.linux.zip \
+  && curl -L https://github.com/lbryio/lbry/releases/download/v0.18.2/lbrynet-daemon-v0.18.2-linux.zip -o lbrynet.linux.zip \
   && unzip lbrynet.linux.zip -d /usr/local/bin \
   && rm lbrynet.linux.zip \
   && rm -rf /var/lib/apt/lists/*
