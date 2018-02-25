@@ -9,3 +9,9 @@ WORKDIR /www
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 ENTRYPOINT ["/bin/zsh"]
+
+
+#todo nodejs 
+#todo vue-cli
+#todo element-cli
+
