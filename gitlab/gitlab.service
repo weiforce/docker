@@ -1,0 +1,17 @@
+[Unit]
+Description=gitlab
+After=autorun.service
+Requires=autorun.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill gitlab
+ExecStartPre=-/usr/bin/docker rm gitlab
+ExecStart=/usr/bin/docker run -h hostname.com --name gitlab -p 22:22 -p 127.0.0.1:8082:80 -v /home/core/data/gitlab/etc:/etc/gitlab -v /home/core/data/gitlab/opt:/var/opt/gitlab -v /home/core/data/gitlab/etc:/var/log/gitlab gitlab/gitlab-ce
+ExecStop=/usr/bin/docker kill gitlab
+
+[Install]
+WantedBy=multi-user.target
+
