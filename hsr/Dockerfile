@@ -8,4 +8,4 @@ RUN apt-get update && apt-get install -y libminiupnpc-dev libboost-all-dev
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository -y ppa:bitcoin/bitcoin && apt-get update
 RUN apt-get install -y libdb4.8-dev libdb4.8++-dev
-
+RUN apt-get install -y nginx
