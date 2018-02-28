@@ -74,14 +74,15 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
   && rm yarn-v$YARN_VERSION.tar.gz.asc yarn-v$YARN_VERSION.tar.gz \
   && apk del .build-deps-yarn
 
-
 RUN apk add --no-cache vim
 RUN rm /usr/bin/vi && ln -s /usr/bin/vim /usr/bin/vi
 
-ENTRYPOINT ["/bin/zsh"]
+RUN echo 'composer config -g repo.packagist composer https://packagist.phpcomposer.com' > /usr/bin/cn-composer
+RUN echo 'composer config -g repo.packagist composer https://packagist.org' > /usr/bin/en-composer
+RUN chmod -R 777 /usr/bin/cn-composer && chmod -R 777 /usr/bin/en-composer
 
-
-#todo nodejs 
 #todo vue-cli
 #todo element-cli
+
+ENTRYPOINT ["/bin/zsh"]
 
