@@ -11,5 +11,6 @@ COPY emacs.sh /usr/bin/e
 RUN chmod -R 777 /usr/bin/e
 RUN cd /root && mkdir .ssh && chmod -R 700 /root/.ssh
 RUN echo "PasswordAuthentication no" > /etc/ssh/sshd_config
+RUN touch /authorized_keys
 
 CMD /usr/sbin/sshd -D

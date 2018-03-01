@@ -19,7 +19,7 @@ docker stop emacs 2>/dev/null
 echo "start ..."
 docker rm emacs 2>/dev/null
 
-docker run -d --name emacs -p 127.0.0.1:5858:22 -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/data -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key ivories/emacs:1.0
+docker run -d --name emacs -p 127.0.0.1:5858:22 -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/data -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key ivories/emacs
 
 sleep 3s
 
