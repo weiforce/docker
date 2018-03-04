@@ -81,6 +81,8 @@ RUN echo 'composer config -g repo.packagist composer https://packagist.phpcompos
 RUN echo 'composer config -g repo.packagist composer https://packagist.org' > /usr/bin/en-composer
 RUN chmod -R 777 /usr/bin/cn-composer && chmod -R 777 /usr/bin/en-composer
 
+RUN docker-php-ext-install gd
+
 #todo vue-cli
 #todo element-cli
 
