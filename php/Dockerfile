@@ -3,6 +3,7 @@ FROM alpine
 RUN apk --update --no-progress add build-base php5-dev autoconf \
     php5-fpm php5-mcrypt php5-curl php5-gd php5-json php5-openssl \
     php5-pdo_mysql php5-pdo_sqlite php5-phar php5-iconv php5-ctype \
+    php5-bcmath \
     php5-opcache php5-mysqli php5-zip php5-pgsql zlib git bash openssl-dev curl \
     && curl -s -o phpredis-2.2.7.tar.gz -b a -L https://github.com/phpredis/phpredis/archive/2.2.7.tar.gz \
     && curl -s -o xdebug-2.3.3.tgz -b a -L https://xdebug.org/files/xdebug-2.3.3.tgz \
