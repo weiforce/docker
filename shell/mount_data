@@ -16,8 +16,8 @@ do
         if [ "${MOUNT_DIR[i]}" != "" ]
         then
             sudo mkdir -p ${MOUNT_DIR[i]}
-            sudo mount -t nfs -o nolock,vers=3,tcp,retry=1 ${MOUNT_URL[i]} ${MOUNT_DIR[i]}
-            echo " sudo mount -t nfs -o nolock,vers=3,tcp,retry=1 ${MOUNT_URL[i]} ${MOUNT_DIR[i]}"
+            sudo mount -t nfs -o rw,nolock,vers=3,tcp,retry=1 ${MOUNT_URL[i]} ${MOUNT_DIR[i]}
+            echo " sudo mount -t nfs -o rw,nolock,vers=3,tcp,retry=1 ${MOUNT_URL[i]} ${MOUNT_DIR[i]}"
         fi
     fi
 done
