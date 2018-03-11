@@ -84,6 +84,9 @@ RUN chmod -R 777 /usr/bin/cn-composer && chmod -R 777 /usr/bin/en-composer
 RUN apk add --no-cache libpng-dev
 RUN docker-php-ext-install gd
 
+RUN echo 'php artisan serve --host 0.0.0.0' > /usr/bin/server
+RUN chmod -R 777 /usr/bin/server
+
 #todo vue-cli
 #todo element-cli
 
