@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop hsr
 ExecStartPre=-/usr/bin/docker kill hsr
 ExecStartPre=-/usr/bin/docker rm hsr
-ExecStart=/usr/bin/docker run --name hsr -p 10006:80 -v /home/core/data/hsr/default:/etc/nginx/sites-enabled/default -v /home/core/data/hsr/password:/password -v /home/core/data/hsr:/root/.hshare ivories/hsr /root/.hshare/start.sh
+ExecStart=/usr/bin/docker run --name hsr -p 10006:80 -v /home/core/data/hsr/default:/etc/nginx/sites-enabled/default -v /home/core/data/wallet/hsr:/root/.hshare ivories/hsr /root/.hshare/start.sh
 ExecStop=/usr/bin/docker stop hsr
 ExecStop=/usr/bin/docker kill hsr
 
