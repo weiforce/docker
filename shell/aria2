@@ -1,5 +1,7 @@
 #!/bin/bash
 DOWNLOAD=/home/core/download
 mkdir $DOWNLOAD
-chmod -R 777 $DOWNLOAD
-/usr/bin/docker run -d --rm --net=host -v $DOWNLOAD:/data ivories/aria2 aria2c -d /data -c $*
+chmod 777 $DOWNLOAD
+
+TIMESTAMP=$(date '+%s')
+/usr/bin/docker run -d --rm --net=host -v $DOWNLOAD:/data ivories/aria2 aria2c -d /data -c $1 --log=/data/$TIMESTAMP
