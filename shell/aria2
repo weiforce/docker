@@ -1,5 +1,6 @@
 #!/bin/bash
 DOWNLOAD=/home/core/download
+
 mkdir $DOWNLOAD
 chmod 777 $DOWNLOAD
 
