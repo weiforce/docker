@@ -8,16 +8,16 @@ RUN npm install --global gitbook-cli && \
     gitbook fetch ${VERSION} && \
     npm cache clear --force && \
     rm -rf /tmp/* && \
-    apk add --no-cache wget ca-certificates && \
+    apk add --no-cache wget ca-certificates
 
-    wget --no-check-certificate https://codeload.github.com/rootsongjc/kubernetes-handbook/zip/master && \
+RUN wget --no-check-certificate https://codeload.github.com/rootsongjc/kubernetes-handbook/zip/master && \
     unzip master && \
     rm -rf master && \
     mv kubernetes-handbook-master gitbook && \
     cd gitbook && gitbook install && \
     rm -rf /gitbook 
 
-RUN    wget --no-check-certificate https://codeload.github.com/ymcatar/gitbook-test/zip/master && \
+RUN wget --no-check-certificate https://codeload.github.com/ymcatar/gitbook-test/zip/master && \
     unzip master && \
     rm -rf master && \
     mv gitbook-test-master gitbook && \
