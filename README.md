@@ -55,4 +55,3 @@
     fl service_name                 #list one fleetctl service(except global service)
     web                             #start/restart fleetctl web service
 
-## test
