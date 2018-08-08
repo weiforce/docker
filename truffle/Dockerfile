@@ -9,6 +9,8 @@ RUN apk --no-cache add git python make g++ \
           solium \
 	  jshint 
 
+RUN apk --no-cache add bash
+
 EXPOSE 3000 3001 8545
 
 VOLUME /app
