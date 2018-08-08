@@ -13,8 +13,8 @@ RUN apk --no-cache add bash
 
 EXPOSE 3000 3001 8545
 
-VOLUME /app
-WORKDIR /app
+VOLUME /data
+WORKDIR /data
 
 ENTRYPOINT testrpc --debug --gasLimit 0xfffffffffff \
 		 --account="0x2bdd21761a483f71054e14f5b827213567971c676928d9a1808cbfa4b7501200,1000000000000000000000000" \
