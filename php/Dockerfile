@@ -6,6 +6,13 @@ RUN apk add --no-cache libpng-dev libmcrypt-dev bash autoconf build-base \
     && pecl install xdebug \
     && pecl install swoole \
     && pecl install channel://pecl.php.net/mcrypt-1.0.1 \
+
+    && apk add --no-cache libssh2-dev \
+    && wget http://pecl.php.net/get/ssh2-1.1.2.tgz \
+    && tar zxvf ssh2-1.1.2.tgz && cd ssh2-1.1.2 && phpize && ./configure --with-ssh2 && make \
+    && mv modules/ssh2.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
+    && cd .. && rm -rf ssh2-1.1.2* \
+
     && apk del build-base autoconf
 
 RUN echo "export TERM=xterm" >> /root/.bashrc \
