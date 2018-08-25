@@ -13,6 +13,10 @@ RUN apk add --no-cache libpng-dev libmcrypt-dev bash autoconf build-base \
     && mv modules/ssh2.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
     && cd .. && rm -rf ssh2-1.1.2* \
 
+    && wget https://github.com/swoole/swoole-src/archive/v2.2.0.zip \ 
+    && unzip v2.2.0.zip && cd swoole-src-2.2.0 && phpize && ./configure && make && make install \
+    && cd .. && rm -rf swoole-src-2.2.0 \
+
     && apk del build-base autoconf
 
 RUN echo "export TERM=xterm" >> /root/.bashrc \
