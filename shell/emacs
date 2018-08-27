@@ -5,6 +5,7 @@ EMACS_SSH_DIR=/home/core/.ssh/emacs
 
 if [ ! -f "$EMACS_SSH_DIR/id_rsa" ]
 then
+        sudo cp -rfp /home/core/.ssh/authorized_keys /home/core/.ssh/authorized_keys_old
 	echo 'StrictHostKeyChecking no' >> /home/core/.ssh/config
         echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
 	sudo mkdir -p $EMACS_SSH_DIR
@@ -12,6 +13,7 @@ then
 	sudo cat $EMACS_SSH_DIR/id_rsa.pub | update-ssh-keys -a core
         sudo cp -rfp $EMACS_SSH_DIR/id_rsa.pub $EMACS_SSH_DIR/authorized_keys
 	sudo cp -rfp /home/core/.ssh/config $EMACS_SSH_DIR/config
+	sudo cp -rfp /home/core/.ssh/authorized_keys_old /home/core/.ssh/authorized_keys
 fi
 
 echo "init ..."
