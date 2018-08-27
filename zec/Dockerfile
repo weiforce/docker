@@ -23,5 +23,6 @@ USER root
 
 COPY start.sh /usr/bin/zec
 RUN chmod -R 777 /usr/bin/zec
-ENTRYPOINT ["zec"]
+#ENTRYPOINT ["zec"]
+ENTRYPOINT [""]
 
