@@ -11,7 +11,7 @@ ExecStartPre=-/usr/bin/docker stop rancher
 ExecStartPre=-/usr/bin/docker kill rancher
 ExecStartPre=-/usr/bin/docker rm rancher
 ExecStartPre=-/usr/bin/docker network create nginx-network
-ExecStart=/usr/bin/docker run --name rancher --net nginx-network -v /home/core/data/rancher:/etc/rancher rancher/rancher
+ExecStart=/usr/bin/docker run --name rancher --net nginx-network -p 80:80 -p 443:443 -v /home/core/data/rancher:/var/lib/rancher  rancher/rancher
 ExecStop=/usr/bin/docker stop rancher
 ExecStop=/usr/bin/docker kill rancher
 
