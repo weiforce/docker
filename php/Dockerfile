@@ -1,6 +1,6 @@
 FROM php:7.2-fpm-alpine
 
-RUN apk add --no-cache libpng-dev libmcrypt-dev bash autoconf build-base \
+RUN apk add --no-cache libpng-dev libmcrypt-dev bash autoconf build-base libstdc++ \
     && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache \
     && pecl install redis \
     && pecl install xdebug \
