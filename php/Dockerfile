@@ -7,6 +7,10 @@ RUN apk add --no-cache libpng-dev libmcrypt-dev bash autoconf build-base \
     && pecl install swoole \
     && pecl install channel://pecl.php.net/mcrypt-1.0.1 \
 
+    && apk add --no-cache freetype-dev jpeg-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
+
     && apk add --no-cache libssh2-dev \
     && wget http://pecl.php.net/get/ssh2-1.1.2.tgz \
     && tar zxvf ssh2-1.1.2.tgz && cd ssh2-1.1.2 && phpize && ./configure --with-ssh2 && make \
