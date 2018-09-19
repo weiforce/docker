@@ -12,7 +12,7 @@ ExecStartPre=-/usr/bin/docker kill nsq
 ExecStartPre=-/usr/bin/docker rm nsq
 ExecStartPre=-/home/core/docker/shell/install_fleetctl nsq
 ExecStartPre=-/usr/bin/docker network create nginx-network
-ExecStart=/usr/bin/docker run --name nsq --net nginx-network ivories/nsq
+ExecStart=/usr/bin/docker run --name nsq --net nginx-network -p 4160:4160 -p 4161:4161 -p 4150:4150 -p 4151:4151 -p 4171:4171 ivories/nsq
 ExecStop=/usr/bin/docker stop nsq
 ExecStop=/usr/bin/docker kill nsq
 
