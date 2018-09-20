@@ -1,6 +1,7 @@
 FROM php:7.2-fpm-alpine
 
-RUN apk add --no-cache libpng-dev libmcrypt-dev bash autoconf build-base libstdc++ \
+RUN apk add --no-cache bash autoconf build-base \
+    && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev \
     && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache \
     && pecl install redis \
     && pecl install xdebug \
@@ -16,6 +17,10 @@ RUN apk add --no-cache libpng-dev libmcrypt-dev bash autoconf build-base libstdc
     && tar zxvf ssh2-1.1.2.tgz && cd ssh2-1.1.2 && phpize && ./configure --with-ssh2 && make \
     && mv modules/ssh2.so /usr/local/lib/php/extensions/no-debug-non-zts-20170718 \
     && cd .. && rm -rf ssh2-1.1.2* \
+
+    && wget https://github.com/yunnian/php-nsq/archive/v3.2.0.tar.gz \
+    && tar zxvf v3.2.0.tar.gz && cd php-nsq-3.2.0 && phpize && ./configure && make && make install \
+    && cd .. && rm -rf v3.2.0.tar.gz php-nsq-3.2.0 \
 
     && apk del build-base autoconf
 
