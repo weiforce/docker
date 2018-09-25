@@ -11,7 +11,7 @@ RUN cd ${GOPATH}/src/github.com/mcuadros/ofelia && go get -v ./... && go build -
 
 FROM alpine
 
-RUN apk add --no-cache git bash
+RUN apk add --no-cache git bash openssh-client
 COPY --from=builder /go/bin/ofelia /usr/bin/ofelia
 
 VOLUME /etc/ofelia/
