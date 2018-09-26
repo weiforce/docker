@@ -2,18 +2,20 @@
 
 EMACS_DIR=/home/core/data/emacs
 EMACS_SSH_DIR=/home/core/.ssh/emacs
+EMACS_ID_RSA=$EMACS_SSH_DIR/emacs_id_rsa
 
 if [ ! -f "$EMACS_SSH_DIR/id_rsa" ]
 then
-        sudo cp -rfp /home/core/.ssh/authorized_keys /home/core/.ssh/authorized_keys_old
-	echo 'StrictHostKeyChecking no' >> /home/core/.ssh/config
-        echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
-	sudo mkdir -p $EMACS_SSH_DIR
-	sudo ssh-keygen -f $EMACS_SSH_DIR/id_rsa -N '' -t rsa
-	sudo cat $EMACS_SSH_DIR/id_rsa.pub | update-ssh-keys -a core
-        sudo cp -rfp $EMACS_SSH_DIR/id_rsa.pub $EMACS_SSH_DIR/authorized_keys
-	sudo cp -rfp /home/core/.ssh/config $EMACS_SSH_DIR/config
-	sudo cp -rfp /home/core/.ssh/authorized_keys_old /home/core/.ssh/authorized_keys
+
+    sudo mkdir -p $EMACS_SSH_DIR
+
+    sudo ssh-keygen -f $EMACS_ID_RSA -N '' -t rsa
+    sudo cp -rfp $EMACS_ID_RSA.pub $EMACS_SSH_DIR/authorized_keys
+
+    echo 'StrictHostKeyChecking no' >> /home/core/.ssh/config
+    echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
+    sudo cp -rfp /home/core/.ssh/config $EMACS_SSH_DIR/config
+
 fi
 
 echo "init ..."
@@ -28,10 +30,15 @@ then
        EMACS_RUN_APP="-v $EMACS_DIR/emacs.sh:/usr/bin/e"
 fi
 
+sudo cp -rfp /root/.ssh/id_rsa $EMACS_SSH_DIR/id_rsa
+
 docker run -d --name emacs -u root -p 127.0.0.1:5858:22 -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/data -v /home/core/laravel:/laravel -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key $EMACS_RUN_APP ivories/emacs
 
 sleep 3s
 
-sudo ssh -t -i $EMACS_SSH_DIR/id_rsa root@localhost -p 5858 'e'
+sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'chown -R root:root /root/.ssh'
+sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'git config --global user.email "server@server.com"'
+sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'git config --global user.name "Server"'
+sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'env TERM=xterm-256color e'
 
 docker stop emacs && docker rm emacs &
