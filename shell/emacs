@@ -4,7 +4,7 @@ EMACS_DIR=/home/core/data/emacs
 EMACS_SSH_DIR=/home/core/.ssh/emacs
 EMACS_ID_RSA=$EMACS_SSH_DIR/emacs_id_rsa
 
-if [ ! -f "$EMACS_SSH_DIR/id_rsa" ]
+if [ ! -f "$EMACS_ID_RSA" ]
 then
 
     sudo mkdir -p $EMACS_SSH_DIR
@@ -27,10 +27,13 @@ EMACS_RUN_APP=''
 
 if [ -f "$EMACS_DIR/emacs.sh" ]
 then
-       EMACS_RUN_APP="-v $EMACS_DIR/emacs.sh:/usr/bin/e"
+    EMACS_RUN_APP="-v $EMACS_DIR/emacs.sh:/usr/bin/e"
 fi
 
-sudo cp -rfp /root/.ssh/id_rsa $EMACS_SSH_DIR/id_rsa
+if [ -f "/root/.ssh/id_rsa" ]
+then
+    sudo cp -rfp /root/.ssh/id_rsa $EMACS_SSH_DIR/id_rsa
+fi
 
 docker run -d --name emacs -u root -p 127.0.0.1:5858:22 -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/data -v /home/core/laravel:/laravel -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key $EMACS_RUN_APP ivories/emacs
 
