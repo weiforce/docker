@@ -39,9 +39,9 @@ docker run -d --name emacs -u root -p 127.0.0.1:5858:22 -v $EMACS_DIR/root:/root
 
 sleep 3s
 
-sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'chown -R root:root /root/.ssh'
-sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'git config --global user.email "server@server.com"'
-sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'git config --global user.name "Server"'
-sudo ssh -t -i $EMACS_ID_RSA root@localhost -p 5858 'env TERM=xterm-256color e'
+sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'chown -R root:root /root/.ssh'
+sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.email "server@server.com"'
+sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.name "Server"'
+sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'env TERM=xterm-256color e'
 
 docker stop emacs && docker rm emacs &
