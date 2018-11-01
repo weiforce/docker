@@ -9,7 +9,7 @@ RestartSec=30
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill dnsmasq
 ExecStartPre=-/usr/bin/docker rm dnsmasq
-ExecStart=/usr/bin/docker run --name dnsmasq -p 53:53/tcp -p 53:53/udp -v /etc/hosts:/etc/hosts --cap-add=NET_ADMIN ivories/dnsmasq:1.0
+ExecStart=/usr/bin/docker run --name dnsmasq -p 53:53/tcp -p 53:53/udp -v /home/core/data/dnsmasq:/etc/dnsmasq.d -v /etc/hosts:/etc/hosts --cap-add=NET_ADMIN ivories/dnsmasq
 ExecStop=/usr/bin/docker kill dnsmasq
 
 [Install]
