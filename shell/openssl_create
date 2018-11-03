@@ -1,0 +1,25 @@
+#!/bin/bash
+
+cd /home/core
+rm -rf openssl
+mkdir openssl
+
+cd openssl
+
+mkdir -p demoCA/newcerts
+touch demoCA/index.txt
+echo "01" > demoCA/serial
+
+#ca root
+openssl genrsa -out ca.key
+openssl req -new -key ca.key -out ca.csr
+openssl x509 -req -days 3650 -in ca.csr -signkey ca.key -out ca.crt
+
+#client
+openssl genrsa -des3 -out client.key 1024
+openssl req -new -key client.key -out client.csr
+openssl ca -in client.csr -cert ca.crt -keyfile ca.key -out client.crt -days 3650
+openssl pkcs12 -export -clcerts -in client.crt -inkey client.key -out client.p12
+
+cp ca.crt ../nginx.crt
+cp client.p12 ../client.p12
