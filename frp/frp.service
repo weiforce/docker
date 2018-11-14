@@ -10,8 +10,11 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop frp
 ExecStartPre=-/usr/bin/docker kill frp
 ExecStartPre=-/usr/bin/docker rm frp
-ExecStart=/usr/bin/docker run --name frp --net=host ivories/frp /frps -c /frps.ini
-#ExecStart=/usr/bin/docker run --name frp -v /home/core/data/frp:/etc/frp ivories/frp /frpc -c /etc/frp/frpc.ini
+
+ExecStart=/usr/bin/docker run --name frp --net=host -v /home/core/data/frp:/etc/frp ivories/frp /frps -c /frps.ini
+
+#ExecStart=/usr/bin/docker run --name frp --net=host -v /home/core/data/frp:/etc/frp ivories/frp /frpc -c /etc/frp/frpc.ini
+
 ExecStop=/usr/bin/docker stop frp
 ExecStop=/usr/bin/docker kill frp
 

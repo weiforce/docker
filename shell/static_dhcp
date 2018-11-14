@@ -1,0 +1,11 @@
+#!/bin/bash
+
+sudo touch /etc/systemd/network/static.network
+sudo chmod -R 777 /etc/systemd/network/static.network
+cat > /etc/systemd/network/static.network << EOF
+[Match]
+Name=en*
+
+[Network]
+DHCP=yes
+EOF
