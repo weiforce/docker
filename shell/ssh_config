@@ -7,5 +7,5 @@ then
     exit
 fi
 
-sudo journalctl --vacuum-size=1G
+sudo journalctl --vacuum-size=300M
 sudo coreos-cloudinit --from-url=http://$1/ssh-config.yaml
