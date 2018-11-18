@@ -1,0 +1,9 @@
+[{
+	"schedule":"* * * * *",
+	"command":"wget https://www.test.com/test.php",
+	"container":"nginx"
+},{
+        "schedule":"* * * * *",
+        "command":"touch /crontesttest",
+        "container":"nginx"
+}]
