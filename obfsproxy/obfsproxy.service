@@ -1,0 +1,17 @@
+[Unit]
+Description=obfsproxy
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop obfsproxy
+ExecStartPre=-/usr/bin/docker kill obfsproxy
+ExecStartPre=-/usr/bin/docker rm obfsproxy
+ExecStart=/usr/bin/docker run --name obfsproxy --link openvpn:openvpn -v /home/core/data/obfsproxy:/etc/obfsproxy -p 51199:4911 -e PASSWORD=J23TNHPJPAOQJLTCPLFD4CQYVFY6MEVP ivories/obfsproxy
+ExecStop=/usr/bin/docker stop obfsproxy
+ExecStop=/usr/bin/docker kill obfsproxy
+
+[Install]
+WantedBy=multi-user.target
+
