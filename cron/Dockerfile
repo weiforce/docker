@@ -1,3 +1,3 @@
 FROM willfarrell/crontab
 
-RUN ls
+RUN apk add --no-cache git
