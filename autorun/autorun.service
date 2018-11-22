@@ -4,9 +4,6 @@ Description=autorun
 After=docker.service
 Requires=docker.service
 
-After=autorun_mount.service
-Requires=autorun_mount.service
-
 [Service]
 Restart=always
 RestartSec=30
