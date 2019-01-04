@@ -2,7 +2,7 @@ FROM php:7.2.11-fpm-alpine
 
 RUN apk add --no-cache bash autoconf build-base \
     && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev \
-    && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache \
+    && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache pcntl \
     && pecl install redis \
     && pecl install xdebug \
     && pecl install swoole \
