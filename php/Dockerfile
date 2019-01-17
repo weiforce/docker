@@ -2,7 +2,7 @@ FROM php:7.2.11-fpm-alpine
 
 RUN apk add --no-cache bash autoconf build-base \
     && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev \
-    && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache \
+    && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache pcntl \
     && pecl install redis \
     && pecl install xdebug \
     && pecl install swoole \
@@ -29,6 +29,8 @@ RUN echo "export TERM=xterm" >> /root/.bashrc \
     && mkdir /php \
     && ln -s /php/php.ini /usr/local/etc/php/php.ini \
     && ln -s /php/php-fpm.conf /usr/local/etc/php-fpm.conf
+
+RUN apk add --no-cache git
 
 WORKDIR /www
 
