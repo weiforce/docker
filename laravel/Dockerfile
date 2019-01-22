@@ -90,5 +90,6 @@ RUN chmod -R 777 /usr/bin/server
 #todo vue-cli
 #todo element-cli
 
-ENTRYPOINT ["/bin/zsh"]
+ENTRYPOINT [""]
 
+CMD "/bin/zsh"

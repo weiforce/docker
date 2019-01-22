@@ -1,2 +1,4 @@
 #! /bin/bash
-docker run -v $(pwd):/app composer/composer $1
+
+docker run -it --rm -v $(pwd):$(pwd) -w $(pwd) ivories/laravel composer
+
