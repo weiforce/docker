@@ -1,3 +1,4 @@
 FROM alekzonder/puppeteer
 
-RUN ls
+ENTRYPOINT [""]
+CMD [""]
