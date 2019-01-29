@@ -4,8 +4,8 @@
 
 [Unit]
 Description=bio
-After=autorun.service
-Requires=autorun.service
+After=docker.service
+Requires=docker.service
 
 [Service]
 Restart=always
