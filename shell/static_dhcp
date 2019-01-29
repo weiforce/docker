@@ -1,11 +1,20 @@
 #!/bin/bash
 
+NAME="enp*"
+DNS1="114.114.114.114"
+DNS2="223.5.5.5"
+DNS3="223.6.6.6"
+
 sudo touch /etc/systemd/network/static.network
 sudo chmod -R 777 /etc/systemd/network/static.network
 cat > /etc/systemd/network/static.network << EOF
 [Match]
-Name=en*
+Name=$NAME
 
 [Network]
 DHCP=yes
+DNS=$DNS1
+DNS=$DNS2
+DNS=$DNS3
 EOF
+
