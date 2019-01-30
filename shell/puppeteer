@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker run -it --rm -v $(pwd):$(pwd) -v ~/data:/data -w $(pwd) buildkite/puppeteer node $*
+docker run -it --rm --net=host -v $(pwd):$(pwd) -v /home/core/data/www:/www -w $(pwd) buildkite/puppeteer node $*
