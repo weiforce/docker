@@ -1,6 +1,6 @@
 [Unit]
 Description=openvpn
-Requires=autorun.service
+Requires=docker.service
 
 [Service]
 Restart=always
