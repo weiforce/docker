@@ -1,4 +1,4 @@
-FROM ethereum/client-go:stable
+FROM ethereum/client-go:v1.8.21
 
 RUN apk add --no-cache nginx
 RUN apk add --no-cache bash
