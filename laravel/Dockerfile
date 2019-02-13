@@ -9,7 +9,7 @@ WORKDIR /www
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 
-ENV NODE_VERSION 9.6.1
+ENV NODE_VERSION 10.15.1
 
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
