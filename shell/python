@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --rm -ti -v $(pwd):$(pwd) -w $(pwd)  ivories/python3 python $*
+docker run --rm -it --net=host -v $(pwd):$(pwd) -w $(pwd)  ivories/python3 python $*
