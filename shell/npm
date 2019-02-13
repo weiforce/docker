@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --name=npm -it --rm -v $(pwd):$(pwd) -w $(pwd) ivories/laravel npm $*
+docker run --name=npm -it --rm -v $(pwd):$(pwd) -w $(pwd) mkenney/npm:node-10-alpine npm $*
