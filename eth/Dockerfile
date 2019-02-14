@@ -11,6 +11,8 @@ RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/reposi
 
 RUN apk add --no-cache curl wget
 
+RUN mkdir /var/tmp/nginx/
+
 # Needed by scripts
 ENV OPENVPN /etc/openvpn
 ENV EASYRSA /usr/share/easy-rsa
