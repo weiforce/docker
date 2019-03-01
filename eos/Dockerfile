@@ -1,8 +1,13 @@
-FROM  eosio/eos:v1.4.2
+FROM  yan047/eos:v1.6.0
 
 RUN apt-get -yqq  update \
-#    &&apt-get -yqq install apt-utils \
-    &&apt-get -yqq install net-tools
+    && apt-get -yqq install apt-utils net-tools mongodb nginx \
+    && sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf \
+    && sed -i  "s|include /etc/nginx/sites-enabled/|#include /etc/nginx/sites-enabled/|g" /etc/nginx/nginx.conf
 
+RUN mkdir /var/tmp/nginx/
+COPY conf/start.sh /
+RUN chmod +x /start.sh
+
+ENTRYPOINT ["/start.sh"]
 CMD [""]
-#CMD ["/bin/bash","-c","keosd --http-server-address=0.0.0.0:5555 & exec nodeos -e -p eosio --plugin eosio::producer_plugin --plugin eosio::chain_api_plugin --plugin eosio::history_plugin --plugin eosio::history_api_plugin --plugin eosio::http_plugin -d /mnt/dev/data --config-dir /mnt/dev/config --http-server-address=0.0.0.0:8888 --access-control-allow-origin=* --contracts-console --http-validate-host=false --filter-on='*'"]
