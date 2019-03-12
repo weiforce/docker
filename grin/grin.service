@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop grin
 ExecStartPre=-/usr/bin/docker kill grin
 ExecStartPre=-/usr/bin/docker rm grin
-ExecStart=/usr/bin/docker run --name grin -p 10012:3414 -v /home/core/data/wallet/grin:/root/.grin/chain_data --entrypoint="" ivories/grin grin server run
+ExecStart=/usr/bin/docker run --name grin -p 10012:3413 -p 10014:3420 -v /home/core/data/grin/grin-server.toml:/root/.grin/grin-server.toml -v /home/core/data/wallet/grin:/root/.grin/chain_data -v /home/core/data/wallet/grin/main:/root/.grin/main --entrypoint="" ivories/grin grin server run
 ExecStop=/usr/bin/docker stop grin
 ExecStop=/usr/bin/docker kill grin
 
