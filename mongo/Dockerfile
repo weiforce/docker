@@ -1,3 +1,3 @@
-From mongo:3
+From mongo:4
 
 RUN ls
