@@ -17,8 +17,8 @@ docker run -v $OVPN_DATA:/etc/openvpn --rm ivories/openvpn ovpn_genconfig -u udp
 
 docker run -v $OVPN_DATA:/etc/openvpn --rm -it ivories/openvpn ovpn_initpki
 
-docker run -v $OVPN_DATA:/etc/openvpn --rm -it kylemanna/openvpn easyrsa build-client-full CLIENTNAME nopass
+docker run -v $OVPN_DATA:/etc/openvpn --rm -it ivories/openvpn easyrsa build-client-full CLIENTNAME nopass
 
-docker run -v $OVPN_DATA:/etc/openvpn --rm kylemanna/openvpn ovpn_getclient CLIENTNAME > /home/core/CLIENTNAME.ovpn
+docker run -v $OVPN_DATA:/etc/openvpn --rm ivories/openvpn ovpn_getclient CLIENTNAME > /home/core/CLIENTNAME.ovpn
 
 sudo mv /home/core/CLIENTNAME.ovpn $OVPN_DATA/
