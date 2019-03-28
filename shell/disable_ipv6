@@ -1,0 +1,8 @@
+#!/bin/bash
+
+sudo mount /dev/sda6 /boot
+
+sudo cat > /boot/grub.cfg << EOF
+set linux_append="ipv6.disable=1"
+EOF
+
