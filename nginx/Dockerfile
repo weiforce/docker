@@ -1,7 +1,6 @@
-FROM alpine:3.8
+FROM alpine
 
-RUN apk add -U nginx \
-    && rm -rf /var/cache/apk/*
+RUN apk add --no-cache nginx && apk add --no-cache nginx-mod-stream
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log
 RUN ln -sf /dev/stderr /var/log/nginx/error.log
