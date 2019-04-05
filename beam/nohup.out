@@ -1,0 +1,584 @@
+Sending build context to Docker daemon  7.168kB
+Step 1/7 : FROM  ubuntu:18.04
+ ---> 47b19964fb50
+Step 2/7 : RUN apt-get update
+ ---> Using cache
+ ---> 003c7454e20a
+Step 3/7 : RUN apt-get install g++-7 libboost-all-dev libssl-dev wget git -y      && update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-7 60 --slave /usr/bin/g++ g++ /usr/bin/g++-7     && update-alternatives --config gcc     && wget "https://cmake.org/files/v3.12/cmake-3.12.0-Linux-x86_64.sh"     && sh cmake-3.12.0-Linux-x86_64.sh --skip-license --prefix=/usr
+ ---> Using cache
+ ---> ba47919b9137
+Step 4/7 : RUN apt-get install software-properties-common -y     && add-apt-repository ppa:beineri/opt-qt-5.11.0-bionic     && apt-get update     && apt-get install qt511declarative qt511svg libgl1-mesa-dev libglu1-mesa-dev -y
+ ---> Using cache
+ ---> 3466d7b01ff7
+Step 5/7 : ENV BRANCH="mainnet"
+ ---> Running in 00e3b90b833d
+Removing intermediate container 00e3b90b833d
+ ---> d6df57013af2
+Step 6/7 : RUN cd /     && git clone https://github.com/BeamMW/beam.git     && export PATH="$PATH:/opt/qt511/bin"     && cd /beam     && git checkout -b $BRANCH origin/$BRANCH     && echo "Making..."     && cmake -DCMAKE_BUILD_TYPE=Release .     && make -j4
+ ---> Running in c8605342b65e
+[91mCloning into 'beam'...
+[0m[91mSwitched to a new branch 'mainnet'
+[0mBranch 'mainnet' set up to track remote branch 'mainnet' from 'origin'.
+Making...
+-- Found Git: /usr/bin/git (found version "2.17.1") 
+On branch mainnet
+Your branch is up to date with 'origin/mainnet'.
+
+nothing to commit, working tree clean
+[91mBRANCH_NAME: mainnet[0m[91m
+[0m-- The C compiler identification is GNU 7.3.0
+-- The CXX compiler identification is GNU 7.3.0
+-- Check for working C compiler: /usr/bin/cc
+-- Check for working C compiler: /usr/bin/cc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+[91mBEAM_VERSION: 2.0.4725
+[0m-- Boost version: 1.65.1
+-- Found OpenSSL: /usr/lib/x86_64-linux-gnu/libcrypto.so (found version "1.1.0g")  
+-- Using OpenSSL 1.1.0g
+[91mstart libuv
+GNU
+[0m[91m-fvisibility=hidden;--std=gnu89;-Wall;-Wextra;-Wstrict-prototypes;-Wno-unused-parameter
+[0m-- Boost version: 1.65.1
+-- Found the following Boost libraries:
+--   program_options
+--   filesystem
+--   system
+[91mCMake Warning at ui/CMakeLists.txt:82 (find_package):
+  By not providing "FindQt5LinguistTools.cmake" in CMAKE_MODULE_PATH this
+  project has asked CMake to find a package configuration file provided by
+  "Qt5LinguistTools", but CMake did not find one.
+
+  Could not find a package configuration file provided by "Qt5LinguistTools"
+  with any of the following names:
+
+    Qt5LinguistToolsConfig.cmake
+    qt5linguisttools-config.cmake
+
+  Add the installation prefix of "Qt5LinguistTools" to CMAKE_PREFIX_PATH or
+  set "Qt5LinguistTools_DIR" to a directory containing one of the above
+  files.  If "Qt5LinguistTools" provides a separate development package or
+  SDK, be sure it has been installed.
+
+[0m[91m
+[0m-- Configuring done
+-- Generating done
+-- Build files have been written to: /beam
+Scanning dependencies of target crypto
+Scanning dependencies of target qrcode
+[  2%] Building C object utility/CMakeFiles/crypto.dir/__/3rdparty/crypto/blake/ref/blake2b-ref.c.o
+[  2%] Building CXX object 3rdparty/qrcode/CMakeFiles/qrcode.dir/QRCodeGenerator.cpp.o
+Scanning dependencies of target uv_a
+Scanning dependencies of target sqlite
+[  2%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/fs-poll.c.o
+[  2%] Building C object 3rdparty/sqlite/CMakeFiles/sqlite.dir/sqlite3.c.o
+[  2%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/idna.c.o
+[  3%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/inet.c.o
+[  3%] Linking C static library libcrypto.a
+[  3%] Built target crypto
+[  3%] Generating quazip/moc_zip.cpp
+[91m/beam/3rdparty/quazip/quazip/zip.h:0: Note: No relevant classes found. No output generated.
+[0m[  3%] Generating quazip/moc_ioapi.cpp
+[91m/beam/3rdparty/quazip/quazip/ioapi.h:0: Note: No relevant classes found. No output generated.
+[0m[  3%] Generating quazip/moc_JlCompress.cpp
+[91m/beam/3rdparty/quazip/quazip/JlCompress.h:0: Note: No relevant classes found. No output generated.
+[0m[  4%] Generating quazip/moc_minizip_crypt.cpp
+[91m/beam/3rdparty/quazip/quazip/minizip_crypt.h:0: Note: No relevant classes found. No output generated.
+[0m[  4%] Generating quazip/moc_quaadler32.cpp
+[91m/beam/3rdparty/quazip/quazip/quaadler32.h:0: Note: No relevant classes found. No output generated.
+[0m[  4%] Generating quazip/moc_quachecksum32.cpp
+[91m/beam/3rdparty/quazip/quazip/quachecksum32.h:0: Note: No relevant classes found. No output generated.
+[0m[  5%] Generating quazip/moc_quacrc32.cpp
+[91m/beam/3rdparty/quazip/quazip/quacrc32.h:0: Note: No relevant classes found. No output generated.
+[0m[  5%] Generating quazip/moc_quagzipfile.cpp
+[  5%] Generating quazip/moc_quaziodevice.cpp
+[  5%] Generating quazip/moc_quazip.cpp
+[  5%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/strscpy.c.o
+[91m/beam/3rdparty/quazip/quazip/quazip.h:0: Note: No relevant classes found. No output generated.
+[0m[  6%] Generating quazip/moc_quazipdir.cpp
+[91m/beam/3rdparty/quazip/quazip/quazipdir.h:0: Note: No relevant classes found. No output generated.
+[0m[  6%] Generating quazip/moc_quazipfile.cpp
+[  6%] Generating quazip/moc_quazipfileinfo.cpp
+[91m/beam/3rdparty/quazip/quazip/quazipfileinfo.h:0: Note: No relevant classes found. No output generated.
+[0m[  6%] Generating quazip/moc_quazipnewinfo.cpp
+[91m/beam/3rdparty/quazip/quazip/quazipnewinfo.h:0: Note: No relevant classes found. No output generated.
+[0m[  7%] Generating quazip/moc_unzip.cpp
+[91m/beam/3rdparty/quazip/quazip/unzip.h:0: Note: No relevant classes found. No output generated.
+[0m[  7%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/threadpool.c.o
+Scanning dependencies of target quazip_static
+[  7%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/JlCompress.cpp.o
+[  7%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/timer.c.o
+[  8%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/uv-common.c.o
+[  8%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/uv-data-getter-setters.c.o
+[  8%] Linking CXX static library libqrcode.a
+[  8%] Built target qrcode
+Scanning dependencies of target pow
+[  8%] Building CXX object pow/CMakeFiles/pow.dir/equihash.cpp.o
+[  8%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/version.c.o
+[  8%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/async.c.o
+[  9%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/core.c.o
+[  9%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/dl.c.o
+[  9%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/fs.c.o
+[  9%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/qioapi.cpp.o
+[  9%] Building CXX object pow/CMakeFiles/pow.dir/__/3rdparty/crypto/equihash_impl.cpp.o
+[  9%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/getaddrinfo.c.o
+[ 10%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/getnameinfo.c.o
+[ 10%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/loop-watcher.c.o
+[ 10%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/loop.c.o
+[ 11%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/pipe.c.o
+[ 11%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/poll.c.o
+[ 11%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/process.c.o
+[ 12%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quaadler32.cpp.o
+[ 12%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/signal.c.o
+[91m/beam/3rdparty/libuv/src/unix/signal.c: In function 'uv__signal_stop':
+[0m[91m/beam/3rdparty/libuv/src/unix/signal.c:542:7: warning: variable 'ret' set but not used [-Wunused-but-set-variable]
+   int ret;
+       ^~~
+[0m[ 13%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/stream.c.o
+[ 13%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quacrc32.cpp.o
+[ 13%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/tcp.c.o
+[ 13%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/thread.c.o
+[ 13%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/tty.c.o
+[ 14%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/udp.c.o
+[ 14%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quagzipfile.cpp.o
+[ 14%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/proctitle.c.o
+[ 14%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/linux-core.c.o
+[ 15%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/linux-inotify.c.o
+[ 15%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/linux-syscalls.c.o
+[ 15%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/procfs-exepath.c.o
+[ 15%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/sysinfo-loadavg.c.o
+[ 16%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quaziodevice.cpp.o
+[ 17%] Building C object 3rdparty/libuv/CMakeFiles/uv_a.dir/src/unix/sysinfo-memory.c.o
+[ 17%] Linking C static library libuv_a.a
+[ 17%] Built target uv_a
+[ 17%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quazip.cpp.o
+[ 17%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quazipdir.cpp.o
+[ 17%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quazipfile.cpp.o
+[ 18%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quazipfileinfo.cpp.o
+[ 19%] Building CXX object pow/CMakeFiles/pow.dir/__/3rdparty/arith_uint256.cpp.o
+[ 19%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/quazipnewinfo.cpp.o
+[ 19%] Building CXX object pow/CMakeFiles/pow.dir/__/3rdparty/uint256.cpp.o
+[ 19%] Building CXX object pow/CMakeFiles/pow.dir/__/3rdparty/utilstrencodings.cpp.o
+[ 19%] Building C object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/unzip.c.o
+[ 19%] Building C object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/zip.c.o
+[ 20%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_ioapi.cpp.o
+[ 20%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_JlCompress.cpp.o
+[ 20%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_minizip_crypt.cpp.o
+[ 21%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quaadler32.cpp.o
+[ 21%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quachecksum32.cpp.o
+[ 21%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quacrc32.cpp.o
+[ 21%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quagzipfile.cpp.o
+[ 22%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quaziodevice.cpp.o
+[ 22%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quazip.cpp.o
+[ 22%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quazipdir.cpp.o
+[ 22%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quazipfile.cpp.o
+[ 23%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quazipfileinfo.cpp.o
+[ 23%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_quazipnewinfo.cpp.o
+[ 23%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_unzip.cpp.o
+[ 23%] Building CXX object 3rdparty/quazip/CMakeFiles/quazip_static.dir/quazip/moc_zip.cpp.o
+[ 24%] Linking CXX static library libquazip_static.a
+[ 24%] Built target quazip_static
+[ 24%] Linking CXX static library libpow.a
+[ 24%] Built target pow
+Scanning dependencies of target utility
+[ 24%] Building CXX object utility/CMakeFiles/utility.dir/common.cpp.o
+[ 25%] Building CXX object utility/CMakeFiles/utility.dir/logger.cpp.o
+[ 25%] Building CXX object utility/CMakeFiles/utility.dir/logger_checkpoints.cpp.o
+[ 25%] Building CXX object utility/CMakeFiles/utility.dir/log_rotation.cpp.o
+[ 25%] Building CXX object utility/CMakeFiles/utility.dir/helpers.cpp.o
+[ 26%] Building CXX object utility/CMakeFiles/utility.dir/config.cpp.o
+[ 26%] Building CXX object utility/CMakeFiles/utility.dir/options.cpp.o
+[ 26%] Building CXX object utility/CMakeFiles/utility.dir/string_helpers.cpp.o
+[ 26%] Building CXX object utility/CMakeFiles/utility.dir/asynccontext.cpp.o
+[ 27%] Building CXX object utility/CMakeFiles/utility.dir/io/buffer.cpp.o
+[ 27%] Building CXX object utility/CMakeFiles/utility.dir/io/bufferchain.cpp.o
+[ 27%] Building CXX object utility/CMakeFiles/utility.dir/io/reactor.cpp.o
+[ 27%] Building CXX object utility/CMakeFiles/utility.dir/io/asyncevent.cpp.o
+[ 28%] Building CXX object utility/CMakeFiles/utility.dir/io/timer.cpp.o
+[ 28%] Building CXX object utility/CMakeFiles/utility.dir/io/address.cpp.o
+[ 28%] Building CXX object utility/CMakeFiles/utility.dir/io/tcpserver.cpp.o
+[ 29%] Building CXX object utility/CMakeFiles/utility.dir/io/sslserver.cpp.o
+[ 29%] Building CXX object utility/CMakeFiles/utility.dir/io/sslio.cpp.o
+[ 29%] Building CXX object utility/CMakeFiles/utility.dir/io/tcpstream.cpp.o
+[ 29%] Building CXX object utility/CMakeFiles/utility.dir/io/sslstream.cpp.o
+[ 30%] Building CXX object utility/CMakeFiles/utility.dir/io/errorhandling.cpp.o
+[ 30%] Building CXX object utility/CMakeFiles/utility.dir/io/coarsetimer.cpp.o
+[ 30%] Building CXX object utility/CMakeFiles/utility.dir/io/fragment_writer.cpp.o
+[ 30%] Building CXX object utility/CMakeFiles/utility.dir/io/json_serializer.cpp.o
+[ 31%] Linking CXX static library libutility.a
+[ 31%] Built target utility
+Scanning dependencies of target p2p
+[ 31%] Building CXX object p2p/CMakeFiles/p2p.dir/msg_reader.cpp.o
+[ 31%] Building CXX object p2p/CMakeFiles/p2p.dir/protocol_base.cpp.o
+[ 31%] Building CXX object p2p/CMakeFiles/p2p.dir/msg_serializer.cpp.o
+[ 32%] Linking CXX static library libp2p.a
+[ 32%] Built target p2p
+Scanning dependencies of target core
+[ 32%] Building CXX object core/CMakeFiles/core.dir/uintBig.cpp.o
+[ 32%] Building CXX object core/CMakeFiles/core.dir/ecc.cpp.o
+[ 33%] Building CXX object core/CMakeFiles/core.dir/ecc_bulletproof.cpp.o
+[ 33%] Building CXX object core/CMakeFiles/core.dir/aes.cpp.o
+[ 33%] Linking C static library libsqlite.a
+[ 33%] Built target sqlite
+[ 33%] Building CXX object core/CMakeFiles/core.dir/block_crypt.cpp.o
+[ 33%] Building CXX object core/CMakeFiles/core.dir/block_rw.cpp.o
+[ 34%] Building CXX object core/CMakeFiles/core.dir/block_validation.cpp.o
+[ 34%] Building CXX object core/CMakeFiles/core.dir/difficulty.cpp.o
+[ 34%] Building CXX object core/CMakeFiles/core.dir/chainwork.cpp.o
+[ 34%] Building CXX object core/CMakeFiles/core.dir/navigator.cpp.o
+[ 35%] Building CXX object core/CMakeFiles/core.dir/radixtree.cpp.o
+[ 35%] Building CXX object core/CMakeFiles/core.dir/merkle.cpp.o
+[ 35%] Building CXX object core/CMakeFiles/core.dir/proto.cpp.o
+[ 36%] Building CXX object core/CMakeFiles/core.dir/peer_manager.cpp.o
+[ 36%] Building CXX object core/CMakeFiles/core.dir/fly_client.cpp.o
+[ 36%] Building CXX object core/CMakeFiles/core.dir/treasury.cpp.o
+[ 36%] Linking CXX static library libcore.a
+[ 36%] Built target core
+Scanning dependencies of target mnemonic
+[ 36%] Building CXX object mnemonic/CMakeFiles/mnemonic.dir/dictionary.cpp.o
+[ 36%] Building C object mnemonic/CMakeFiles/mnemonic.dir/__/3rdparty/pkcs5_pbkdf2.c.o
+[ 37%] Building CXX object mnemonic/CMakeFiles/mnemonic.dir/mnemonic.cpp.o
+[ 37%] Building C object mnemonic/CMakeFiles/mnemonic.dir/__/3rdparty/hmac_sha512.c.o
+[ 37%] Building C object mnemonic/CMakeFiles/mnemonic.dir/__/3rdparty/sha512.c.o
+[ 38%] Building C object mnemonic/CMakeFiles/mnemonic.dir/__/3rdparty/zeroize.c.o
+[ 38%] Linking CXX static library libmnemonic.a
+[ 38%] Built target mnemonic
+Scanning dependencies of target tcpclient_test
+Scanning dependencies of target address_test
+Scanning dependencies of target timer_test
+Scanning dependencies of target tcpserver_test
+[ 38%] Building CXX object utility/unittest/CMakeFiles/tcpclient_test.dir/tcpclient_test.cpp.o
+[ 39%] Building CXX object utility/unittest/CMakeFiles/tcpserver_test.dir/tcpserver_test.cpp.o
+[ 39%] Building CXX object utility/unittest/CMakeFiles/address_test.dir/address_test.cpp.o
+[ 39%] Building CXX object utility/unittest/CMakeFiles/timer_test.dir/timer_test.cpp.o
+[ 40%] Linking CXX executable address_test
+[ 40%] Built target address_test
+Scanning dependencies of target serialize_test
+[ 40%] Building CXX object utility/unittest/CMakeFiles/serialize_test.dir/serialize_test.cpp.o
+[ 40%] Linking CXX executable tcpserver_test
+[ 40%] Linking CXX executable timer_test
+[ 40%] Built target tcpserver_test
+Scanning dependencies of target serialization_adapters_test
+[ 41%] Building CXX object utility/unittest/CMakeFiles/serialization_adapters_test.dir/serialization_adapters_test.cpp.o
+[ 41%] Built target timer_test
+Scanning dependencies of target asyncevent_test
+[ 41%] Building CXX object utility/unittest/CMakeFiles/asyncevent_test.dir/asyncevent_test.cpp.o
+[ 41%] Linking CXX executable tcpclient_test
+[ 41%] Built target tcpclient_test
+Scanning dependencies of target shared_data_test
+[ 41%] Building CXX object utility/unittest/CMakeFiles/shared_data_test.dir/shared_data_test.cpp.o
+[ 41%] Linking CXX executable serialization_adapters_test
+[ 41%] Built target serialization_adapters_test
+Scanning dependencies of target logger_test
+[ 41%] Building CXX object utility/unittest/CMakeFiles/logger_test.dir/logger_test.cpp.o
+[ 41%] Linking CXX executable asyncevent_test
+[ 41%] Linking CXX executable serialize_test
+[ 41%] Built target asyncevent_test
+Scanning dependencies of target bridge_test
+[ 41%] Building CXX object utility/unittest/CMakeFiles/bridge_test.dir/bridge_test.cpp.o
+[ 41%] Built target serialize_test
+Scanning dependencies of target ssl_test
+[ 42%] Building CXX object utility/unittest/CMakeFiles/ssl_test.dir/ssl_test.cpp.o
+[ 43%] Linking CXX executable shared_data_test
+[ 43%] Built target shared_data_test
+Scanning dependencies of target channel_test
+[ 43%] Building CXX object utility/unittest/CMakeFiles/channel_test.dir/channel_test.cpp.o
+[ 43%] Linking CXX executable logger_test
+[ 43%] Built target logger_test
+Scanning dependencies of target config_test
+[ 44%] Building CXX object utility/unittest/CMakeFiles/config_test.dir/config_test.cpp.o
+[ 44%] Linking CXX executable ssl_test
+[ 44%] Built target ssl_test
+Scanning dependencies of target reactor_test
+[ 44%] Building CXX object utility/unittest/CMakeFiles/reactor_test.dir/reactor_test.cpp.o
+[ 45%] Linking CXX executable bridge_test
+[ 45%] Built target bridge_test
+Scanning dependencies of target storage_test
+[ 45%] Building CXX object core/unittest/CMakeFiles/storage_test.dir/storage_test.cpp.o
+[ 45%] Linking CXX executable config_test
+[ 45%] Built target config_test
+Scanning dependencies of target ecc_test
+[ 46%] Building CXX object core/unittest/CMakeFiles/ecc_test.dir/ecc_test.cpp.o
+[ 46%] Linking CXX executable channel_test
+[ 46%] Built target channel_test
+Scanning dependencies of target external_pow
+[ 46%] Building CXX object pow/CMakeFiles/external_pow.dir/external_pow_stub.cpp.o
+[ 46%] Linking CXX executable reactor_test
+[ 46%] Built target reactor_test
+Scanning dependencies of target node
+[ 47%] Building CXX object node/CMakeFiles/node.dir/node.cpp.o
+[ 47%] Linking CXX executable storage_test
+[ 47%] Building CXX object pow/CMakeFiles/external_pow.dir/stratum.cpp.o
+[ 47%] Built target storage_test
+[ 48%] Building CXX object pow/CMakeFiles/external_pow.dir/stratum_server.cpp.o
+[ 48%] Linking CXX executable ecc_test
+Scanning dependencies of target equihash_test
+[ 48%] Building CXX object pow/unittests/CMakeFiles/equihash_test.dir/equihash_test.cpp.o
+[ 48%] Built target ecc_test
+Scanning dependencies of target filesend_test
+[ 48%] Building CXX object p2p/unittest/CMakeFiles/filesend_test.dir/filesend_test.cpp.o
+[ 48%] Linking CXX static library libexternal_pow.a
+[ 48%] Built target external_pow
+Scanning dependencies of target dialog_test
+[ 48%] Building CXX object p2p/unittest/CMakeFiles/dialog_test.dir/dialog_test.cpp.o
+[ 49%] Linking CXX executable equihash_test
+[ 49%] Built target equihash_test
+[ 49%] Building CXX object node/CMakeFiles/node.dir/db.cpp.o
+Scanning dependencies of target twopeers_test
+[ 50%] Building CXX object p2p/unittest/CMakeFiles/twopeers_test.dir/twopeers_test.cpp.o
+[ 50%] Building CXX object node/CMakeFiles/node.dir/processor.cpp.o
+[ 50%] Linking CXX executable filesend_test
+[ 50%] Linking CXX executable dialog_test
+[ 50%] Built target filesend_test
+Scanning dependencies of target msg_serializer_test
+[ 50%] Building CXX object p2p/unittest/CMakeFiles/msg_serializer_test.dir/msg_serializer_test.cpp.o
+[ 50%] Built target dialog_test
+Scanning dependencies of target http
+[ 51%] Building CXX object http/CMakeFiles/http.dir/http_msg_reader.cpp.o
+[ 51%] Linking CXX executable twopeers_test
+[ 51%] Built target twopeers_test
+Scanning dependencies of target wallet
+[ 51%] Building CXX object wallet/CMakeFiles/wallet.dir/common.cpp.o
+[ 51%] Building CXX object http/CMakeFiles/http.dir/http_msg_creator.cpp.o
+[ 51%] Linking CXX executable msg_serializer_test
+[ 51%] Built target msg_serializer_test
+[ 51%] Building CXX object http/CMakeFiles/http.dir/http_client.cpp.o
+[ 52%] Building CXX object http/CMakeFiles/http.dir/http_json_serializer.cpp.o
+[ 52%] Building C object http/CMakeFiles/http.dir/__/3rdparty/picohttpparser/picohttpparser.c.o
+Scanning dependencies of target bip39_test
+[ 52%] Building CXX object mnemonic/unittests/CMakeFiles/bip39_test.dir/bip39_test.cpp.o
+[ 52%] Linking CXX static library libhttp.a
+[ 52%] Built target http
+[ 52%] Building CXX object wallet/CMakeFiles/wallet.dir/default_peers.cpp.o
+[ 53%] Building CXX object wallet/CMakeFiles/wallet.dir/wallet.cpp.o
+[ 53%] Building CXX object wallet/CMakeFiles/wallet.dir/wallet_transaction.cpp.o
+[ 53%] Linking CXX executable bip39_test
+[ 53%] Built target bip39_test
+Scanning dependencies of target miner_client
+[ 54%] Building CXX object pow/CMakeFiles/miner_client.dir/miner_client.cpp.o
+[ 55%] Building CXX object node/CMakeFiles/node.dir/txpool.cpp.o
+[ 55%] Building CXX object node/CMakeFiles/node.dir/node_client.cpp.o
+[ 55%] Building CXX object pow/CMakeFiles/miner_client.dir/__/core/block_crypt.cpp.o
+[ 55%] Building CXX object wallet/CMakeFiles/wallet.dir/wallet_network.cpp.o
+[ 55%] Building CXX object wallet/CMakeFiles/wallet.dir/wallet_db.cpp.o
+[ 55%] Linking CXX static library libnode.a
+[ 55%] Built target node
+[ 56%] Building CXX object wallet/CMakeFiles/wallet.dir/wallet_client.cpp.o
+[ 56%] Linking CXX executable miner_client
+[ 56%] Built target miner_client
+Scanning dependencies of target stratum_test
+[ 57%] Building CXX object pow/unittests/CMakeFiles/stratum_test.dir/stratum_test.cpp.o
+[ 57%] Linking CXX executable stratum_test
+[ 57%] Built target stratum_test
+Scanning dependencies of target http_client_test
+[ 57%] Building CXX object http/unittests/CMakeFiles/http_client_test.dir/http_client_test.cpp.o
+Scanning dependencies of target http_parser_test
+[ 57%] Building CXX object http/unittests/CMakeFiles/http_parser_test.dir/http_parser_test.cpp.o
+[ 57%] Linking CXX executable http_parser_test
+[ 58%] Linking CXX executable http_client_test
+[ 58%] Built target http_parser_test
+Scanning dependencies of target http_test
+[ 58%] Building CXX object http/unittests/CMakeFiles/http_test.dir/http_test.cpp.o
+[ 58%] Built target http_client_test
+Scanning dependencies of target node_1_test
+[ 58%] Building CXX object node/unittests/CMakeFiles/node_1_test.dir/node_1_test.cpp.o
+[ 58%] Building CXX object wallet/CMakeFiles/wallet.dir/swap_transaction.cpp.o
+[ 59%] Linking CXX executable http_test
+[ 59%] Built target http_test
+Scanning dependencies of target node_test
+[ 59%] Building CXX object node/unittests/CMakeFiles/node_test.dir/node_test.cpp.o
+[ 59%] Building CXX object wallet/CMakeFiles/wallet.dir/secstring2.cpp.o
+[ 60%] Linking CXX executable node_1_test
+[ 61%] Building CXX object wallet/CMakeFiles/wallet.dir/unittests/util.cpp.o
+[ 61%] Built target node_1_test
+Scanning dependencies of target beam-node
+[ 61%] Building CXX object beam/CMakeFiles/beam-node.dir/cli.cpp.o
+Scanning dependencies of target explorer
+[ 61%] Building CXX object explorer/CMakeFiles/explorer.dir/server.cpp.o
+[ 61%] Linking CXX static library libwallet.a
+[ 61%] Building CXX object explorer/CMakeFiles/explorer.dir/adapter.cpp.o
+[ 61%] Built target wallet
+Scanning dependencies of target server_stub
+[ 62%] Building CXX object pow/unittests/CMakeFiles/server_stub.dir/server_stub.cpp.o
+[ 62%] Linking CXX executable node_test
+[ 62%] Built target node_test
+[ 62%] Building CXX object pow/unittests/CMakeFiles/server_stub.dir/__/__/core/block_crypt.cpp.o
+Scanning dependencies of target wallet_api_proto
+[ 63%] Building CXX object wallet/CMakeFiles/wallet_api_proto.dir/api.cpp.o
+[ 64%] Linking CXX executable beam-node
+[ 64%] Built target beam-node
+Scanning dependencies of target beam-wallet
+[ 64%] Building CXX object wallet/CMakeFiles/beam-wallet.dir/cli.cpp.o
+[ 64%] Linking CXX executable server_stub
+[ 64%] Built target server_stub
+Scanning dependencies of target wallet_db_test
+[ 65%] Building CXX object wallet/unittests/CMakeFiles/wallet_db_test.dir/wallet_db_test.cpp.o
+[ 65%] Linking CXX static library libexplorer.a
+[ 65%] Built target explorer
+Scanning dependencies of target offline
+[ 65%] Building CXX object wallet/unittests/CMakeFiles/offline.dir/offline.cpp.o
+[ 65%] Linking CXX executable wallet_db_test
+[ 65%] Built target wallet_db_test
+Scanning dependencies of target wallet_test
+[ 65%] Building CXX object wallet/unittests/CMakeFiles/wallet_test.dir/wallet_test.cpp.o
+[ 66%] Linking CXX executable offline
+[ 66%] Built target offline
+Scanning dependencies of target explorer-node
+[ 67%] Building CXX object explorer/CMakeFiles/explorer-node.dir/explorer_node.cpp.o
+[ 67%] Linking CXX static library libwallet_api_proto.a
+[ 67%] Built target wallet_api_proto
+Scanning dependencies of target adapter_test
+[ 67%] Building CXX object explorer/unittest/CMakeFiles/adapter_test.dir/adapter_test.cpp.o
+[ 67%] Linking CXX executable beam-wallet
+[ 67%] Built target beam-wallet
+Scanning dependencies of target beam-wallet-ui_autogen
+[ 68%] Automatic MOC for target beam-wallet-ui
+[ 68%] Linking CXX executable adapter_test
+[ 69%] Linking CXX executable wallet_test
+[ 69%] Built target adapter_test
+Scanning dependencies of target wallet-api
+[ 69%] Building CXX object wallet/CMakeFiles/wallet-api.dir/api_cli.cpp.o
+[ 69%] Built target wallet_test
+Scanning dependencies of target wallet_api_test
+[ 69%] Building CXX object wallet/unittests/CMakeFiles/wallet_api_test.dir/wallet_api_test.cpp.o
+[ 69%] Built target beam-wallet-ui_autogen
+[ 69%] Generating qmlcache_loader.cpp
+[ 69%] Generating qrc_qml_qmlcache.cpp
+[ 70%] Generating view_dashboard_qml.cpp
+[ 70%] Generating view_loading_qml.cpp
+[ 70%] Generating view_addresses_qml.cpp
+[ 71%] Generating view_start_qml.cpp
+[ 71%] Generating view_utxo_qml.cpp
+[ 71%] Generating view_root_qml.cpp
+[ 71%] Generating view_wallet_qml.cpp
+[ 72%] Generating view_notification_qml.cpp
+[ 72%] Generating view_main_qml.cpp
+[ 72%] Generating view_info_qml.cpp
+[ 72%] Generating view_settings_qml.cpp
+[ 73%] Generating view_controls_PrimaryButton_qml.cpp
+[ 73%] Generating view_controls_DefaultButton_qml.cpp
+[ 73%] Generating view_controls_TxFilter_qml.cpp
+[ 73%] Generating view_controls_TableItem_qml.cpp
+[ 73%] Linking CXX executable explorer-node
+[ 74%] Generating view_controls_SvgImage_qml.cpp
+[ 74%] Generating view_controls_Style_qml.cpp
+[ 74%] Generating view_controls_SFFontLoader_qml.cpp
+[ 75%] Generating view_controls_AddressTable_qml.cpp
+[ 75%] Generating view_controls_CustomTableView_qml.cpp
+[ 75%] Generating view_controls_SFTextInput_qml.cpp
+[ 75%] Generating view_controls_SFTextArea_qml.cpp
+[ 76%] Generating view_controls_ConfirmationDialog_qml.cpp
+[ 76%] Generating view_controls_EditAddress_qml.cpp
+[ 76%] Generating view_controls_ChangePasswordDialog_qml.cpp
+[ 76%] Generating view_controls_StatusBar_qml.cpp
+[ 77%] Generating view_controls_AddressComboBox_qml.cpp
+[ 77%] Generating view_controls_TransactionDetails_qml.cpp
+[ 77%] Generating view_controls_SFLabel_qml.cpp
+[ 78%] Generating view_controls_AvailablePanel_qml.cpp
+[ 78%] Generating view_controls_CustomSwitch_qml.cpp
+[ 78%] Generating view_controls_CustomComboBox_qml.cpp
+[ 78%] Generating view_controls_LogoComponent_qml.cpp
+[ 79%] Generating view_controls_CustomProgressBar_qml.cpp
+[ 79%] Generating view_controls_SecondaryPanel_qml.cpp
+[ 79%] Generating view_controls_CustomRadioButton_qml.cpp
+[ 79%] Built target explorer-node
+[ 80%] Generating view_controls_ContextMenu_qml.cpp
+[ 80%] Generating view_controls_CustomCheckBox_qml.cpp
+[ 80%] Generating view_controls_FeeSlider_qml.cpp
+[ 80%] Generating view_controls_CustomToolButton_qml.cpp
+[ 80%] Generating view_controls_SFText_qml.cpp
+[ 81%] Generating view_controls_Led_qml.cpp
+[ 81%] Generating view_controls_SecurityNote_qml.cpp
+[ 81%] Generating view_controls_PaymentInfoDialog_qml.cpp
+[ 82%] Generating view_controls_CustomButton_qml.cpp
+Scanning dependencies of target beam-wallet-ui
+[ 82%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/translator.cpp.o
+[ 82%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/ui.cpp.o
+[ 83%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/start_view.cpp.o
+[ 83%] Linking CXX executable wallet_api_test
+[ 83%] Built target wallet_api_test
+[ 83%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/loading_view.cpp.o
+[ 83%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/utxo_view.cpp.o
+[ 83%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/main_view.cpp.o
+[ 83%] Linking CXX executable wallet-api
+[ 83%] Built target wallet-api
+[ 84%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/dashboard_view.cpp.o
+[ 84%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/wallet_view.cpp.o
+[ 84%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/notifications_view.cpp.o
+[ 85%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/help_view.cpp.o
+[ 85%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/settings_view.cpp.o
+[ 85%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/address_book_view.cpp.o
+[ 85%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/ui_helpers.cpp.o
+[ 86%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/messages_view.cpp.o
+[ 86%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/viewmodel/statusbar_view.cpp.o
+[ 86%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/model/wallet_model.cpp.o
+[ 86%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/model/app_model.cpp.o
+[ 87%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/model/settings.cpp.o
+[ 87%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/model/messages.cpp.o
+[ 87%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/model/node_model.cpp.o
+[ 87%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/qrc_qml_qmlcache.cpp.o
+[ 88%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_dashboard_qml.cpp.o
+[ 88%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_loading_qml.cpp.o
+[ 88%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_addresses_qml.cpp.o
+[ 89%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_start_qml.cpp.o
+[ 89%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_utxo_qml.cpp.o
+[ 89%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_root_qml.cpp.o
+[ 89%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_wallet_qml.cpp.o
+[ 90%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_notification_qml.cpp.o
+[ 90%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_main_qml.cpp.o
+[ 90%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_info_qml.cpp.o
+[ 90%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_settings_qml.cpp.o
+[ 91%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_PrimaryButton_qml.cpp.o
+[ 91%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_DefaultButton_qml.cpp.o
+[ 91%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_TxFilter_qml.cpp.o
+[ 92%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_TableItem_qml.cpp.o
+[ 92%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SvgImage_qml.cpp.o
+[ 92%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_Style_qml.cpp.o
+[ 92%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SFFontLoader_qml.cpp.o
+[ 93%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_AddressTable_qml.cpp.o
+[ 93%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomTableView_qml.cpp.o
+[ 93%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SFTextInput_qml.cpp.o
+[ 93%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SFTextArea_qml.cpp.o
+[ 94%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_ConfirmationDialog_qml.cpp.o
+[ 94%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_EditAddress_qml.cpp.o
+[ 94%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_ChangePasswordDialog_qml.cpp.o
+[ 94%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_StatusBar_qml.cpp.o
+[ 95%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_AddressComboBox_qml.cpp.o
+[ 95%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_TransactionDetails_qml.cpp.o
+[ 95%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SFLabel_qml.cpp.o
+[ 96%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_AvailablePanel_qml.cpp.o
+[ 96%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomSwitch_qml.cpp.o
+[ 96%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomComboBox_qml.cpp.o
+[ 96%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_LogoComponent_qml.cpp.o
+[ 97%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomProgressBar_qml.cpp.o
+[ 97%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SecondaryPanel_qml.cpp.o
+[ 97%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomRadioButton_qml.cpp.o
+[ 97%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomCheckBox_qml.cpp.o
+[ 98%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_ContextMenu_qml.cpp.o
+[ 98%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_FeeSlider_qml.cpp.o
+[ 98%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomToolButton_qml.cpp.o
+[ 98%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SFText_qml.cpp.o
+[ 99%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_Led_qml.cpp.o
+[ 99%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_SecurityNote_qml.cpp.o
+[ 99%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_PaymentInfoDialog_qml.cpp.o
+[100%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/view_controls_CustomButton_qml.cpp.o
+[100%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/qmlcache_loader.cpp.o
+[100%] Building CXX object ui/CMakeFiles/beam-wallet-ui.dir/beam-wallet-ui_autogen/mocs_compilation.cpp.o
+[100%] Linking CXX executable BeamWallet
+[100%] Built target beam-wallet-ui
+Removing intermediate container c8605342b65e
+ ---> 09e806681731
+Step 7/7 : CMD bash
+ ---> Running in eca163e88597
+Removing intermediate container eca163e88597
+ ---> bb11b76dc427
+Successfully built bb11b76dc427
+Successfully tagged ivories/beam:latest
