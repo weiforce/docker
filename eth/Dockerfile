@@ -11,6 +11,8 @@ RUN apk add --no-cache supervisor \
 
 COPY supervisord.conf /supervisor/supervisord.conf
 
+RUN cat /supervisor/supervisord.conf
+
 ENTRYPOINT []
 
 CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
