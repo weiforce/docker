@@ -12,8 +12,8 @@ ExecStartPre=-/usr/bin/docker kill mysql
 ExecStartPre=-/usr/bin/docker rm mysql
 ExecStartPre=-/home/core/docker/shell/install_fleetctl mysql
 ExecStartPre=-/usr/bin/docker network create nginx-network
-#ExecStart=/usr/bin/docker run --name mysql -v /home/core/data/mysql:/etc/mysql -v /home/core/data/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=yellow --user=root ivories/mysql:1.0
-ExecStart=/home/core/docker/shell/run_mysql
+ExecStart=/usr/bin/docker run --name mysql -v /home/core/data/mysql:/etc/mysql -v /home/core/data/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=yellow --user=root ivories/mysql
+#ExecStart=/home/core/docker/shell/run_mysql
 ExecStop=/usr/bin/docker stop mysql
 ExecStop=/usr/bin/docker kill mysql
 
