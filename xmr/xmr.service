@@ -10,8 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop xmr
 ExecStartPre=-/usr/bin/docker kill xmr
 ExecStartPre=-/usr/bin/docker rm xmr
-ExecStart=/usr/bin/docker run -i --name=xmr -p 10021:8332 -v /home/core/data/xmr:/home/monero/.bitmonero -u root ivories/xmr
-#ExecStart=/usr/bin/docker run --name=xmr -p 10021:8332 -u root ivories/xmr
+ExecStart=/usr/bin/docker run -t --name=xmr -p 10021:8332 -v /home/core/data/xmr:/root/.bitmonero -u root ivories/xmr
 
 ExecStop=/usr/bin/docker stop xmr
 
