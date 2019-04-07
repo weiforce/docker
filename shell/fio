@@ -28,3 +28,5 @@ then
 
 fi
 
+sudo /usr/bin/rm $(pwd)/Fio.0.0
+
