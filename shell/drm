@@ -1,0 +1,1 @@
+docker ps -a  | awk '{if($0 ~ /Exited/){print $1}}' |xargs docker stop |xargs docker rm
