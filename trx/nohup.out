@@ -1,0 +1,35 @@
+Sending build context to Docker daemon  28.16kB
+Step 1/4 : FROM polfilm/tron-java
+ ---> 17fdd560c502
+Step 2/4 : RUN git fetch --prune     && git fetch --tags     && git checkout Odyssey-v3.5.0.1
+ ---> Using cache
+ ---> 13942b1de08d
+Step 3/4 : RUN ./gradlew clean shadowJar
+ ---> Using cache
+ ---> 9d1e5461a530
+Step 4/4 : RUN ./gradlew run
+ ---> Running in 7fcb2bbc46f7
+:extractIncludeProto UP-TO-DATE
+:extractProto UP-TO-DATE
+:generateProto
+Using TaskInputs.file() with something that doesn't resolve to a File object has been deprecated and is scheduled to be removed in Gradle 5.0. Use TaskInputs.files() instead.
+:generateProto UP-TO-DATE
+:compileJava UP-TO-DATE
+:processResources UP-TO-DATE
+:classes UP-TO-DATE
+:run FAILED
+6 actionable tasks: 1 executed, 5 up-to-date
+[91m
+[0m[91mFAILURE: Build failed with an exception.
+
+* What went wrong:
+Execution failed for task ':run'.
+> Process 'command '/usr/lib/jvm/java-8-oracle/bin/java'' finished with non-zero exit value 137
+
+* Try:
+Run with --stacktrace option to get the stack trace. Run with --info or --debug option to get more log output.
+
+* Get more help at https://help.gradle.org
+
+BUILD FAILED in 34m 16s
+[0mThe command '/bin/sh -c ./gradlew run' returned a non-zero code: 1

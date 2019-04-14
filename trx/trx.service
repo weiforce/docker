@@ -1,0 +1,18 @@
+[Unit]
+Description=trx
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop trx
+ExecStartPre=-/usr/bin/docker kill trx
+ExecStartPre=-/usr/bin/docker rm trx
+ExecStart=/usr/bin/docker run --name=trx -v /home/core/data/trx:/root -v /home/core/data/trx/tron:/home/java-tron -u root ivories/trx
+ExecStop=/usr/bin/docker stop trx
+
+[Install]
+WantedBy=multi-user.target
+
