@@ -1,0 +1,18 @@
+[Unit]
+Description=rabbitmq
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop rabbitmq
+ExecStartPre=-/usr/bin/docker kill rabbitmq
+ExecStartPre=-/usr/bin/docker rm rabbitmq
+ExecStart=/usr/bin/docker run --name=rabbitmq --net=nginx-network -v /home/core/data/rabbitmq:/data ivories/rabbitmq 
+ExecStop=/usr/bin/docker stop rabbitmq
+
+[Install]
+WantedBy=multi-user.target
+
