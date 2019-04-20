@@ -3,13 +3,12 @@ FROM debian:jessie-slim
 RUN apt-get update
 
 RUN DEBIAN_FRONTEND=noninteractive apt-get install -y apt-transport-https wget apt-utils && \
-
     wget -qO - https://apt.z.cash/zcash.asc | apt-key add - && \
     echo "deb [arch=amd64] https://apt.z.cash/ jessie main" | tee /etc/apt/sources.list.d/zcash.list && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y zcash=1.1.2
         
-#    DEBIAN_FRONTEND=noninteractive apt-get remove -y apt-transport-https wget apt-utils && \
+#RUN DEBIAN_FRONTEND=noninteractive apt-get remove -y apt-transport-https wget apt-utils && \
 #    DEBIAN_FRONTEND=noninteractive apt-get autoremove -y && \
 #    apt-get clean && \
 #    rm -rf /var/lib/apt/lists/*

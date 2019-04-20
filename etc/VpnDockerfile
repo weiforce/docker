@@ -24,6 +24,4 @@ ENV EASYRSA_CRL_DAYS 3650
 VOLUME ["/etc/openvpn"]
 ################### end vpn ###################
 
-
-
 ENTRYPOINT []
