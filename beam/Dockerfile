@@ -20,19 +20,20 @@ RUN cd / \
     && cmake -DCMAKE_BUILD_TYPE=Release -DBEAM_NO_QT_UI_WALLET=on . \
     && make -j4 
 
-#COPY /beam/beam/beam-node /usr/bin/
-#COPY /beam/wallet/beam-wallet /usr/bin/
-
-##FROM scratch
 #FROM ubuntu:18.04
-##VOLUME ["/beam"]
 #COPY --from=0 /beam/beam/beam-node /usr/bin/
 #COPY --from=0 /beam/wallet/beam-wallet /usr/bin/
 #COPY --from=0 /beam/beam/beam-node.cfg /beam/
 #COPY --from=0 /beam/wallet/beam-wallet.cfg /beam/
 
-CMD bash
+RUN apt-get install -y  supervisor nginx \
+    && mkdir /supervisor \
+#    && sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf \
+    && rm -rf /etc/nginx/sites-enabled/default 
 
+COPY supervisord.conf /supervisor/supervisord.conf
+COPY conf/ /etc/nginx/
+CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
 
    
 

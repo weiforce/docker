@@ -10,10 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop beam
 ExecStartPre=-/usr/bin/docker kill beam
 ExecStartPre=-/usr/bin/docker rm beam
-#ExecStart=/usr/bin/docker run --user=root --name=beam -p 10009:9109 -p 10010:9110 -v /home/core/data/wallet/beam:/supervisor -v /home/core/data/wallet/beam:/root/.beamd -v /home/core/data/wallet/beam/wallet:/root/.beamwallet ivories/beam
-
-ExecStart=/usr/bin/docker run --name=beam -v /home/core/data/wallet/beam:/data ivories/beam
-
+ExecStart=/usr/bin/docker run --name=beam -p 10023:80 -v /home/core/data/wallet/beam:/beam ivories/beam
 ExecStop=/usr/bin/docker stop beam
 
 [Install]
