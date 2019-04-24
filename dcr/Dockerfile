@@ -55,6 +55,10 @@ RUN \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+RUN apt-get update && apt-get install -qqy nginx \
+    && rm -rf /etc/nginx/sites-enabled/default 
+
+COPY conf/ /etc/nginx/conf.d/ 
 COPY supervisord.conf /supervisor/supervisord.conf
 
 ENV PATH $PATH:$DECRED_INSTALL/bin
