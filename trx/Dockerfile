@@ -1,8 +1,10 @@
 FROM polfilm/tron-java
 
+ARG trx_branch=master
+
 RUN git fetch --prune \
     && git fetch --tags \
-    && git checkout Odyssey-v3.5.0.1
+    && git checkout $trx_branch 
 
 RUN ./gradlew clean shadowJar
 
