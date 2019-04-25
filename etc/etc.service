@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop etc
 ExecStartPre=-/usr/bin/docker kill etc
 ExecStartPre=-/usr/bin/docker rm etc
-ExecStart=/usr/bin/docker run --name=etc -p 10004:80 -v /home/core/data/etc/conf.d:/etc/nginx/conf.d -v /home/core/data/etc:/root ivories/etc /root/start.sh
+ExecStart=/usr/bin/docker run --name=etc -u root -p 10004:80 -v /home/core/data/etc/conf.d:/etc/nginx/conf.d -v /home/core/data/etc:/root/.local/share/io.parity.ethereum ivories/etc
 ExecStop=/usr/bin/docker stop etc
 
 [Install]

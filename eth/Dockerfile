@@ -1,13 +1,17 @@
-FROM ethereum/client-go:v1.8.23
+FROM parity/parity:stable
 
-RUN apk add --no-cache nginx
-RUN apk add --no-cache bash
-RUN sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf
+USER root
+RUN apt update
+RUN apt -y install nginx
+RUN apt -y install bash
 
-RUN apk add --no-cache curl wget
+#RUN sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf
 
-RUN apk add --no-cache supervisor \
+RUN apt -y install supervisor \
     && mkdir /supervisor
+
+RUN rm -rf /etc/nginx/sites-enabled
+RUN rm -rf /etc/nginx/sites-available
 
 COPY supervisord.conf /supervisor/supervisord.conf
 
@@ -16,6 +20,4 @@ RUN cat /supervisor/supervisord.conf
 ENTRYPOINT []
 
 CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
-
-
 

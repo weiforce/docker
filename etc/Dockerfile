@@ -1,11 +1,23 @@
-FROM golang:1.9-alpine
-RUN apk add --no-cache git make gcc musl-dev linux-headers
-RUN go get -d github.com/ethereumproject/go-ethereum/cmd/geth
-RUN go install github.com/ethereumproject/go-ethereum/cmd/geth
+FROM parity/parity:stable
 
-RUN cp /go/bin/geth /usr/local/bin/
+USER root
+RUN apt update
+RUN apt -y install nginx
+RUN apt -y install bash
 
-RUN apk add --no-cache nginx
-RUN sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf
+#RUN sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf
+
+RUN apt -y install supervisor \
+    && mkdir /supervisor
+
+RUN rm -rf /etc/nginx/sites-enabled
+RUN rm -rf /etc/nginx/sites-available
+
+COPY supervisord.conf /supervisor/supervisord.conf
+
+RUN cat /supervisor/supervisord.conf
 
 ENTRYPOINT []
+
+CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
+
