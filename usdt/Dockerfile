@@ -1,7 +1,7 @@
 FROM debian:stretch-slim
 MAINTAINER Vincent Gu <v@vgu.io>
 
-ENV OMNICORE_VER 0.4
+ENV OMNICORE_VER 0.4.0
 ENV OMNICORE_ARCH x86_64
 
 ENV RPC_USER user
