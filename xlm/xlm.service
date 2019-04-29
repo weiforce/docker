@@ -10,7 +10,8 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop xlm
 ExecStartPre=-/usr/bin/docker kill xlm
 ExecStartPre=-/usr/bin/docker rm xlm
-ExecStart=/usr/bin/docker run -t --name=xlm -p 10028:8000 -v /home/core/data/xlm/core:/opt/stellar/core -v /home/core/data/xlm/postgresql:/opt/stellar/postgresql -u root ivories/xlm --pubnet
+ExecStart=/usr/bin/docker run -t --name=xlm -p 10028:80 -v /home/core/data/wallet/xlm:/opt/stellar ivories/xlm
+#  --pubnet
 
 ExecStop=/usr/bin/docker stop xlm
 
