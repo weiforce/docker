@@ -1,7 +1,13 @@
 FROM aeternity/aeternity
+USER root
+RUN apt-get update  \
+    && apt-get install -qqy nginx supervisor \
+    && mkdir /supervisor \
+    && rm -rf /etc/nginx/sites-enabled/default
 
-RUN ls
-#ENTRYPOINT [""]
-#CMD ["./monerod", "--restricted-rpc", "--rpc-bind-ip=0.0.0.0", "--confirm-external-bind"]
+COPY supervisord.conf /supervisor/supervisord.conf
+COPY conf/conf.d /etc/nginx/conf.d
 
+ENTRYPOINT [ "" ]
 
+CMD /usr/bin/supervisord -u root  -c /supervisor/supervisord.conf -n
