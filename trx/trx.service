@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop trx
 ExecStartPre=-/usr/bin/docker kill trx
 ExecStartPre=-/usr/bin/docker rm trx
-ExecStart=/usr/bin/docker run --name=trx -p10030:80  -v /home/core/data/trx/tron:/home/java-tron ivories/trx:master
+ExecStart=/usr/bin/docker run --name=trx -p10030:80  -v /home/core/data/wallet/trx/tron:/home/java-tron ivories/trx:master
 ExecStop=/usr/bin/docker stop trx
 
 [Install]

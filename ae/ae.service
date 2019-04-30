@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop ae
 ExecStartPre=-/usr/bin/docker kill ae
 ExecStartPre=-/usr/bin/docker rm ae
-ExecStart=/usr/bin/docker run -t --name=ae -p 10029:80  -v /home/core/data/ae:/home/aeternity -uroot ivories/ae
+ExecStart=/usr/bin/docker run -t --name=ae -p 10029:80  -v /home/core/data/wallet/ae:/home/aeternity -uroot ivories/ae
 
 ExecStop=/usr/bin/docker stop ae
 
