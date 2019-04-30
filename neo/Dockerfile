@@ -14,12 +14,14 @@ RUN apt-get update && apt-get install -qqy wget git libleveldb-dev sqlite3 libsq
 
 #RUN dotnet publish -c release -r linux-x64 -o neo
 
-RUN apt-get install -qqy screen supervisor && \
-    mkdir /supervisor
+RUN apt-get install -qqy nginx  supervisor && \
+    mkdir /supervisor  && \ 
+    rm -rf /etc/nginx/sites-enabled/default
 
 WORKDIR /neo/publish/
 
 COPY supervisord.conf /supervisor/
+COPY conf/conf.d /etc/nginx/conf.d
 
 CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
 
