@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop neo
 ExecStartPre=-/usr/bin/docker kill neo
 ExecStartPre=-/usr/bin/docker rm neo
-ExecStart=/usr/bin/docker run --name=neo -p 10027:10332 -v /home/core/data/neo:/neo ivories/neo:core
+ExecStart=/usr/bin/docker run --name=neo -p 10027:80 -v /home/core/data/neo:/neo ivories/neo:core
 ExecStop=/usr/bin/docker stop neo
 
 [Install]

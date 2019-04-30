@@ -1,6 +1,6 @@
 #!/bin/bash
   
-if [ $#=0 ];then
+if [ $# -eq 0 ];then
   docker images| awk '/none/'|awk '{cmd="docker rmi "$3;system(cmd)}'
 elif [ $# -ge 1 ];then
   docker rmi $@
