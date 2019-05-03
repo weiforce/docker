@@ -1,22 +1,22 @@
-FROM polfilm/tron-java
+#FROM polfilm/tron-java
 
-ARG trx_branch=master
+#ARG trx_branch=master
 
-RUN git fetch --prune \
-    && git fetch --tags \
-    && git checkout $trx_branch 
+#RUN git fetch --prune \
+#    && git fetch --tags \
+#    && git checkout $trx_branch 
 
-RUN apt-get update \
-    && apt-get install -qqy nginx supervisor \
-    && mkdir /supervisor \
-    && rm -rf /etc/nginx/sites-enabled/default \ 
-    && cd /home/java-tron \
-    && mkdir fullnode \ 
-    && mkdir soliditynode \
-    && ./gradlew build \
-    && cp build/libs/FullNode.jar ./fullnode/ \
-    && cp build/libs/SolidityNode.jar ./soliditynode/ \
-    && wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/main_net_config.conf -O config.conf 
+#RUN apt-get update \
+#    && apt-get install -qqy nginx supervisor \
+#    && mkdir /supervisor \
+#    && rm -rf /etc/nginx/sites-enabled/default \ 
+#    && cd /home/java-tron \
+#    && mkdir fullnode \ 
+#    && mkdir soliditynode \
+#    && ./gradlew build \
+#    && cp build/libs/FullNode.jar ./fullnode/ \
+#    && cp build/libs/SolidityNode.jar ./soliditynode/ \
+#    && wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/main_net_config.conf -O config.conf 
 
 FROM polfilm/tron-java
 
