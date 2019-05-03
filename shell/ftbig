@@ -9,7 +9,7 @@ do
     h)
       cat<<EOF
     usage:
-        Find the biggest
+        Find the bigger files
 
     -h       Help
     -n num   Display the top num items, default num=10
