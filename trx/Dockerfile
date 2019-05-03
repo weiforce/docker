@@ -1,22 +1,22 @@
-#FROM polfilm/tron-java
+FROM polfilm/tron-java as builder
 
-#ARG trx_branch=master
+ARG trx_branch=master
 
-#RUN git fetch --prune \
-#    && git fetch --tags \
-#    && git checkout $trx_branch 
+RUN git fetch --prune \
+    && git fetch --tags \
+    && git checkout $trx_branch 
 
-#RUN apt-get update \
-#    && apt-get install -qqy nginx supervisor \
-#    && mkdir /supervisor \
-#    && rm -rf /etc/nginx/sites-enabled/default \ 
-#    && cd /home/java-tron \
-#    && mkdir fullnode \ 
-#    && mkdir soliditynode \
-#    && ./gradlew build \
-#    && cp build/libs/FullNode.jar ./fullnode/ \
-#    && cp build/libs/SolidityNode.jar ./soliditynode/ \
-#    && wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/main_net_config.conf -O config.conf 
+RUN apt-get update \
+    && apt-get install -qqy nginx supervisor \
+    && mkdir /supervisor \
+    && rm -rf /etc/nginx/sites-enabled/default \ 
+    && cd /home/java-tron \
+    && mkdir fullnode \ 
+    && mkdir soliditynode \
+    && ./gradlew build \
+    && cp build/libs/FullNode.jar ./fullnode/ \
+    && cp build/libs/SolidityNode.jar ./soliditynode/ \
+    && wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/main_net_config.conf -O config.conf 
 
 FROM polfilm/tron-java
 
@@ -27,10 +27,10 @@ RUN apt-get update \
     && mkdir fullnode \
     && mkdir soliditynode 
 
-COPY --from=0  /home/java-tron/build/libs/FullNode.jar /home/java-tron/fullnode/ 
-COPY --from=0  /home/java-tron/build/libs/SolidityNode.jar /home/java-tron/soliditynode/ 
-COPY --from=0  /home/java-tron/config.conf /home/java-tron/fullnode/
-COPY --from=0  /home/java-tron/config.conf /home/java-tron/soliditynode/
+COPY --from=builder  /home/java-tron/build/libs/FullNode.jar /home/java-tron/fullnode/ 
+COPY --from=builder  /home/java-tron/build/libs/SolidityNode.jar /home/java-tron/soliditynode/ 
+COPY --from=builder  /home/java-tron/config.conf /home/java-tron/fullnode/
+COPY --from=builder  /home/java-tron/config.conf /home/java-tron/soliditynode/
 
 RUN sed 's/port = 50051/port = 50052/g' /home/java-tron/soliditynode/config.conf > tmp \
     && mv tmp /home/java-tron/soliditynode/config.conf
