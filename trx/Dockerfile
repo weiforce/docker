@@ -13,7 +13,7 @@ RUN apt-get update \
     && cd /home/java-tron \
     && mkdir fullnode \ 
     && mkdir soliditynode \
-    && ./gradlew build \
+    && ./gradlew build -x test \
     && cp build/libs/FullNode.jar ./fullnode/ \
     && cp build/libs/SolidityNode.jar ./soliditynode/ \
     && wget https://raw.githubusercontent.com/tronprotocol/tron-deployment/master/main_net_config.conf -O config.conf 
