@@ -1,13 +1,27 @@
-FROM  yan047/eos:v1.6.0
+FROM ubuntu:18.04
 
-RUN apt-get -yqq  update \
-    && apt-get -yqq install apt-utils net-tools mongodb nginx \
-    && sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf \
-    && sed -i  "s|include /etc/nginx/sites-enabled/|#include /etc/nginx/sites-enabled/|g" /etc/nginx/nginx.conf
+ARG branch=1.6.2
 
-RUN mkdir /var/tmp/nginx/
-COPY conf/start.sh /
-RUN chmod +x /start.sh
+RUN apt-get update && apt-get install -qqy wget supervisor \
+    && wget https://github.com/EOSIO/eos/releases/download/v${branch}/eosio_${branch}-1-ubuntu-18.04_amd64.deb \
+    && apt-get install -qqy  ./eosio_${branch}-1-ubuntu-18.04_amd64.deb \
+    && mkdir -p  /supervisor 
+RUN apt-get install -qqy nginx net-tools curl cron \
+    && rm -rf /etc/nginx/sites-enabled/default
 
-ENTRYPOINT ["/start.sh"]
-CMD [""]
+COPY crontabfile /etc/cron.d/cron
+
+COPY conf/conf.d /etc/nginx/conf.d
+
+COPY supervisord.conf /supervisor
+
+COPY nodeos.sh /nodeos.sh
+
+COPY snapshot.sh /snapshot.sh
+
+RUN chmod +x /nodeos.sh \
+    && chmod +x /snapshot.sh \
+    && chmod 0644 /etc/cron.d/cron \
+    && crontab /etc/cron.d/cron
+ 
+CMD /usr/bin/supervisord -u root  -c /supervisor/supervisord.conf -n    
