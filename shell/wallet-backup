@@ -1,0 +1,127 @@
+#!/bin/bash
+set -ex
+
+
+echo "$#"
+echo "$*"
+
+items='dash beam dcr bch usdt grin scc'
+
+#wallet_root_path="/home/core/data/wallet"
+#if [ ! -d $wallet_root_path ]
+#then
+#  echo "$wallet_root_path is not exist."
+#  return 0
+#fi
+
+function backup ()
+{
+  item=$1
+  cur_date="`date +%Y-%m-%d`" 
+  
+  wallet_root_path="/home/core/data/wallet"
+  if [ ! -d $wallet_root_path ]
+  then
+    echo "$wallet_root_path is not exist."
+    return 0
+  fi
+
+  item_path="$wallet_root_path/$item"
+  if [ ! -d $item_path ]
+  then
+    echo "$item_path is not exist."
+    return 0
+  fi  
+
+  backup_path="$wallet_root_path/backup"
+  mkdir -p $backup_path
+
+  cd $item_path
+
+  echo "do backup $item"
+  case "$item" in
+    "dash")
+      relative_path="./"
+      wallet_file="wallet.dat"
+#      zip_file="$backup_path/$item.$cur_date.$wallet_file.zip"
+#      zip -qr $zip_file $relative_path$wallet_file
+#      
+#      #unzip $zip_file -d $item_path
+#      unzip -l $zip_file
+    ;;
+  
+    "beam")
+      relative_path="./wallet/"
+      wallet_file="wallet.db" 
+    ;;
+    "dcr")
+      relative_path="./wallet/mainnet/"
+      wallet_file="wallet.db"
+    ;;
+    "bch")
+      relative_path="./data/"
+      wallet_file="wallet.dat" 
+    ;;
+    "usdt")
+      relative_path="./"
+      wallet_file="wallet.dat"
+    ;;
+    "grin")
+      relative_path="./main/"
+      wallet_file="wallet_data"
+    ;;
+    "scc")
+
+
+    ;;
+    *)
+
+    ;;
+
+  esac
+
+  zip_file="$backup_path/$item.$cur_date.$wallet_file.zip"
+  zip -qr $zip_file $relative_path$wallet_file
+
+  #unzip $zip_file -d $item_path
+  unzip -l $zip_file
+
+  echo "$item backup done"
+}
+
+if [ $# -eq 0 ]
+then
+  echo "ALl start..."
+  type=0
+else
+  echo "Specified start..."
+  type=1
+fi
+
+if [ type ]
+then
+  for spec in $*
+  do 
+    for item in $items
+    do 
+      echo "${spec}=>${item}"
+      if [ $spec == $item ]
+      then 
+        backup $spec
+      fi
+    done 
+  done
+fi
+
+
+
+
+
+
+
+
+
+
+
+
+
