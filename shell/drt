@@ -1,7 +1,0 @@
-
-
-docker stop $1-testnet >/dev/null
-docker rm $1-testnet >/dev/null
-docker run --name=$1-testnet -v /home/core/data/wallet/$1-testnet:/root/.dashcore ivories/$1 /dashcore/dashcore-0.13.3/bin/dashd  --testnet --server &
-
-
