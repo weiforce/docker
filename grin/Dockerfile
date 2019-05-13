@@ -51,11 +51,13 @@ RUN apt-get install -qqy screen htop net-tools && \
     dpkg-reconfigure --frontend=noninteractive locales && \
     update-locale LANG=en_US.UTF-8
 
-ENV LANG en_US.UTF-8
-
+ENV LANG en_US.UTF-8    
+    
 COPY supervisord.conf /supervisor/supervisord.conf
 
 COPY conf/conf.d /etc/nginx/conf.d
+
+COPY conf/start.sh /wallet.sh
 
 WORKDIR /root/.grin
 

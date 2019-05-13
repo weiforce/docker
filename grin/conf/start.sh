@@ -1,8 +1,16 @@
 #!/bin/bash
 
-grin server run
-echo "yellow" | grin wallet listen
-echo "yellow" | grin wallet owner_api
+#grin server run
 
-nginx
+#nginx
+
+sleep 5
+
+grin-wallet listen < ~/.grin/passwd &
+
+sleep 5
+
+grin-wallet owner_api < ~/.grin/passwd &
+
+sleep 5
 
