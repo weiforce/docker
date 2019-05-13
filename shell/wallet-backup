@@ -71,11 +71,13 @@ function backup ()
       wallet_file="wallet_data"
     ;;
     "scc")
-
-
+      relative_path="./wallet/"
+      wallet_file="wallet.db"
     ;;
-    *)
 
+
+    *)
+      
     ;;
 
   esac
