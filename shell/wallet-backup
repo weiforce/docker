@@ -5,7 +5,7 @@ set -ex
 echo "$#"
 echo "$*"
 
-items='dash beam dcr bch usdt grin scc'
+items='dash beam dcr bch usdt grin scc ubtc btm bsv ltc eth etc sc xmr zec'
 
 #wallet_root_path="/home/core/data/wallet"
 #if [ ! -d $wallet_root_path ]
@@ -74,6 +74,11 @@ function backup ()
       relative_path="./wallet/"
       wallet_file="wallet.db"
     ;;
+    "ubtc")
+      relative_path="./"
+      wallet_file="wallet.dat"
+    ;;
+
 
 
     *)
