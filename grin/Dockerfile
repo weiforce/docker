@@ -41,9 +41,9 @@ COPY --from=builder /usr/src/grin/grin/target/release/grin /usr/local/bin/grin
 #COPY --from=builder /usr/src/grin/grin-wallet/target/release/grin-wallet /usr/local/bin/grin-wallet
 
 RUN apt-get install -qqy screen htop net-tools && \
-    curl -OL -e '; auto' --url https://github.com/mimblewimble/grin-wallet/releases/download/v1.1.0-beta.2/grin-wallet-v1.1.0-beta.2-linux-amd64.tar.gz  && \
-    tar -xvf grin-wallet-v1.1.0-beta.2-linux-amd64.tar.gz && \
-    rm -r grin-wallet-v1.1.0-beta.2-linux-amd64.tar.gz && \
+    curl -OL -e '; auto' --url https://github.com/mimblewimble/grin-wallet/releases/download/v1.1.0-beta.4/grin-wallet-v1.1.0-beta.4-linux-amd64.tar.gz  && \
+    tar -xvf grin-wallet-v1.1.0-beta.4-linux-amd64.tar.gz && \
+    rm -r grin-wallet-v1.1.0-beta.4-linux-amd64.tar.gz && \
     mv grin-wallet/grin-wallet /usr/local/bin/ && \
     grin server config && \
     sed -i -e 's/run_tui = true/run_tui = false/' grin-server.toml && \
