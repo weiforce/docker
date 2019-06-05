@@ -19,9 +19,9 @@ then
 fi
 
 echo "init ..."
-docker stop emacs 1>2 2>/dev/null
+docker stop emacs 2>/dev/null
 echo "loading ..."
-docker rm emacs 1>2 2>/dev/null
+docker rm emacs 2>/dev/null
 
 EMACS_RUN_APP=''
 
@@ -35,13 +35,13 @@ fi
 #    sudo cp -rfp /root/.ssh/id_rsa $EMACS_SSH_DIR/id_rsa
 #fi
 
-docker run -d --name emacs -u root -p 127.0.0.1:5858:22 -v /var/run/docker.sock:/var/run/docker.sock -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/data -v /home/core/laravel:/laravel -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key $EMACS_RUN_APP ivories/emacs 1>2 2>/dev/null
+docker run -d --name emacs -u root -p 127.0.0.1:5858:22 -v /var/run/docker.sock:/var/run/docker.sock -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/data -v /home/core/laravel:/laravel -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key $EMACS_RUN_APP ivories/emacs 2>/dev/null
 
 sleep 3s
 
-sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'chown -R root:root /root/.ssh' 1>2 2>/dev/null
-sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.email "server@server.com"' 1>2 2>/dev/null
-sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.name "Server"' 1>2 2>/dev/null
+sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'chown -R root:root /root/.ssh' 2>/dev/null
+sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.email "server@server.com"' 2>/dev/null
+sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.name "Server"' 2>/dev/null
 sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'env TERM=xterm-256color e'
 
-docker stop emacs && docker rm emacs 1>2 2>/dev/null &
+docker stop emacs && docker rm emacs 2>/dev/null &
