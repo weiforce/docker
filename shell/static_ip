@@ -15,7 +15,6 @@ Name=$1
 [Network]
 Address=$2/24  
 Gateway=$3
-DNS=114.114.114.114
 DNS=223.5.5.5
 DNS=223.6.6.6
 DNS=8.8.8.8
