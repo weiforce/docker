@@ -1,29 +1,23 @@
-FROM ivories/etc
+FROM parity/parity:stable
 
-RUN apk add --no-cache nginx
-RUN sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf
-RUN apk add --no-cache bash
+USER root
+RUN apt update
+RUN apt -y install nginx
+RUN apt -y install bash
 
-################### start vpn ###################
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/testing/" >> /etc/apk/repositories && \
-    apk add --update openvpn iptables bash easy-rsa openvpn-auth-pam google-authenticator pamtester && \
-    ln -s /usr/share/easy-rsa/easyrsa /usr/local/bin && \
-    rm -rf /tmp/* /var/tmp/* /var/cache/apk/* /var/cache/distfiles/*
+#RUN sed -i "s#pcre_jit on;#pid /run/nginx.pid;#g" /etc/nginx/nginx.conf
 
-RUN apk add --no-cache curl wget
+RUN apt -y install supervisor \
+    && mkdir /supervisor
 
-# Needed by scripts
-ENV OPENVPN /etc/openvpn
-ENV EASYRSA /usr/share/easy-rsa
-ENV EASYRSA_PKI $OPENVPN/pki
-ENV EASYRSA_VARS_FILE $OPENVPN/vars
+RUN rm -rf /etc/nginx/sites-enabled
+RUN rm -rf /etc/nginx/sites-available
 
-# Prevents refused client connection because of an expired CRL
-ENV EASYRSA_CRL_DAYS 3650
+COPY supervisord.conf /supervisor/supervisord.conf
 
-VOLUME ["/etc/openvpn"]
-################### end vpn ###################
-
-
+RUN cat /supervisor/supervisord.conf
 
 ENTRYPOINT []
+
+CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
+
