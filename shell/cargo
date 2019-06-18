@@ -1,5 +1,10 @@
 #!/bin/bash
 
-#docker run --rm -e USER=root --user "$(id -u)":"$(id -g)" -v "$PWD":/usr/src/rust -w /usr/src/rust ivories/rust cargo $*
+docker stop emacs_cargo 1>/dev/null 2>/dev/null
+docker rm emacs_cargo 1>/dev/null 2>/dev/null
 
-docker run --rm -it -e "TERM=xterm-256color" -e USER=root --user "root":"root" -v /home/core/data/rust/cargo:/root/.cargo -v "$PWD":/usr/src/rust -w /usr/src/rust ivories/rust cargo $*
+docker run --name emacs_cargo -it -e "TERM=xterm-256color" --net=host -e USER=root --user "root":"root" -v /home/core/data/rust/cargo:/root/.cargo -v "$PWD":/data/rust -w /data/rust ivories/rust cargo $*
+
+docker stop emacs_cargo 1>/dev/null 2>/dev/null
+docker rm emacs_cargo 1>/dev/null 2>/dev/null
+

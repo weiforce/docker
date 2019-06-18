@@ -51,5 +51,6 @@ RUN sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
     && echo "root:root" | chpasswd
 
 COPY cargo /usr/bin/cargo
+RUN cp /usr/local/bin/docker /usr/bin/docker
 
 CMD /usr/sbin/sshd -D
