@@ -50,6 +50,7 @@ RUN set -eux; \
 RUN sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
     && echo "root:root" | chpasswd
 
+COPY rust /usr/bin/rust
 COPY cargo /usr/bin/cargo
 RUN cp /usr/local/bin/docker /usr/bin/docker
 
