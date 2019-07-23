@@ -21,6 +21,10 @@ $ echo 'export RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup' >
 $ # for fish
 $ echo 'set -x RUSTUP_DIST_SERVER https://mirrors.tuna.tsinghua.edu.cn/rustup' >> ~/.config/fish/config.fish
 
+# Rust up failed
+
+    remove rust shell mirror value,do not use tuna.tsinghua.edu.cn
+
 # Add Proxy /home/core/data/rust/cargo/config
 
 [http]

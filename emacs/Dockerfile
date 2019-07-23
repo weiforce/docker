@@ -1,8 +1,10 @@
-from alpine:3.9
+FROM debian:stretch
 
-RUN apk add --no-cache bash openssh findutils git emacs
-#    apk add --no-cache --repository http://dl-3.alpinelinux.org/alpine/edge/community/ emacs && \
-#    apk add --no-cache --repository http://nl.alpinelinux.org/alpine/edge/testing global cscope
+RUN sed -i 's@http://deb.debian.org@http://mirrors.163.com@g' /etc/apt/sources.list
+RUN sed -i 's@http://security.debian.org@http://mirrors.163.com@g' /etc/apt/sources.list
+
+RUN apt update && apt install -y openssh-server findutils git emacs25 wget graphviz xfonts-wqy ttf-wqy-zenhei ttf-wqy-microhei
+#apt-get install xfonts-wqy ttf-wqy-zenhei ttf-wqy-microhei fonts-arphic-uming
 
 RUN echo "export TERM=xterm" >> /root/.bashrc
 
@@ -12,25 +14,13 @@ RUN cd /root && mkdir .ssh && chmod -R 700 /root/.ssh
 RUN echo "PasswordAuthentication no" > /etc/ssh/sshd_config
 RUN touch /authorized_keys
 
-# docker
-RUN apk add --no-cache ca-certificates
-
-RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
+#RUN [ ! -e /etc/nsswitch.conf ] && echo 'hosts: files dns' > /etc/nsswitch.conf
 
 ENV DOCKER_CHANNEL stable
-ENV DOCKER_VERSION 18.09.6
+ENV DOCKER_VERSION 18.09.8
 
 RUN set -eux; \ 
-	apkArch="$(apk --print-arch)"; \
-	case "$apkArch" in \
-		x86_64) dockerArch='x86_64' ;; \
-		armhf) dockerArch='armel' ;; \
-		aarch64) dockerArch='aarch64' ;; \
-		ppc64le) dockerArch='ppc64le' ;; \
-		s390x) dockerArch='s390x' ;; \
-		*) echo >&2 "error: unsupported architecture ($apkArch)"; exit 1 ;;\
-	esac; \
-	\
+		dockerArch='x86_64'; \
 	if ! wget -O docker.tgz "https://download.docker.com/linux/static/${DOCKER_CHANNEL}/${dockerArch}/docker-${DOCKER_VERSION}.tgz"; then \
 		echo >&2 "error: failed to download 'docker-${DOCKER_VERSION}' from '${DOCKER_CHANNEL}' for '${dockerArch}'"; \
 		exit 1; \
@@ -46,12 +36,15 @@ RUN set -eux; \
 	dockerd --version; \
 	docker --version
 
-
 RUN sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config \
     && echo "root:root" | chpasswd
 
 COPY rust /usr/bin/rust
+COPY rustup /usr/bin/rustup
 COPY cargo /usr/bin/cargo
+
 RUN cp /usr/local/bin/docker /usr/bin/docker
+
+RUN mkdir /run/sshd
 
 CMD /usr/sbin/sshd -D

@@ -1,4 +1,4 @@
-FROM alekzonder/puppeteer
+FROM buildkite/puppeteer
 
 ENTRYPOINT [""]
 CMD [""]
