@@ -9,12 +9,12 @@ RestartSec=30
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill shadowsocks-client
 ExecStartPre=-/usr/bin/docker rm shadowsocks-client
-ExecStart=/usr/bin/docker run --name shadowsocks-client -p 192.168.56.101:1080:1080 -e SERVER_PORT=8388 -e PASSWORD=shadowsocks-client ivories/shadowsocks-client ss-local  -s "123.123.123.123" \
-              -p "123" \
-              -b "127.0.0.1"  \
+ExecStart=/usr/bin/docker run --name shadowsocks-client -p 192.168.56.101:1080:1080 -e SERVER_PORT=8388 -e PASSWORD=shadowsocks-client ivories/shadowsocks-client ss-local  -s "remote-address" \
+              -p "remote-port" \
+              -b "0.0.0.0"  \
               -l "1080"  \
               -m "aes-256-cfb"      \
-              -k "ivories"    \
+              -k "password"    \
               -t "60"     \
               -u           \
               --fast-open

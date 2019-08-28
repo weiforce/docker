@@ -1,17 +1,15 @@
-FROM alpine:3.9
+FROM rust
 
-RUN apk add --no-cache gcc musl-dev
+RUN sed -i 's@http://deb.debian.org@http://mirrors.163.com@g' /etc/apt/sources.list
+RUN sed -i 's@http://security.debian.org@http://mirrors.163.com@g' /etc/apt/sources.list
 
-RUN apk add --no-cache rust cargo
+RUN apt update
+RUN apt install -y musl-dev perl bash golang bzr git mercurial subversion openssh-client ca-certificates
+RUN apt install -y cmake
 
-RUN apk add --no-cache build-base
+RUN apt install -y pkg-config libssl-dev clang libclang-dev
 
-RUN apk add --no-cache cmake
-
-RUN apk add --no-cache perl
-
-RUN apk --no-cache add bash go bzr git mercurial subversion openssh-client ca-certificates
-
-RUN mkdir -p /go/src /go/bin && chmod -R 777 /go
-ENV GOPATH /go
-ENV PATH /go/bin:$PATH
+RUN curl -OL https://github.com/google/protobuf/releases/download/v3.6.1/protoc-3.6.1-linux-x86_64.zip
+RUN unzip protoc-3.6.1-linux-x86_64.zip -d protoc3
+RUN mv protoc3/bin/* /usr/bin/
+RUN mv protoc3/include/* /usr/include/
