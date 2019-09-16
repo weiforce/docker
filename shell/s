@@ -1,6 +1,7 @@
 #!/bin/bash
 
-ss $1
+#ss $1
+/home/core/docker/shell/ss $1
 exit
 
 if [ ! $1 ] 
