@@ -4,8 +4,9 @@ After=docker.service
 Requires=docker.service
 
 [Service]
+WatchdogSec=3600
 Restart=always
-RestartSec=30
+RestartSec=3
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill shadowsocks
 ExecStartPre=-/usr/bin/docker rm shadowsocks
