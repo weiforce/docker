@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop vnc
 ExecStartPre=-/usr/bin/docker kill vnc
 ExecStartPre=-/usr/bin/docker rm vnc
-ExecStart=/usr/bin/docker run -p 5900:5900 -v /home/core/data:/data -e RESOLUTION=1024x768 -e VNC_PASSWORD=yellow -e USER=core -e PASSWORD=yellow dorowu/ubuntu-desktop-lxde-vnc
+ExecStart=/usr/bin/docker run --name=vnc -p 56080:80 -v /home/core/data:/data -e RESOLUTION=800x768 -e VNC_PASSWORD=yellow -e USER=core -e PASSWORD=yellow dorowu/ubuntu-desktop-lxde-vnc
 ExecStop=/usr/bin/docker stop vnc
 ExecStop=/usr/bin/docker kill vnc
 
