@@ -1,0 +1,25 @@
+[Unit]
+Description=%p
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop %p
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm %p
+ExecStartPre=-/home/core/docker/shell/install_fleetctl %p
+ExecStartPre=-/usr/bin/docker network create nginx-network
+ExecStart=/usr/bin/docker run --name %p --net nginx-network -p 8080:80 -p 8443:443 ivories/documentserver-de
+#    -v /home/core/data/%p:/etc/%p \
+#    -v /home/core/data/%p/logs:/var/log/onlyoffice  \
+#    -v /home/core/data/%p/data:/var/www/onlyoffice/Data  \
+#    -v /home/core/data/%p/lib:/var/lib/onlyoffice \
+#    -v /home/core/data/%p/db:/var/lib/postgresql onlyoffice/documentserver-de
+ExecStop=/usr/bin/docker stop %p
+ExecStop=/usr/bin/docker kill %p
+
+[Install]
+WantedBy=multi-user.target
