@@ -1,0 +1,42 @@
+FROM ubuntu:xenial
+
+
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys C70EF1F0305A1ADB9986DBD8D46F45428842CE5E && \
+    echo "deb http://ppa.launchpad.net/bitcoin/bitcoin/ubuntu xenial main" > /etc/apt/sources.list.d/bitcoin.list
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		bitcoind \
+	&& apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
+RUN echo 'deb http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse \n\
+deb http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse \n\
+deb http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse \n\
+deb http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse \n\
+deb http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse \n\
+deb-src http://mirrors.163.com/ubuntu/ bionic main restricted universe multiverse \n\
+deb-src http://mirrors.163.com/ubuntu/ bionic-security main restricted universe multiverse \n\
+deb-src http://mirrors.163.com/ubuntu/ bionic-updates main restricted universe multiverse \n\
+deb-src http://mirrors.163.com/ubuntu/ bionic-proposed main restricted universe multiverse \n\
+deb-src http://mirrors.163.com/ubuntu/ bionic-backports main restricted universe multiverse \n\
+' > /etc/apt/sources.list
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+		ca-certificates \
+		wget 
+
+RUN apt-get install -y build-essential libtool autotools-dev automake pkg-config bsdmainutils python3
+RUN apt-get install -y libssl-dev libevent-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
+RUN apt-get install -y libminiupnpc-dev
+
+RUN wget https://github.com/btchd/btchd/archive/v1.3.4.tar.gz
+RUN tar zxvf v1.3.4.tar.gz
+
+RUN cd btchd-1.3.4 && ./autogen.sh
+RUN apt-get install -y libboost-all-dev 
+RUN cd btchd-1.3.4 && ./configure --disable-wallet --without-gui --without-miniupnpc --with-boost-libdir=/usr/lib/x86_64-linux-gnu --disable-tests
+RUN cd btchd-1.3.4 && make
+RUN cd btchd-1.3.4 && make install
+
+
+CMD ["bash"]
+
