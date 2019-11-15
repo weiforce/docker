@@ -1,18 +1,23 @@
 FROM php:7.2.24-fpm-alpine
 
 RUN apk add --no-cache bash autoconf build-base \
-    && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev \
+    && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev openssl-dev git \
     && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache pcntl \
+
+    && git clone https://github.com/mongodb/mongo-php-driver.git /tmp/php-mongodb \
+    && cd /tmp/php-mongodb && git submodule update --init \
+    && phpize && ./configure && make && make install \
+    && rm -rf /tmp/php-mongodb \
+
+    && apk add --no-cache freetype-dev jpeg-dev \
+    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd \
+
     && pecl install redis \
     && pecl install xdebug \
     && pecl install channel://pecl.php.net/swoole-4.4.12 \
     && pecl install channel://pecl.php.net/mcrypt-1.0.3 \
     && pecl install channel://pecl.php.net/nsq-3.5.0 \
-    && pecl install channel://pecl.php.net/mongodb-1.6.0 \
-
-    && apk add --no-cache freetype-dev jpeg-dev \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j$(nproc) gd \
 
 #    && apk add --no-cache libssh2-dev \
 #    && wget http://pecl.php.net/get/ssh2-1.1.2.tgz \
