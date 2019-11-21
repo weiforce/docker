@@ -13,7 +13,7 @@ ExecStartPre=-/usr/bin/docker rm gluster
 
 #ExecStart=/usr/bin/docker run --name gluster -e SERVER_NAME=master.hadoop.com,slave1.hadoop.com,slave2.hadoop.com,slave3.hadoop.com --net=host --privileged=true -v /home/core/data1:/gluster -v /home/core/docker/gluster/conf/init.sh:/init.sh -v /home/core/.gluster:/var/lib/glusterd ivories/gluster:1.0 /init.sh
 
-ExecStart=/usr/bin/docker run --name gluster -v /data/glusterfs/etc:/etc/glusterfs:z -v /data/glusterfs/block:/block:z -v /data/glusterfs/log:/var/log/glusterfs:z -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged=true --net=host -v /dev/:/dev ivories/gluster
+ExecStart=/usr/bin/docker run --name gluster -v /data/glusterfs/etc:/etc/glusterfs:z -v /data/glusterfs/block:/block:z -v /data/glusterfs/log:/var/log/glusterfs:z -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged=true --net=host -v /dev/:/dev ivories/gluster tail -f /dev/stdout
 
 ExecStop=/usr/bin/docker stop gluster
 ExecStop=/usr/bin/docker kill gluster
