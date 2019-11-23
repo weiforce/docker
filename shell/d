@@ -2,8 +2,8 @@
 
 if [ $2 ]
 then
-    docker exec -it $*
+    sudo docker exec -it $*
 else
-    docker exec -it $1 bash
+    sudo docker exec -it $1 bash
 fi
 
