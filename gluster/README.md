@@ -1,15 +1,28 @@
-docker run -it --rm --net=host --privileged=true -v /home/core/data1:/gluster ivories/gluster:1.0 /bin/bash
-service glusterfs-server start 
-gluster peer probe master.hadoop.com && gluster peer probe slave1.hadoop.com && gluster peer probe slave2.hadoop.com && gluster peer probe slave3.hadoop.com
+# 开启服务
+sudo docker run --name gluster -d -v /data/glusterfs/etc:/etc/glusterfs:z -v /data/glusterfs/block:/block:z -v /data/glusterfs/log:/var/log/glusterfs:z -v /sys/fs/cgroup:/sys/fs/cgroup:ro -d --privileged=true --net=host -v /dev/:/dev ivories/gluster
+
+# 编辑 /etc/hosts
+192.168.5.201   server-01
+192.168.5.202   server-02
+192.168.5.203   server-03
+
+# 连接服务器 在 192.168.5.201 发起连接
+gluster peer probe 192.168.5.202
+gluster peer probe 192.168.5.203
+
+# 设置分区 使用备份方式 3台机器都重复数据 模式说明 https://blog.csdn.net/hxpjava1/article/details/79817078
+gluster volume create block replica 3 transport tcp \
+192.168.5.201:/block \
+192.168.5.202:/block \
+192.168.5.203:/block force
 
 
-gluster volume create data master.hadoop.com:/gluster/brick slave1.hadoop.com:/gluster/brick slave2.hadoop.com:/gluster/brick slave3.hadoop.com:/gluster/brick
-gluster volume create data replica 4 transport tcp master.hadoop.com:/gluster/brick slave1.hadoop.com:/gluster/brick slave2.hadoop.com:/gluster/brick slave3.hadoop.com:/gluster/brick
+#gluster volume create data master.hadoop.com:/gluster/brick slave1.hadoop.com:/gluster/brick slave2.hadoop.com:/gluster/brick slave3.hadoop.com:/gluster/brick
+#gluster volume create data replica 4 transport tcp master.hadoop.com:/gluster/brick slave1.hadoop.com:/gluster/brick slave2.hadoop.com:/gluster/brick slave3.hadoop.com:/gluster/brick
 
-
-gluster volume start data
-mount -t glusterfs 127.0.0.1:/data /data
-echo "/data 127.0.0.1(rw,sync,no_root_squash)" /etc/exports
+gluster volume start block
+mount -t glusterfs 127.0.0.1:/block /block
+echo "/block 127.0.0.1(rw,sync,no_root_squash)" /etc/exports
 
 gluster pool list
 

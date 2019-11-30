@@ -38,3 +38,8 @@ proxy = "socks5://192.168.56.101:1080"
 
 [https]
 proxy = "socks5://192.168.56.101:1080"
+
+# windows 安装 rust
+
+* rust-init.exe https://win.rustup.rs/x86_64
+* Visual C++ Build Tools 2015 https://go.microsoft.com/fwlink/?LinkId=691126

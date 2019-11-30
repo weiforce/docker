@@ -6,7 +6,7 @@
     cd /home/core
     git clone https://github.com/ivories/docker.git
     chmod -R 777 docker/shell
-    /home/core/docker/shell/shell_init
+    sudo /home/core/docker/shell/shell_init
     export PATH="/home/core/docker/shell:$PATH"
     install
     install_web

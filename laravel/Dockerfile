@@ -1,4 +1,4 @@
-FROM library/composer:1.6.3
+FROM library/composer:1
 
 RUN apk add --no-cache util-linux bash zsh git \
  && git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh \
@@ -9,7 +9,7 @@ WORKDIR /www
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install pdo_mysql
 
-ENV NODE_VERSION 10.15.1
+ENV NODE_VERSION 13.1.0
 
 RUN addgroup -g 1000 node \
     && adduser -u 1000 -G node -s /bin/sh -D node \
@@ -57,7 +57,7 @@ RUN addgroup -g 1000 node \
     && rm -Rf "node-v$NODE_VERSION" \
     && rm "node-v$NODE_VERSION.tar.xz" SHASUMS256.txt.asc SHASUMS256.txt
 
-ENV YARN_VERSION 1.13.0
+ENV YARN_VERSION 1.19.1
 
 RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
   && for key in \
