@@ -1,7 +1,7 @@
 FROM php:7.2.24-fpm-alpine
 
 RUN apk add --no-cache bash autoconf build-base \
-    && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev openssl-dev git \
+    && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev openssl-dev git libzip-dev \
     && docker-php-ext-install gd mysqli pdo_mysql bcmath opcache pcntl \
 
     && git clone https://github.com/mongodb/mongo-php-driver.git /tmp/php-mongodb \
@@ -18,6 +18,7 @@ RUN apk add --no-cache bash autoconf build-base \
     && pecl install channel://pecl.php.net/swoole-4.4.12 \
     && pecl install channel://pecl.php.net/mcrypt-1.0.3 \
     && pecl install channel://pecl.php.net/nsq-3.5.0 \
+    && pecl install channel://pecl.php.net/zip-1.15.5 \
 
 #    && apk add --no-cache libssh2-dev \
 #    && wget http://pecl.php.net/get/ssh2-1.1.2.tgz \
