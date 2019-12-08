@@ -1,0 +1,11 @@
+FROM ubuntu
+
+RUN apt-get update
+RUN apt-get install -y libstdc++6 libcurl3-gnutls libc6 libxml2 libcurl3 fonts-dejavu fonts-opensymbol
+RUN apt-get install -y fonts-liberation ttf-mscorefonts-installer fonts-crosextra-carlito
+
+RUN apt-get install -y wget
+RUN wget http://download.onlyoffice.com/install/desktop/docbuilder/documentbuilder-x64.tar.gz
+RUN tar zxvf documentbuilder-x64.tar.gz
+
+RUN apt-get install -y vim
