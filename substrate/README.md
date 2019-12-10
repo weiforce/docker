@@ -1,4 +1,4 @@
-# init
+
 
     rustup default nightly-2019-07-14
     rustup target add wasm32-unknown-unknown --toolchain nightly-2019-07-14
