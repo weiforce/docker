@@ -1,3 +1,4 @@
-FROM docker.elastic.co/elasticsearch/elasticsearch:6.2.4
+FROM elasticsearch:6.8.5 
 
-CMD ["elasticsearch"]
+RUN ls
+

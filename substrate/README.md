@@ -1,4 +1,4 @@
-# init
+
 
     RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup default nightly
     RUSTUP_DIST_SERVER=https://mirrors.tuna.tsinghua.edu.cn/rustup rustup target add wasm32-unknown-unknown --toolchain nightly
