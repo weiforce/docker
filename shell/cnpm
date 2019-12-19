@@ -1,2 +1,2 @@
 #!/bin/bash
-docker run --name=npm -it --rm -p 8080:80 -v $(pwd):$(pwd) -w $(pwd) ivories/laravel cnpm $*
+docker run --name=npm -it --rm -p 83:80 -v $(pwd):$(pwd) -w $(pwd) ivories/laravel cnpm $*
