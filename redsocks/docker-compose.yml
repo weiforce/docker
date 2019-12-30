@@ -1,0 +1,19 @@
+version: '3'
+services:
+    need-proxy-image:
+        image: ivories/redis:latest
+        restart: always
+        depends_on:
+            - redsocks
+        network_mode: "service:redsocks"
+    redsocks:
+        image: ivories/redsocks
+        container_name: redsocks-proxy
+        cap_add:
+            - NET_ADMIN
+        environment:
+            - PROXY_SERVER=123.1.2.3
+            - PROXY_PORT=18080
+            - PROXY_USER=user
+            - PROXY_PASS=pass
+
