@@ -1,11 +1,11 @@
 version: '3'
 services:
-    need-proxy-image:
+    test-redis:
         image: ivories/redis:latest
-        container_name: need-proxy-image
+        container_name: test-redis
         restart: always
         depends_on:
-            - redsocks
+            - ss-local
         network_mode: "service:ss-local"
     ss-local:
         image: ivories/shadowsocks-client
