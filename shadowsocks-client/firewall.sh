@@ -18,7 +18,7 @@ fw_setup() {
   iptables -t nat -A SSLOCAL -d 240.0.0.0/4 -j RETURN
   iptables -t nat -A SSLOCAL -d $PROXY_SERVER/24 -p tcp -j RETURN
 
-  iptables -t nat -A SSLOCAL -p tcp -j REDIRECT --to-ports 12345
+  iptables -t nat -A SSLOCAL -p tcp -j REDIRECT --to-ports 1080
 
   iptables -t nat -A OUTPUT -p tcp -j SSLOCAL
 }

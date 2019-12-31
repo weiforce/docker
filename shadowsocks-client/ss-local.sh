@@ -23,8 +23,7 @@ term_handler() {
 trap 'kill ${!}; term_handler' SIGTERM
 
 echo "Starting ss-local..."
-ss-local -s "$PROXY_SERVER" -p "$PROXY_PORT" -k "$PROXY_PASS" -m "chacha20-ietf" -t "60" -u --fast-open -b "0.0.0.0" -l "1080" &
-# --plugin "obfs-server" --plugin-opts "obfs=tls"
+ss-redir -s "$PROXY_SERVER" -p "$PROXY_PORT" -k "$PROXY_PASS" -m "chacha20-ietf" -t "60" -u --fast-open -b "0.0.0.0" -l "1080" & # --plugin "obfs-server" --plugin-opts "obfs=tls"
 pid="$!"
 
 while true
