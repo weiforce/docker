@@ -1,9 +1,14 @@
-FROM node:carbon-alpine
+FROM ubuntu:16.04
+  
+COPY entrypoint.sh /entrypoint.sh
 
-RUN apk add --no-cache git build-base libsodium libsodium-dev libtool autoconf automake python sqlite-dev sqlite
-RUN git clone https://github.com/NASGO/nasgo.git && cd nasgo && npm i
+RUN chmod +x /entrypoint.sh && \
+    apt-get update && apt-get install -qqy wget && \
+    wget https://github.com/NASGO/nasgo-node/releases/download/1.0.0/nasgo-node-linux.tar.gz && \
+    tar -zxvf nasgo-node-linux.tar.gz && \
+    cd nasgo-node && \
+    ./install.sh
 
-WORKDIR /nasgo
+EXPOSE 9040
 
-CMD ["node", "app.js"]
-#CMD "/usr/local/bin/node /nasgo/app.js"
+ENTRYPOINT ["/bin/sh", "/entrypoint.sh" ]

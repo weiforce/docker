@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop %p
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
-ExecStart=/usr/bin/docker run --name %p ivories/nasgo
+ExecStart=/usr/bin/docker run --name %p -v /home/core/data/nasgo/blockchain.db:/nasgo-node/blockchain.db -p 9040:9040 ivories/nasgo
 ExecStop=/usr/bin/docker stop %p
 ExecStop=/usr/bin/docker kill %p
 
