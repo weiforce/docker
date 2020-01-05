@@ -1,4 +1,4 @@
 #!/bin/bash
 
-exercism_docker $* 
+sudo exercism_docker $* 
 
