@@ -1,0 +1,9 @@
+#!/bin/bash
+
+docker stop exercism 1>/dev/null 2>/dev/null
+docker rm exercism 1>/dev/null 2>/dev/null
+
+docker run --name exercism -it --net=host -v /home/core/data/exercism/.config:/root/.config -v /home/core/data/exercism:/home/core/data/exercism -v $(pwd):$(pwd) -w $(pwd) ivories/exercism exercism $*
+
+docker stop exercism 1>/dev/null 2>/dev/null
+docker rm exercism 1>/dev/null 2>/dev/null
