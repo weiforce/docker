@@ -26,3 +26,6 @@ ENV ELK_PORT ''
 ENV FILEBEAT_DESTINATION ''
 ENV RSYSLOG_ENABLE 'True'
 ENV DOCKER_HOST '47.244.147.19'
+ENV ALLOWED_HOSTS ['47.244.147.19', 'localhost']
+
+RUN sed -i "s#ALLOWED_HOSTS = \[\]#ALLOWED_HOSTS = \['47.244.147.19'\]#g" /srv/omaha/omaha_server/omaha_server/settings.py 
