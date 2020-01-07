@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop %p
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
-ExecStart=/usr/bin/docker run --name %p --net=nginx-network -e POSTGRES_USER=root -e POSTGRES_PASSWORD=yellow ivories/%p
+ExecStart=/usr/bin/docker run --name %p -v /home/core/data/%p:/var/lib/postgresql/data --net=nginx-network -e POSTGRES_USER=root -e POSTGRES_PASSWORD=yellow ivories/%p
 ExecStop=/usr/bin/docker stop %p
 ExecStop=/usr/bin/docker kill %p
 
