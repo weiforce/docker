@@ -18,5 +18,11 @@ RUN make clean all && make install
 
 RUN touch ~/.profile
 
-#ENTRYPOINT ["/lotus/lotus", "daemon", "&"]
-CMD "/lotus/lotus" "daemon"
+RUN pacman -Sy --noconfirm supervisor
+
+#CMD "/lotus/lotus" "daemon"
+
+COPY supervisord.conf /supervisor/supervisord.conf
+
+CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
+
