@@ -1,0 +1,21 @@
+{
+  SecretsBackendType: auto,
+  APIAppCredentials: {
+    ClientID:     "123589983123-6spe9pohokc4dabc8aibl5t1b1ork567.apps.googleusercontent.com",
+    ClientSecret: "iBfKFqbGOK4768U0WjYr1235",
+  }
+  jobs: [
+    {
+      account: test.com@gmail.com
+      sourceFolder: /photos
+      makeAlbums: {
+        enabled: true
+        use: folderName
+      }
+      deleteAfterUpload: false
+      includePatterns: [ "*" ]
+      excludePatterns: [ "*ScreenShot*" ]
+    }
+  ]
+}
+

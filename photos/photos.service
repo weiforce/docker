@@ -1,0 +1,30 @@
+[Unit]
+Description=%p
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop %p
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm %p
+ExecStart=/usr/bin/docker run --name %p -p 29070:29070 -v /home/core/data/%p/photos:/photos -v /home/core/data/%p/config:/config rfgamaral/gphotos-uploader
+
+# first upload
+# d photos run
+
+# update every 5 minute
+# -e GPU_SCHEDULE="*/5 * * * * gphotos-uploader-cli push #"
+
+# update at 05:00
+# -e GPU_SCHEDULE="0 5 * * * gphotos-uploader-cli push #"
+
+ExecStop=/usr/bin/docker stop %p
+ExecStop=/usr/bin/docker kill %p
+
+[Install]
+WantedBy=multi-user.target
+
+
