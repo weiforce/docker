@@ -2,6 +2,7 @@ FROM archlinux:latest
 
 WORKDIR /
 
+RUN pacman -Sy --noconfirm supervisor
 RUN pacman -Syu --noconfirm opencl-icd-loader
 RUN pacman -S --noconfirm base-devel
 RUN pacman -Syu --noconfirm go gcc git bzr jq pkg-config opencl-icd-loader opencl-headers
@@ -17,8 +18,6 @@ ENV IPFS_GATEWAY "https://proof-parameters.s3.cn-south-1.jdcloud-oss.com/ipfs/"
 RUN make clean all && make install
 
 RUN touch ~/.profile
-
-RUN pacman -Sy --noconfirm supervisor
 
 #CMD "/lotus/lotus" "daemon"
 
