@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo sp $1 &
+sudo /home/core/docker/shell/sp $1 &
 exit
 
 fleetctl stop $1

@@ -1,27 +1,27 @@
-FROM archlinux:latest
+FROM ubuntu
 
-WORKDIR /
+RUN apt update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:longsleep/golang-backports
+RUN apt update
+RUN apt install -y golang-go gcc git bzr jq pkg-config mesa-opencl-icd ocl-icd-opencl-dev
 
-RUN pacman -Sy --noconfirm supervisor
-RUN pacman -Syu --noconfirm opencl-icd-loader
-RUN pacman -S --noconfirm base-devel
-RUN pacman -Syu --noconfirm go gcc git bzr jq pkg-config opencl-icd-loader opencl-headers
+RUN apt install -y llvm
+RUN apt install -y clang
 
-RUN git clone https://github.com/filecoin-project/lotus
+RUN apt install -y curl
+RUN curl https://sh.rustup.rs > a.sh 
+RUN sh a.sh -y
 
-WORKDIR /lotus
+
+RUN git clone https://github.com/filecoin-project/lotus.git 
 
 ENV IPFS_GATEWAY "https://proof-parameters.s3.cn-south-1.jdcloud-oss.com/ipfs/"
 
-#RUN sed -i "/const gateway = \"https://ipfs.io/ipfs/\"/const gateway = \"https://proof-parameters.s3.cn-south-1.jdcloud-oss.com/ipfs/\"/g" build/paramfetch.go
+RUN cd lotus && make clean && make all
+RUN cd lotus && go build -o lotus-bench ./cmd/lotus-bench
 
-RUN make clean all && make install
-
-RUN touch ~/.profile
-
-#CMD "/lotus/lotus" "daemon"
-
+RUN apt install -y supervisor
 COPY supervisord.conf /supervisor/supervisord.conf
 
 CMD /usr/bin/supervisord -c /supervisor/supervisord.conf -n
-
