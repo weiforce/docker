@@ -10,7 +10,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker stop %p
 ExecStartPre=-/usr/bin/docker kill %p
 ExecStartPre=-/usr/bin/docker rm %p
-ExecStart=/usr/bin/docker run --name %p -v /home/core/data/lotus-devnet/root:/root -v /home/core/data/lotus-devnet/tmp:/var/tmp ivories/%p
+ExecStart=/usr/bin/docker run --name %p -v /home/core/data/lotus-devnet/root:/root -v /home/core/data/lotus-devnet/tmp:/var/tmp ivories/%p tail -f /dev/stdout
 ExecStop=/usr/bin/docker stop %p
 ExecStop=/usr/bin/docker kill %p
 
