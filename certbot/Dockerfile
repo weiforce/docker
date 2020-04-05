@@ -4,4 +4,4 @@ RUN apk add --no-cache bash
 
 ENTRYPOINT [""]
 
-CMD tail -f /bin/ls
+CMD tail -f /dev/stdout
