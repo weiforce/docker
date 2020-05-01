@@ -1,0 +1,19 @@
+[Unit]
+Description=%p
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop %p
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm %p
+ExecStart=/usr/bin/docker run --name %p -p 8080:3000 ivories/%p 
+ExecStop=/usr/bin/docker stop %p
+ExecStop=/usr/bin/docker kill %p
+
+[Install]
+WantedBy=multi-user.target
+

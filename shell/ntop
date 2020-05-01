@@ -1,3 +1,0 @@
-#!/bin/bash
-
-docker run -it --rm --net=host ntop/ntopng:stable -i eth0
