@@ -86,6 +86,7 @@ RUN docker-php-ext-install gd
 
 RUN npm install cnpm -g --registry=https://registry.npm.taobao.org
 RUN cnpm install --registry=https://registry.npm.taobao.org && rm -f package.json
+RUN apk add --no-cache build-base
 
 ENTRYPOINT [""]
 
