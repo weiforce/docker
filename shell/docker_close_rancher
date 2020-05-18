@@ -1,0 +1,10 @@
+#!/bin/bash
+
+sudo docker stop `docker ps -a|grep k8s|awk '{print $1}'`
+sudo docker rm `docker ps -a|grep k8s|awk '{print $1}'`
+
+sudo docker stop `docker ps -a|grep kube|awk '{print $1}'`
+sudo docker rm `docker ps -a|grep kube|awk '{print $1}'`
+ 
+sudo docker stop `docker ps -a|grep rancher|awk '{print $1}'`
+sudo docker rm `docker ps -a|grep rancher|awk '{print $1}'`
