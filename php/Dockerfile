@@ -1,4 +1,4 @@
-FROM php:7.2.24-fpm-alpine
+FROM php:7.3-fpm-alpine
 
 RUN apk add --no-cache bash autoconf build-base \
     && apk add --no-cache bash wget libpng-dev libmcrypt-dev libstdc++ libevent-dev openssl-dev git libzip-dev \
