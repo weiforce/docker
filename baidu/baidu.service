@@ -1,5 +1,5 @@
 [Unit]
-Description=baidu
+Description=%p
 After=docker.service
 Requires=docker.service
 
@@ -7,12 +7,12 @@ Requires=docker.service
 Restart=always
 RestartSec=30
 TimeoutStartSec=0
-ExecStartPre=-/usr/bin/docker stop baidu
-ExecStartPre=-/usr/bin/docker kill baidu
-ExecStartPre=-/usr/bin/docker rm baidu
-ExecStart=/usr/bin/docker run --name baidu -p 5299:5299 -v /home/core/data/baidu:/root/Downloads -v /home/core/data/baidu/.config:/root/.config/BaiduPCS-Go ivories/baidu /opt/BaiduPCS/BaiduPCS-Go
-ExecStop=/usr/bin/docker stop baidu
-ExecStop=/usr/bin/docker kill baidu
+ExecStartPre=-/usr/bin/docker stop %p
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm %p
+ExecStart=/usr/bin/docker run --name %p -p 5901:5901 -v /home/core/data/%p:/home/baidu/baidunetdiskdownload -e vnc_password=yellow johnshine/baidunetdisk-crossover-vnc
+ExecStop=/usr/bin/docker stop %p
+ExecStop=/usr/bin/docker kill %p
 
 [Install]
 WantedBy=multi-user.target
