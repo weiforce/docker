@@ -1,0 +1,19 @@
+[Unit]
+Description=%p
+After=docker.service
+Requires=docker.service
+
+[Service]
+Restart=always
+RestartSec=30
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker stop %p
+ExecStartPre=-/usr/bin/docker kill %p
+ExecStartPre=-/usr/bin/docker rm %p
+ExecStart=/usr/bin/docker run --name %p -p 8088:8080 --user=root -v /home/core/data:/root/project -v /home/core/data/%p:/root/.config/code-server codercom/code-server:latest
+ExecStop=/usr/bin/docker stop %p
+ExecStop=/usr/bin/docker kill %p
+
+[Install]
+WantedBy=multi-user.target
+
