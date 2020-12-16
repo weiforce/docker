@@ -19,9 +19,10 @@ then
 fi
 
 echo "init ..."
-sudo docker stop emacs 2>/dev/null
+sudo mkdir -p ~/data/emacs/root
+sudo podman stop emacs 2>/dev/null
 echo "loading ..."
-sudo docker rm emacs 2>/dev/null
+sudo podman rm emacs 2>/dev/null
 
 EMACS_RUN_APP=''
 
@@ -35,9 +36,12 @@ then
     sudo cp -rfp /root/.ssh/id_rsa $EMACS_SSH_DIR/id_rsa
 fi
 
-sudo chmod -R 600 /etc/ssh/ssh_host_rsa_key
+#sudo chmod -R 600 /etc/ssh/ssh_host_rsa_key
+#-v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key
 
-sudo docker run -d --name emacs -u root -p 127.0.0.1:5858:22 -v /var/run/docker.sock:/var/run/docker.sock -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/home/core/data -v /home/core/laravel:/home/core/laravel -v /etc/ssh/ssh_host_rsa_key:/etc/ssh/ssh_host_rsa_key $EMACS_RUN_APP -v $(pwd):$(pwd) -w $(pwd) ivories/emacs $* 2>/dev/null
+sudo podman run -d --name emacs -u root --privileged -p 127.0.0.1:5858:22 -v $EMACS_DIR/root:/root -v $EMACS_SSH_DIR:/root/.ssh -v $EMACS_DIR:/root/.emacs.d -v /home/core/data:/home/core/data -v /home/core/.ssh/emacs/emacs_id_rsa:/etc/ssh/ssh_host_rsa_key -v $(pwd):$(pwd) $EMACS_RUN_APP -w $(pwd) ivories/emacs $*
+
+#2>/dev/null
 
 sleep 3s
 
@@ -46,4 +50,5 @@ sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.em
 sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'git config --global user.name "Server"' 2>/dev/null
 sudo ssh -t -i $EMACS_ID_RSA root@127.0.0.1 -p 5858 'env TERM=xterm-256color e'
 
-sudo docker stop emacs && sudo docker rm emacs 2>/dev/null &
+#sudo podman stop emacs && sudo podman rm emacs 2>/dev/null &
+
