@@ -12,9 +12,9 @@ then
     sudo ssh-keygen -f $EMACS_ID_RSA -t rsa
     sudo cp -rfp $EMACS_ID_RSA.pub $EMACS_SSH_DIR/authorized_keys
 
-    echo 'StrictHostKeyChecking no' >> /home/core/.ssh/config
-    echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
-    sudo cp -rfp /home/core/.ssh/config $EMACS_SSH_DIR/config
+#    echo 'StrictHostKeyChecking no' >> /home/core/.ssh/config
+#    echo 'UserKnownHostsFile /dev/null' >> /home/core/.ssh/config
+#    sudo cp -rfp /home/core/.ssh/config $EMACS_SSH_DIR/config
 
 fi
 

@@ -1,2 +1,2 @@
 #!/bin/bash
-docker volume rm $(docker volume ls -qf dangling=true)
+podman volume rm $(podman volume ls -qf dangling=true)
