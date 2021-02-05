@@ -1,0 +1,2 @@
+#!/bin/bash
+podman run --name=npm -it --rm --net=host --privileged -v $(pwd):$(pwd) -w $(pwd) ivories/node yarn $*
