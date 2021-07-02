@@ -1,0 +1,4 @@
+#!/bin/bash
+
+sudo docker run -it --rm --net=host --privileged -v $(pwd):$(pwd) -v /home/core:/root -w $(pwd) -u root schollz/croc $*
+

@@ -2,8 +2,8 @@
 
 if [ $2 ]
 then
-    podman exec -it $*
+    sudo docker exec -it $*
 else
-    podman exec -it $1 bash
+    sudo docker exec -it $1 bash
 fi
 

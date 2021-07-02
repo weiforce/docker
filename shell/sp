@@ -14,5 +14,5 @@ sudo rm -rf "/etc/systemd/system/multi-user.target.wants/$1.service"
 
 sudo systemctl daemon-reload
 
-podman stop $1
-podman rm $1
+sudo docker stop $1
+sudo docker rm $1
